@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Register — Bridge Up</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .reg-wrap {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 16px;
+        }
+
+        .reg-box {
+            background: var(--card);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 40px 36px;
+            width: 100%;
+            max-width: 560px;
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 8px;
+        }
+
+        .role-card {
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 20px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .role-card:hover {
+            border-color: var(--orange);
+        }
+
+        .role-card.selected {
+            border-color: var(--yellow);
+            background: #FFFBEB;
+        }
+
+        .int-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .int-chip {
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: Montserrat, sans-serif;
+            font-weight: 500;
+            transition: all .2s;
+        }
+
+        .int-chip:hover {
+            border-color: var(--orange);
+        }
+
+        .int-chip.selected {
+            border-color: var(--yellow);
+            background: #FFFBEB;
+        }
+
+        .panel {
+            display: none;
+        }
+
+        .panel.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reg-wrap">
+        <div class="reg-box">
+            <div style="text-align:center;margin-bottom:28px">
+                <a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none"
+                        style="height:36px">
+                        <defs>
+                            <linearGradient id="gL" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#FACC15" />
+                                <stop offset="100%" stop-color="#F97316" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M10 55 Q22 20 38 55" stroke="url(#gL)" stroke-width="5" fill="none"
+                            stroke-linecap="round" />
+                        <path d="M28 55 Q44 10 62 55" stroke="url(#gL)" stroke-width="5" fill="none"
+                            stroke-linecap="round" />
+                        <path d="M50 55 Q70 5 90 55" stroke="url(#gL)" stroke-width="5.5" fill="none"
+                            stroke-linecap="round" /><text x="10" y="75" font-family="Montserrat,sans-serif"
+                            font-weight="700" font-size="22" fill="#111827">Bridge</text><text x="82" y="75"
+                            font-family="Montserrat,sans-serif" font-weight="700" font-size="22"
+                            fill="url(#gL)">Up</text>
+                    </svg></a>
+            </div>
+            <div class="steps-bar" id="stepsBar" style="display:none">
+                <div class="step-item active" id="si1">
+                    <div class="step-dot">1</div>
+                    <div class="step-label">Account</div>
+                </div>
+                <div class="step-item" id="si2">
+                    <div class="step-dot">2</div>
+                    <div class="step-label">Profile</div>
+                </div>
+                <div class="step-item" id="si3">
+                    <div class="step-dot">3</div>
+                    <div class="step-label">Interests</div>
+                </div>
+                <div class="step-item" id="si4">
+                    <div class="step-dot">4</div>
+                    <div class="step-label">Done</div>
+                </div>
+            </div>
+
+            <div class="panel active" id="p0">
+                <h2 style="margin-bottom:6px">Create your account</h2>
+                <p style="color:#64748B;margin-bottom:24px;font-size:15px">Already have an account? <a href="login.html"
+                        style="color:var(--orange);font-weight:600">Sign In</a></p>
+                <div class="role-grid">
+                    <div class="role-card" onclick="selectRole('student',this)">
+                        <div style="font-size:36px;margin-bottom:8px">👩‍🎓</div>
+                        <h4>Student</h4>
+                        <p style="font-size:12px;color:#64748B">Find internships & build your portfolio</p>
+                    </div>
+                    <div class="role-card" onclick="selectRole('recruiter',this)">
+                        <div style="font-size:36px;margin-bottom:8px">🏢</div>
+                        <h4>Recruiter</h4>
+                        <p style="font-size:12px;color:#64748B">Post opportunities & find talent</p>
+                    </div>
+                    <div class="role-card" onclick="selectRole('university',this)">
+                        <div style="font-size:36px;margin-bottom:8px">🏛️</div>
+                        <h4>University</h4>
+                        <p style="font-size:12px;color:#64748B">Track students & align curriculum</p>
+                    </div>
+                    <div class="role-card" onclick="selectRole('freelancer',this)">
+                        <div style="font-size:36px;margin-bottom:8px">💻</div>
+                        <h4>Freelancer</h4>
+                        <p style="font-size:12px;color:#64748B">Offer services & find projects</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel" id="p1">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px"><button onclick="goStep(0)"
+                        style="background:none;border:none;font-size:20px;cursor:pointer;color:#64748B">←</button>
+                    <div>
+                        <h3 id="p1title">Account Info</h3>
+                        <p style="font-size:13px;color:#64748B">Step 1 of 3</p>
+                    </div>
+                </div>
+                <div id="p1fields"></div>
+                <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="goStep(2)">Continue
+                    →</button>
+            </div>
+
+            <div class="panel" id="p2">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px"><button onclick="goStep(1)"
+                        style="background:none;border:none;font-size:20px;cursor:pointer;color:#64748B">←</button>
+                    <div>
+                        <h3 id="p2title">More Details</h3>
+                        <p style="font-size:13px;color:#64748B">Step 2 of 3</p>
+                    </div>
+                </div>
+                <div id="p2fields"></div>
+                <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="goStep(3)">Continue
+                    →</button>
+            </div>
+
+            <div class="panel" id="p3">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px"><button onclick="goStep(2)"
+                        style="background:none;border:none;font-size:20px;cursor:pointer;color:#64748B">←</button>
+                    <div>
+                        <h3>Select Interests</h3>
+                        <p style="font-size:13px;color:#64748B">Step 3 of 3 — pick up to 5</p>
+                    </div>
+                </div>
+                <div class="int-grid" id="intGrid"></div>
+                <div style="margin-top:20px">
+                    <label style="font-size:13px;font-weight:600;font-family:Montserrat,sans-serif">Skills (press Enter
+                        to add)</label>
+                    <div style="display:flex;gap:8px;margin-top:6px"><input type="text" id="skillInput"
+                            placeholder="e.g. Python, Figma…"
+                            style="flex:1;padding:9px 14px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:14px;outline:none" /><button
+                            class="btn btn-outline btn-sm" onclick="addSkill()">Add</button></div>
+                    <div id="skillTags" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"></div>
+                </div>
+                <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:24px"
+                    onclick="finish()">🚀 Create My Account</button>
+            </div>
+
+            <div class="panel" id="p4" style="text-align:center;padding:20px 0">
+                <div style="font-size:72px;margin-bottom:16px">🎉</div>
+                <h2 style="margin-bottom:10px">You're in!</h2>
+                <p style="color:#64748B;margin-bottom:28px">Your Bridge Up account is ready.</p>
+                <button class="btn btn-primary btn-lg" style="margin:0 auto" onclick="goToDash()">Go to My Dashboard
+                    →</button>
+            </div>
+        </div>
+    </div>
+    <div id="toast-container"></div>
+    <script src="db.js"></script>
+    <script src="app.js"></script>
+    <script>
+        const INTS = ["Marketing", "Finance", "Design", "IT & Dev", "Engineering", "Law", "HR", "Sales", "Logistics", "Education", "Healthcare", "Other"];
+        const INT_ICONS = { "Marketing": "📣", "Finance": "💰", "Design": "🎨", "IT & Dev": "💻", "Engineering": "⚙️", "Law": "⚖️", "HR": "👥", "Sales": "📈", "Logistics": "🚛", "Education": "📚", "Healthcare": "🏥", "Other": "🌐" };
+        const FIELDS = ["Marketing", "Computer Science", "Finance", "Law", "HR", "Engineering", "Design", "Medicine", "Architecture", "Journalism", "Economics", "Accounting", "Management", "Logistics", "Education", "Biology"];
+        let role = "", selInts = [], selSkills = [];
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const p = new URLSearchParams(location.search).get("role");
+            if (p) selectRole(p, null);
+            document.getElementById("intGrid").innerHTML = INTS.map(i => `<div class="int-chip" id="ic_${i.replace(/ /g, '_')}" onclick="toggleInt('${i}')">${INT_ICONS[i] || "⭐"}<br>${i}</div>`).join("");
+            document.getElementById("skillInput").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); addSkill(); } });
+        });
+
+        function selectRole(r, el) {
+            role = r;
+            document.querySelectorAll(".role-card").forEach(c => c.classList.remove("selected"));
+            if (el) el.classList.add("selected");
+            document.getElementById("stepsBar").style.display = "flex";
+            buildP1(r); buildP2(r);
+            goStep(1);
+        }
+
+        function buildP1(r) {
+            document.getElementById("p1title").textContent = r === "university" ? "Institutional Info" : "Account Info";
+            document.getElementById("p1fields").innerHTML = `
+    <div class="form-group"><label>Full Name</label><input type="text" id="f_name" placeholder="${r === "university" ? "University Name" : "Your full name"}"/></div>
+    <div class="form-group"><label>Email</label><input type="email" id="f_email" placeholder="you@email.dz"/></div>
+    <div class="form-group"><label>Password</label><input type="password" id="f_pass" placeholder="Min 8 characters"/></div>
+    ${r !== "university" ? `<div class="form-group"><label>Phone <span style="color:#94A3B8">(optional)</span></label><input type="tel" id="f_phone" placeholder="+213 5XX XXX XXX"/></div>` : ""}`;
+        }
+
+        function buildP2(r) {
+            document.getElementById("p2title").textContent = r === "student" ? "Academic Info" : r === "recruiter" ? "Company Info" : r === "university" ? "Contact Person" : "Service Info";
+            const unis = BridgeDB.universities.map(u => `<option>${u.name}</option>`).join("");
+            const flds = FIELDS.map(f => `<option>${f}</option>`).join("");
+            if (r === "student") document.getElementById("p2fields").innerHTML = `
+    <div class="form-group"><label>University</label><select><option value="">Select…</option>${unis}</select></div>
+    <div class="form-group"><label>Field of Study</label><select><option value="">Select…</option>${flds}</select></div>
+    <div class="form-group"><label>Degree Type</label><select><option>Bachelor</option><option>Master</option><option>PhD</option><option>Engineer</option></select></div>
+    <div class="form-group"><label>Academic Year</label><select><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option><option>5th Year</option><option>Graduate 2025</option></select></div>`;
+            else if (r === "recruiter") document.getElementById("p2fields").innerHTML = `
+    <div class="form-group"><label>Company Name</label><input type="text" placeholder="Your company name"/></div>
+    <div class="form-group"><label>Industry</label><input type="text" placeholder="e.g. Tech, Marketing…"/></div>
+    <div class="form-group"><label>Company Size</label><select><option>1-10</option><option>11-50</option><option>51-200</option><option>200+</option></select></div>
+    <div class="form-group"><label>City / Wilaya</label><input type="text" placeholder="e.g. Annaba, Alger…"/></div>`;
+            else if (r === "university") document.getElementById("p2fields").innerHTML = `
+    <div class="form-group"><label>Contact Person Name</label><input type="text"/></div>
+    <div class="form-group"><label>Title / Role</label><input type="text" placeholder="e.g. Vice-Rector"/></div>
+    <div class="form-group"><label>Department</label><input type="text"/></div>
+    <div class="form-group"><label>Phone</label><input type="tel"/></div>`;
+            else document.getElementById("p2fields").innerHTML = `
+    <div class="form-group"><label>Service Category</label><input type="text" placeholder="e.g. Web Development, Graphic Design…"/></div>
+    <div class="form-group"><label>Hourly Rate (DZD)</label><input type="number" placeholder="e.g. 2000"/></div>
+    <div class="form-group"><label>Short Bio</label><textarea placeholder="Describe your services…"></textarea></div>`;
+        }
+
+        function toggleInt(n) {
+            const c = document.getElementById("ic_" + n.replace(/ /g, "_"));
+            if (selInts.includes(n)) { selInts = selInts.filter(x => x !== n); c.classList.remove("selected"); }
+            else if (selInts.length < 5) { selInts.push(n); c.classList.add("selected"); }
+            else showToast("Max 5 interests.", "error");
+        }
+
+        function addSkill() {
+            const inp = document.getElementById("skillInput"), v = inp.value.trim();
+            if (!v || selSkills.includes(v) || selSkills.length >= 8) { inp.value = ""; return; }
+            selSkills.push(v); inp.value = "";
+            document.getElementById("skillTags").innerHTML = selSkills.map((s, i) => `<span class="tag tag-active" style="cursor:pointer" onclick="selSkills.splice(${i},1);document.getElementById('skillTags').innerHTML=selSkills.map((x,j)=>'<span class=\\'tag tag-active\\' onclick=\\'selSkills.splice('+j+',1);\\'> × '+x+'</span>').join('')">× ${s}</span>`).join("");
+        }
+
+        function goStep(n) {
+            document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+            document.getElementById("p" + n).classList.add("active");
+            [1, 2, 3, 4].forEach(i => { const el = document.getElementById("si" + i); if (!el) return; el.classList.remove("active", "done"); if (i < n) el.classList.add("done"); else if (i === n) el.classList.add("active"); });
+        }
+
+        function finish() {
+            const name = document.getElementById("f_name")?.value || "New User";
+            const email = document.getElementById("f_email")?.value || `user${Date.now()}@mail.dz`;
+            const id = role === "student" ? `STU${Date.now()}` : role === "recruiter" ? `REC${Date.now()}` : `UNI${Date.now()}`;
+            Auth.save({ role, id, email, name });
+            goStep(4);
+        }
+
+        function goToDash() {
+            const s = Auth.get();
+            location.href = s.role === "student" ? "student-dashboard.html" : s.role === "recruiter" ? "recruiter-dashboard.html" : s.role === "university" ? "university-dashboard.html" : "marketplace.html";
+        }
+    </script>
+</body>
+
+</html>

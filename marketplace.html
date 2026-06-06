@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Marketplace — Bridge Up</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div class="page-content">
+        <div style="background:var(--blue);border-radius:14px;padding:28px 32px;margin-bottom:28px">
+            <h2 style="color:#fff;margin-bottom:8px">Freelance <span class="grad-text">Marketplace</span></h2>
+            <p style="color:var(--muted);font-size:15px;margin-bottom:20px">Hire talented students for your projects, or
+                offer your own services.</p>
+            <div class="search-bar"
+                style="max-width:560px;background:rgba(255,255,255,0.1);border-color:rgba(250,204,21,0.4)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="2">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input type="text" id="mSearch" placeholder="Search services, categories…"
+                    style="background:transparent;color:#fff" oninput="filterGigs()" />
+            </div>
+        </div>
+        <div
+            style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px">
+            <div class="filter-row" style="margin:0" id="catRow"></div>
+            <div style="display:flex;gap:10px">
+                <button class="btn btn-outline btn-sm" onclick="showTab('gigs')">🛒 Browse Gigs</button>
+                <button class="btn btn-outline btn-sm" onclick="showTab('briefs')">📋 Project Briefs</button>
+                <button class="btn btn-primary btn-sm" id="createBtn" onclick="openModal('createGigModal')">+ Create
+                    Gig</button>
+            </div>
+        </div>
+        <div id="tab-gigs">
+            <div id="gigsGrid" class="grid-3"></div>
+        </div>
+        <div id="tab-briefs" style="display:none">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+                <h3>Open Project Briefs</h3>
+                <button class="btn btn-primary btn-sm" onclick="openModal('postBriefModal')">+ Post a Brief</button>
+            </div>
+            <div id="briefsList"></div>
+        </div>
+    </div>
+
+    <!-- GIG DETAIL MODAL -->
+    <div class="modal-overlay" id="gigModal">
+        <div class="modal" style="max-width:560px">
+            <div class="modal-header">
+                <h3 id="gigModalTitle">Gig</h3><button class="modal-close" onclick="closeModal('gigModal')">×</button>
+            </div>
+            <div id="gigModalBody"></div>
+            <div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end">
+                <button class="btn btn-ghost" onclick="closeModal('gigModal')">Close</button>
+                <button class="btn btn-primary" onclick="hireGig()">💼 Hire Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CREATE GIG MODAL -->
+    <div class="modal-overlay" id="createGigModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create a New Gig</h3><button class="modal-close" onclick="closeModal('createGigModal')">×</button>
+            </div>
+            <div class="form-group"><label>Gig Title</label><input type="text" id="gTitle" placeholder="I will…" />
+            </div>
+            <div class="form-group"><label>Category</label><select id="gCat">
+                    <option>Web Development</option>
+                    <option>Graphic Design</option>
+                    <option>Video Editing</option>
+                    <option>Content Writing</option>
+                    <option>SEO</option>
+                    <option>Translation</option>
+                    <option>Social Media</option>
+                    <option>UI/UX Design</option>
+                </select></div>
+            <div class="form-group"><label>Price (DZD)</label><input type="number" id="gPrice"
+                    placeholder="e.g. 5000" /></div>
+            <div class="form-group"><label>Turnaround Time</label><input type="text" id="gTime"
+                    placeholder="e.g. 5 days" /></div>
+            <div class="form-group"><label>Description</label><textarea id="gDesc"
+                    placeholder="Describe what you offer…"></textarea></div>
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+                <button class="btn btn-ghost" onclick="closeModal('createGigModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="publishGig()">🚀 Publish Gig</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POST BRIEF MODAL -->
+    <div class="modal-overlay" id="postBriefModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Post a Project Brief</h3><button class="modal-close"
+                    onclick="closeModal('postBriefModal')">×</button>
+            </div>
+            <div class="form-group"><label>Project Title</label><input type="text" id="bTitle"
+                    placeholder="e.g. Build a landing page for my startup" /></div>
+            <div class="form-group"><label>Budget Range (DZD)</label>
+                <div style="display:flex;gap:8px"><input type="number" id="bMin" placeholder="Min" /><input
+                        type="number" id="bMax" placeholder="Max" /></div>
+            </div>
+            <div class="form-group"><label>Deadline</label><input type="date" id="bDeadline" /></div>
+            <div class="form-group"><label>Description</label><textarea id="bDesc"
+                    placeholder="Describe your project requirements…"></textarea></div>
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+                <button class="btn btn-ghost" onclick="closeModal('postBriefModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="publishBrief()">📋 Post Brief</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+    <script src="db.js"></script>
+    <script src="app.js"></script>
+    <script>
+        const CATS = ["All", "Web Development", "Graphic Design", "Video Editing", "Content Writing", "SEO", "Translation", "Social Media", "UI/UX Design"];
+        const EMOJIS = { "Web Development": "🌐", "Graphic Design": "🎨", "Video Editing": "🎬", "Content Writing": "✍️", "SEO": "🔍", "Translation": "🌍", "Social Media": "📱", "UI/UX Design": "🖥️", "Photography": "📷", "Data Entry": "📊" };
+        let briefs = [];
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const s = Auth.get();
+            document.getElementById("nav").innerHTML = buildNavbar("Marketplace", s ? s.role : "");
+            document.getElementById("catRow").innerHTML = CATS.map(c => `<div class="filter-chip ${c === 'All' ? 'active' : ''}" onclick="filterGigsByCat('${c}',this)">${c}</div>`).join("");
+            renderGigs(BridgeDB.gigs);
+            briefs = generateBriefs(); renderBriefs();
+            if (!s || s.role !== "student") document.getElementById("createBtn").style.display = "none";
+        });
+
+        function renderGigs(list) {
+            document.getElementById("gigsGrid").innerHTML = list.map(g => `
+    <div class="gig-card" onclick="openGig('${g.id}')">
+      <div class="gig-card-img">${EMOJIS[g.category] || "⭐"}</div>
+      <div class="gig-card-body">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <div class="avatar avatar-sm" style="display:inline-flex;width:28px;height:28px;font-size:10px">${avatarInitials(g.freelancerName)}</div>
+          <span style="font-size:13px;color:#64748B">${g.freelancerName}</span>
+        </div>
+        <div class="gig-card-title">${g.title}</div>
+        <div style="display:flex;align-items:center;gap:4px;margin-bottom:10px">
+          <span style="color:var(--yellow);font-size:14px">★</span>
+          <span style="font-size:13px;font-weight:600;font-family:Montserrat,sans-serif">${g.rating}</span>
+          <span style="font-size:12px;color:#94A3B8">(${g.reviews})</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div class="gig-price">${g.price.toLocaleString()} DZD</div>
+          <span class="badge badge-gray" style="font-size:11px">${g.turnaround}</span>
+        </div>
+      </div>
+    </div>`).join("") || `<div class="empty-state" style="grid-column:1/-1"><p>No gigs found.</p></div>`;
+        }
+
+        function openGig(id) {
+            const g = BridgeDB.gigs.find(x => x.id === id); if (!g) return;
+            document.getElementById("gigModalTitle").textContent = g.title;
+            document.getElementById("gigModalBody").innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+      <div class="avatar avatar-md" style="display:inline-flex">${avatarInitials(g.freelancerName)}</div>
+      <div><div style="font-family:Montserrat,sans-serif;font-weight:700">${g.freelancerName}</div><div style="display:flex;align-items:center;gap:4px"><span style="color:var(--yellow)">★</span><span style="font-size:14px;font-weight:600;font-family:Montserrat,sans-serif">${g.rating}</span><span style="font-size:13px;color:#94A3B8">(${g.reviews} reviews)</span></div></div>
+    </div>
+    <span class="badge badge-blue" style="margin-bottom:12px;display:inline-block">${g.category}</span>
+    <p style="font-size:14px;color:#475569;line-height:1.6;margin-bottom:16px">${g.description}</p>
+    <div style="background:#F8FAFC;border-radius:8px;padding:14px;margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div><div style="font-size:12px;color:#94A3B8;font-family:Montserrat,sans-serif">PRICE</div><div class="gig-price">${g.price.toLocaleString()} DZD</div></div>
+        <div><div style="font-size:12px;color:#94A3B8;font-family:Montserrat,sans-serif">TURNAROUND</div><div style="font-family:Montserrat,sans-serif;font-weight:600">${g.turnaround}</div></div>
+      </div>
+    </div>
+    <div><div style="font-size:13px;font-weight:600;font-family:Montserrat,sans-serif;margin-bottom:8px">✅ Deliverables</div>${g.deliverables.map(d => `<div style="font-size:14px;color:#475569;padding:4px 0">• ${d}</div>`).join("")}</div>`;
+            openModal("gigModal");
+        }
+
+        function hireGig() { closeModal("gigModal"); showToast("Request sent! The freelancer will contact you shortly. 🎉", "success"); }
+
+        function filterGigsByCat(cat, el) {
+            document.querySelectorAll("#catRow .filter-chip").forEach(c => c.classList.remove("active")); el.classList.add("active");
+            const q = document.getElementById("mSearch").value.toLowerCase();
+            let list = BridgeDB.gigs;
+            if (cat !== "All") list = list.filter(g => g.category === cat);
+            if (q) list = list.filter(g => g.title.toLowerCase().includes(q) || g.category.toLowerCase().includes(q));
+            renderGigs(list);
+        }
+
+        function filterGigs() {
+            const q = document.getElementById("mSearch").value.toLowerCase();
+            const ac = document.querySelector("#catRow .active")?.textContent || "All";
+            let list = BridgeDB.gigs;
+            if (ac !== "All") list = list.filter(g => g.category === ac);
+            if (q) list = list.filter(g => g.title.toLowerCase().includes(q) || g.freelancerName.toLowerCase().includes(q));
+            renderGigs(list);
+        }
+
+        function generateBriefs() {
+            return Array.from({ length: 12 }, (_, i) => ({ id: "BR" + i, title: ["Build a landing page", "Design a logo", "Edit a promotional video", "Write blog content", "Manage Instagram for 1 month", "Translate 10 pages FR→AR", "Create UI mockup for app", "SEO audit for website", "Build an e-commerce store", "Data entry and cleanup", "Create pitch deck", "Develop REST API"][i], budget: { min: 3000 + i * 1000, max: 8000 + i * 2000 }, deadline: `2026-0${4 + Math.floor(i / 4)}-${String(10 + i).padStart(2, "0")}`, desc: "Looking for a skilled freelancer to help with this project. Previous experience required. Payments via CCP or bank transfer.", proposals: Math.floor(Math.random() * 15), client: `${["Mohamed", "Sofiane", "Rania", "Karim", "Nadia"][i % 5]} ${["Benali", "Bouzidi", "Hamdi", "Kaci", "Mammeri"][i % 5]}` }));
+        }
+
+        function renderBriefs() {
+            document.getElementById("briefsList").innerHTML = briefs.map(b => `
+    <div class="card card-sm" style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div style="flex:1">
+        <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:15px;margin-bottom:4px">${b.title}</div>
+        <div style="font-size:13px;color:#64748B;margin-bottom:6px">${b.desc.slice(0, 80)}…</div>
+        <div style="display:flex;gap:12px;font-size:13px;color:#94A3B8"><span>👤 ${b.client}</span><span>📅 ${b.deadline}</span><span>📊 ${b.proposals} proposals</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div style="font-family:Montserrat,sans-serif;font-weight:700;color:var(--orange)">${b.budget.min.toLocaleString()} – ${b.budget.max.toLocaleString()} DZD</div>
+        <button class="btn btn-primary btn-sm" onclick="showToast('Proposal sent! 🎉','success')">Submit Proposal</button>
+      </div>
+    </div>`).join("");
+        }
+
+        function publishGig() {
+            const t = document.getElementById("gTitle").value, p = document.getElementById("gPrice").value;
+            if (!t || !p) { showToast("Please fill in all required fields.", "error"); return; }
+            closeModal("createGigModal"); showToast("Gig published! 🎉 It's now live on the marketplace.", "success");
+        }
+
+        function publishBrief() {
+            const t = document.getElementById("bTitle").value;
+            if (!t) { showToast("Please add a project title.", "error"); return; }
+            closeModal("postBriefModal"); showToast("Project brief posted! Freelancers will start submitting proposals.", "success");
+        }
+
+        function showTab(n) { document.getElementById("tab-gigs").style.display = n === "gigs" ? "block" : "none"; document.getElementById("tab-briefs").style.display = n === "briefs" ? "block" : "none"; }
+    </script>
+</body>
+
+</html>

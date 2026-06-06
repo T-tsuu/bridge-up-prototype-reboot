@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Contract — Bridge Up</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div class="page-content" style="max-width:860px">
+        <div
+            style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px">
+            <div>
+                <h2>Digital Contract</h2>
+                <p style="color:#64748B;margin-top:4px;font-size:15px">Review and sign your engagement contract below.
+                </p>
+            </div>
+            <div style="display:flex;gap:10px">
+                <span id="contractStatus" class="badge badge-yellow">Awaiting Signatures</span>
+                <button class="btn btn-outline btn-sm" onclick="printContract()">🖨️ Print / PDF</button>
+            </div>
+        </div>
+        <div class="contract-box">
+            <div style="text-align:center;margin-bottom:28px">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 60" fill="none"
+                    style="height:32px;margin-bottom:8px">
+                    <defs>
+                        <linearGradient id="gL" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#FACC15" />
+                            <stop offset="100%" stop-color="#F97316" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M10 40 Q18 15 28 40" stroke="url(#gL)" stroke-width="4" fill="none"
+                        stroke-linecap="round" />
+                    <path d="M22 40 Q32 8 44 40" stroke="url(#gL)" stroke-width="4" fill="none"
+                        stroke-linecap="round" />
+                    <path d="M36 40 Q50 4 64 40" stroke="url(#gL)" stroke-width="4.5" fill="none"
+                        stroke-linecap="round" /><text x="8" y="56" font-family="Montserrat,sans-serif"
+                        font-weight="700" font-size="16" fill="#0F172A">Bridge</text><text x="60" y="56"
+                        font-family="Montserrat,sans-serif" font-weight="700" font-size="16" fill="url(#gL)">Up</text>
+                </svg>
+                <h2>Work Engagement Contract</h2>
+                <div style="font-size:13px;color:#94A3B8;margin-top:4px">Contract ID: BU-<span id="contractId">–</span>
+                    · Issued: <span id="contractDate">–</span></div>
+            </div>
+
+            <div class="contract-section">
+                <h4>1. Parties</h4>
+                <div class="grid-2">
+                    <div style="background:#F8FAFC;border-radius:8px;padding:14px">
+                        <div
+                            style="font-size:12px;color:#94A3B8;font-family:Montserrat,sans-serif;font-weight:600;margin-bottom:6px">
+                            STUDENT / FREELANCER</div>
+                        <div style="font-family:Montserrat,sans-serif;font-weight:700" id="cStudent">–</div>
+                        <div style="font-size:13px;color:#64748B" id="cStudentDetail">–</div>
+                    </div>
+                    <div style="background:#F8FAFC;border-radius:8px;padding:14px">
+                        <div
+                            style="font-size:12px;color:#94A3B8;font-family:Montserrat,sans-serif;font-weight:600;margin-bottom:6px">
+                            EMPLOYER / CLIENT</div>
+                        <div style="font-family:Montserrat,sans-serif;font-weight:700" id="cEmployer">–</div>
+                        <div style="font-size:13px;color:#64748B" id="cEmployerDetail">–</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contract-section">
+                <h4>2. Role & Duration</h4>
+                <p><strong>Role:</strong> <span id="cRole">–</span></p>
+                <p><strong>Type:</strong> <span id="cType">–</span></p>
+                <p><strong>Duration:</strong> <span id="cDuration">–</span></p>
+                <p><strong>Start Date:</strong> <span id="cStart">–</span></p>
+                <p><strong>Location:</strong> <span id="cLocation">–</span></p>
+            </div>
+
+            <div class="contract-section">
+                <h4>3. Compensation & XP</h4>
+                <p><strong>Compensation:</strong> <span id="cComp">–</span></p>
+                <p><strong>Payment Method:</strong> CCP transfer or bank transfer, within 5 business days of completion.
+                </p>
+                <p><strong>XP Reward:</strong> <span id="cXP" class="job-xp">–</span> awarded upon successful
+                    completion, verified by Bridge Up.</p>
+            </div>
+
+            <div class="contract-section">
+                <h4>4. Responsibilities</h4>
+                <p><strong>Student agrees to:</strong></p>
+                <ul style="margin:8px 0 0 20px;color:#475569;font-size:14px;line-height:1.8">
+                    <li>Complete assigned tasks diligently and professionally</li>
+                    <li>Maintain confidentiality of employer's proprietary information</li>
+                    <li>Communicate proactively and meet agreed deadlines</li>
+                    <li>Deliver work of satisfactory quality as defined in the job description</li>
+                </ul>
+                <p style="margin-top:12px"><strong>Employer agrees to:</strong></p>
+                <ul style="margin:8px 0 0 20px;color:#475569;font-size:14px;line-height:1.8">
+                    <li>Provide clear instructions, tools, and necessary access</li>
+                    <li>Offer constructive feedback and mentorship</li>
+                    <li>Make timely payment as agreed</li>
+                    <li>Treat the student with respect and provide a safe work environment</li>
+                </ul>
+            </div>
+
+            <div class="contract-section">
+                <h4>5. Intellectual Property</h4>
+                <p style="color:#475569;font-size:14px;line-height:1.7">All work produced during this engagement is the
+                    property of the Employer, unless otherwise agreed in writing. The Student retains the right to
+                    reference this engagement in their portfolio with the Employer's consent.</p>
+            </div>
+
+            <div class="contract-section">
+                <h4>6. Termination</h4>
+                <p style="color:#475569;font-size:14px;line-height:1.7">Either party may terminate this contract with
+                    <strong>7 days written notice</strong> via Bridge Up messaging. Early termination without cause by
+                    the Employer will result in pro-rated payment for work completed. The Bridge Up platform serves as
+                    mediator in any disputes.</p>
+            </div>
+
+            <div class="contract-section">
+                <h4>7. Platform Role</h4>
+                <p style="color:#475569;font-size:14px;line-height:1.7">Bridge Up acts as a facilitator only and is not
+                    a party to this contract. Bridge Up will issue the Certificate of Completion and XP reward upon
+                    confirmation from both parties that the engagement was successfully completed.</p>
+            </div>
+
+            <div class="sign-area">
+                <div class="sign-box" id="signStudent">
+                    <div style="font-size:28px;margin-bottom:8px">✍️</div>
+                    <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px;margin-bottom:4px">
+                        Student Signature</div>
+                    <div style="font-size:13px;color:#94A3B8;margin-bottom:14px" id="signStudentName">–</div>
+                    <button class="btn btn-primary btn-sm" id="signStudentBtn" onclick="sign('student')">Sign
+                        Now</button>
+                    <div id="signStudentStatus" style="display:none;margin-top:8px">
+                        <div
+                            style="color:var(--success);font-weight:700;font-family:Montserrat,sans-serif;font-size:13px">
+                            ✅ Signed</div>
+                        <div style="font-size:12px;color:#94A3B8" id="signStudentDate"></div>
+                    </div>
+                </div>
+                <div class="sign-box" id="signEmployer">
+                    <div style="font-size:28px;margin-bottom:8px">🏢</div>
+                    <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px;margin-bottom:4px">
+                        Employer Signature</div>
+                    <div style="font-size:13px;color:#94A3B8;margin-bottom:14px" id="signEmployerName">–</div>
+                    <button class="btn btn-outline btn-sm" id="signEmployerBtn" onclick="sign('employer')">Sign
+                        Now</button>
+                    <div id="signEmployerStatus" style="display:none;margin-top:8px">
+                        <div
+                            style="color:var(--success);font-weight:700;font-family:Montserrat,sans-serif;font-size:13px">
+                            ✅ Signed</div>
+                        <div style="font-size:12px;color:#94A3B8" id="signEmployerDate"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center;margin-top:24px;padding-top:20px;border-top:1px solid #E2E8F0">
+                <div style="font-size:12px;color:#94A3B8">This contract is legally binding once signed by both parties.
+                    Facilitated by Bridge Up · bridgeup.dz · © 2026</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FULLY SIGNED MODAL -->
+    <div class="modal-overlay" id="signedModal">
+        <div class="modal" style="text-align:center">
+            <div style="font-size:64px;margin-bottom:16px">🎊</div>
+            <h2 style="margin-bottom:10px">Contract Fully Signed!</h2>
+            <p style="color:#64748B;margin-bottom:8px">Both parties have signed. The engagement is now officially
+                active.</p>
+            <p style="color:#64748B;margin-bottom:24px">A certificate will be issued automatically upon completion.</p>
+            <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+                <button class="btn btn-outline" onclick="location.href='student-dashboard.html'">Go to
+                    Dashboard</button>
+                <button class="btn btn-primary" onclick="location.href='chat.html'">💬 Message Employer</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+    <script src="db.js"></script>
+    <script src="app.js"></script>
+    <script>
+        let signed = { student: false, employer: false };
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const s = Auth.get();
+            document.getElementById("nav").innerHTML = buildNavbar("", s ? s.role : "");
+
+            const params = new URLSearchParams(location.search);
+            const jobId = params.get("job") || BridgeDB.jobs[0].id;
+            const job = BridgeDB.getJobById(jobId) || BridgeDB.jobs[0];
+            const student = BridgeDB.getStudentById(s?.id) || BridgeDB.students[0];
+            const recruiter = BridgeDB.getRecruiterById(job.recruiterId) || BridgeDB.recruiters[0];
+
+            document.getElementById("contractId").textContent = `${Date.now().toString().slice(-8)}`;
+            document.getElementById("contractDate").textContent = new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
+            document.getElementById("cStudent").textContent = student.name;
+            document.getElementById("cStudentDetail").textContent = `${student.field} · ${student.university}`;
+            document.getElementById("cEmployer").textContent = recruiter.company;
+            document.getElementById("cEmployerDetail").textContent = `${recruiter.name} · ${recruiter.city}`;
+            document.getElementById("cRole").textContent = job.title;
+            document.getElementById("cType").textContent = job.type;
+            document.getElementById("cDuration").textContent = job.duration;
+            document.getElementById("cLocation").textContent = job.location;
+            document.getElementById("cComp").textContent = job.type === "Internship" ? "Unpaid internship (educational engagement)" : "To be agreed between parties";
+            document.getElementById("cXP").textContent = `+${job.xpReward} XP`;
+            document.getElementById("cStart").textContent = new Date(Date.now() + 7 * 86400000).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
+            document.getElementById("signStudentName").textContent = student.name;
+            document.getElementById("signEmployerName").textContent = recruiter.name + " · " + recruiter.company;
+        });
+
+        function sign(party) {
+            const now = new Date().toLocaleString("en-GB", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+            signed[party] = true;
+            if (party === "student") {
+                document.getElementById("signStudentBtn").style.display = "none";
+                document.getElementById("signStudentStatus").style.display = "block";
+                document.getElementById("signStudentDate").textContent = now;
+                document.getElementById("signStudent").classList.add("signed");
+                showToast("You've signed the contract! ✅", "success");
+            } else {
+                document.getElementById("signEmployerBtn").style.display = "none";
+                document.getElementById("signEmployerStatus").style.display = "block";
+                document.getElementById("signEmployerDate").textContent = now;
+                document.getElementById("signEmployer").classList.add("signed");
+                showToast("Employer signature recorded! ✅", "success");
+            }
+            if (signed.student && signed.employer) {
+                document.getElementById("contractStatus").textContent = "Fully Signed ✅";
+                document.getElementById("contractStatus").className = "badge badge-green";
+                setTimeout(() => openModal("signedModal"), 600);
+            } else {
+                document.getElementById("contractStatus").textContent = "Partially Signed";
+                document.getElementById("contractStatus").className = "badge badge-orange";
+            }
+        }
+
+        function printContract() { window.print(); showToast("Opening print dialog…", "info"); }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>University Dashboard — Bridge Up</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div class="page-content">
+        <div
+            style="background:var(--blue);border-radius:14px;padding:28px 32px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+            <div>
+                <div style="color:var(--muted);font-size:14px;margin-bottom:4px">University Dashboard</div>
+                <h2 style="color:#fff;margin-bottom:2px" id="uniName">–</h2>
+                <div style="color:var(--muted);font-size:14px" id="uniCity">–</div>
+            </div>
+            <div style="display:flex;gap:10px"><button class="btn btn-outline btn-sm" onclick="exportCSV()">⬇ Export
+                    CSV</button></div>
+        </div>
+        <div class="grid-4" style="margin-bottom:28px">
+            <div class="stat-card">
+                <div class="stat-icon">🎓</div>
+                <div class="stat-val" id="uTotal">–</div>
+                <div class="stat-label">Registered Students</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-val" id="uAvgXP">–</div>
+                <div class="stat-label">Avg. XP Score</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📜</div>
+                <div class="stat-val" id="uCerts">–</div>
+                <div class="stat-label">Certificates Earned</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-val" id="uComp">–%</div>
+                <div class="stat-label">Completion Rate</div>
+            </div>
+        </div>
+        <div class="layout-sidebar">
+            <div class="sidebar">
+                <div class="sidebar-item active" onclick="showTab('macro',this)">📊 Macro View</div>
+                <div class="sidebar-item" onclick="showTab('micro',this)">🔍 Student Search</div>
+                <div class="sidebar-item" onclick="showTab('gaps',this)">📈 Skill Gap Analysis</div>
+                <div class="sidebar-item" onclick="location.href='chat.html'">💬 Messages</div>
+            </div>
+            <div>
+                <!-- MACRO -->
+                <div id="tab-macro">
+                    <div class="section-header" style="margin-bottom:20px">
+                        <h2>Institutional Overview</h2>
+                        <select id="facultyFilter" onchange="applyFacultyFilter()"
+                            style="padding:8px 14px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:13px;outline:none">
+                            <option value="">All Faculties</option>
+                            <option>Faculty of Economics & Management</option>
+                            <option>Faculty of Computer Science</option>
+                            <option>Faculty of Law</option>
+                            <option>Faculty of Sciences</option>
+                            <option>Faculty of Engineering</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:24px">
+                        <h3 style="margin-bottom:16px">🏆 Top Fields of Study</h3>
+                        <div id="topFields"></div>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom:16px">📊 XP Level Distribution</h3>
+                        <div id="levelDist" style="display:flex;flex-direction:column;gap:10px"></div>
+                    </div>
+                </div>
+                <!-- MICRO -->
+                <div id="tab-micro" style="display:none">
+                    <div class="section-header" style="margin-bottom:16px">
+                        <h2>Student Search</h2>
+                    </div>
+                    <div class="search-bar" style="margin-bottom:12px">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                        <input type="text" id="sSearch" placeholder="Search students by name or field…"
+                            oninput="filterStudents()" />
+                    </div>
+                    <div class="filter-row">
+                        <select id="sField" onchange="filterStudents()"
+                            style="padding:6px 14px;border:1.5px solid #CBD5E1;border-radius:20px;font-size:13px;outline:none">
+                            <option value="">All Fields</option>
+                            <option>Marketing</option>
+                            <option>Computer Science</option>
+                            <option>Finance</option>
+                            <option>Law</option>
+                            <option>HR</option>
+                            <option>Engineering</option>
+                            <option>Design</option>
+                        </select>
+                        <select id="sLevel" onchange="filterStudents()"
+                            style="padding:6px 14px;border:1.5px solid #CBD5E1;border-radius:20px;font-size:13px;outline:none">
+                            <option value="">All Levels</option>
+                            <option>Starter</option>
+                            <option>Rising Talent</option>
+                            <option>Experienced</option>
+                            <option>Pro</option>
+                            <option>Elite</option>
+                        </select>
+                    </div>
+                    <div id="studentsList"></div>
+                </div>
+                <!-- SKILL GAPS -->
+                <div id="tab-gaps" style="display:none">
+                    <div class="section-header" style="margin-bottom:16px">
+                        <h2>Skill Gap Analysis</h2>
+                    </div>
+                    <p style="color:#64748B;margin-bottom:20px;font-size:15px">Comparing the most in-demand skills on
+                        the platform with the most common skills among your students.</p>
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3 style="margin-bottom:16px">🔥 Most Demanded by Recruiters</h3>
+                            <div id="demandedSkills"></div>
+                        </div>
+                        <div class="card">
+                            <h3 style="margin-bottom:16px">👩‍🎓 Most Common Among Your Students</h3>
+                            <div id="studentSkills"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STUDENT DETAIL MODAL -->
+    <div class="modal-overlay" id="stuModal">
+        <div class="modal" style="max-width:600px">
+            <div class="modal-header">
+                <h3 id="stuModalName">Student</h3><button class="modal-close"
+                    onclick="closeModal('stuModal')">×</button>
+            </div>
+            <div id="stuModalBody"></div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+    <script src="db.js"></script>
+    <script src="app.js"></script>
+    <script>
+        let uni, stats, uniStudents = [];
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const s = Auth.requireAuth(["university"]); if (!s) return;
+            document.getElementById("nav").innerHTML = buildNavbar("Dashboard", "university");
+            uni = BridgeDB.getUniversityById(s.id) || BridgeDB.universities[0];
+            stats = BridgeDB.getUniversityStats(uni.id);
+            uniStudents = stats.students;
+            document.getElementById("uniName").textContent = uni.name;
+            document.getElementById("uniCity").textContent = uni.city;
+            document.getElementById("uTotal").textContent = stats.totalStudents;
+            document.getElementById("uAvgXP").textContent = stats.avgXP;
+            document.getElementById("uCerts").textContent = stats.totalCerts;
+            document.getElementById("uComp").textContent = stats.completionRate + "%";
+            renderMacro(); renderStudents(uniStudents.slice(0, 30)); renderSkillGaps();
+        });
+
+        function renderMacro() {
+            const colors = ["#FACC15", "#F97316", "#0F172A", "#16A34A", "#3B82F6"];
+            const total = stats.topFields.reduce((a, f) => a + f[1], 0);
+            document.getElementById("topFields").innerHTML = stats.topFields.map(([name, count], i) => `
+    <div style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:14px;font-weight:600;font-family:Montserrat,sans-serif">${name}</span><span style="font-size:13px;color:#64748B">${count} students</span></div>
+      <div style="background:#E2E8F0;border-radius:20px;height:10px;overflow:hidden"><div style="height:100%;border-radius:20px;background:${colors[i]};width:${Math.round(count / total * 100)}%;transition:width .6s"></div></div>
+    </div>`).join("");
+
+            const levels = BridgeDB.xpLevels.map(l => { const cnt = uniStudents.filter(s => s.level === l.name).length; return { ...l, cnt }; });
+            const maxL = Math.max(...levels.map(l => l.cnt));
+            document.getElementById("levelDist").innerHTML = levels.map(l => `
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:110px;font-size:13px;font-family:Montserrat,sans-serif;font-weight:600;flex-shrink:0">${l.name}</div>
+      <div style="flex:1;background:#E2E8F0;border-radius:20px;height:12px;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,var(--yellow),var(--orange));border-radius:20px;width:${maxL ? Math.round(l.cnt / maxL * 100) : 0}%;transition:width .6s"></div></div>
+      <div style="width:40px;text-align:right;font-size:13px;color:#64748B">${l.cnt}</div>
+    </div>`).join("");
+        }
+
+        function renderStudents(list) {
+            document.getElementById("studentsList").innerHTML = list.map(s => `
+    <div class="card card-sm" style="display:flex;align-items:center;gap:14px;margin-bottom:12px;cursor:pointer" onclick="openStudent('${s.id}')">
+      <div class="avatar avatar-sm" style="display:inline-flex">${avatarInitials(s.name)}</div>
+      <div style="flex:1">
+        <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">${s.name}</div>
+        <div style="font-size:13px;color:#64748B">${s.field} · ${s.year}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+        <span class="badge badge-yellow">${s.level}</span>
+        <span style="font-size:12px;color:#64748B">${s.xp} XP</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;text-align:right">
+        <span style="font-size:12px;color:#64748B">✅ ${s.completedJobs} jobs</span>
+        <span style="font-size:12px;color:#64748B">📜 ${s.certificates} certs</span>
+      </div>
+    </div>`).join("") || `<div class="empty-state"><p>No students found.</p></div>`;
+        }
+
+        function openStudent(id) {
+            const s = BridgeDB.getStudentById(id); if (!s) return;
+            document.getElementById("stuModalName").textContent = s.name;
+            document.getElementById("stuModalBody").innerHTML = `
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+      <div class="avatar avatar-lg" style="display:inline-flex">${avatarInitials(s.name)}</div>
+      <div><div style="font-family:Montserrat,sans-serif;font-size:16px;font-weight:700">${s.name}</div><div style="color:#64748B;font-size:14px">${s.field} · ${s.degree} · ${s.year}</div><div style="margin-top:8px">${renderXPBar(s.xp)}</div></div>
+    </div>
+    <div class="grid-4" style="margin-bottom:16px">
+      <div style="text-align:center;padding:10px;background:#F8FAFC;border-radius:8px"><div style="font-weight:700;font-family:Montserrat,sans-serif;font-size:18px">${s.applications}</div><div style="font-size:12px;color:#64748B">Applications</div></div>
+      <div style="text-align:center;padding:10px;background:#F8FAFC;border-radius:8px"><div style="font-weight:700;font-family:Montserrat,sans-serif;font-size:18px">${s.completedJobs}</div><div style="font-size:12px;color:#64748B">Completed</div></div>
+      <div style="text-align:center;padding:10px;background:#F8FAFC;border-radius:8px"><div style="font-weight:700;font-family:Montserrat,sans-serif;font-size:18px">${s.certificates}</div><div style="font-size:12px;color:#64748B">Certificates</div></div>
+      <div style="text-align:center;padding:10px;background:#F8FAFC;border-radius:8px"><div style="font-weight:700;font-family:Montserrat,sans-serif;font-size:18px">${s.reviews.length}</div><div style="font-size:12px;color:#64748B">Reviews</div></div>
+    </div>
+    <div style="margin-bottom:14px"><strong style="font-size:13px;font-family:Montserrat,sans-serif">Skills:</strong><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">${s.skills.map(sk => `<span class="tag">${sk}</span>`).join("")}</div></div>
+    ${s.reviews.length ? `<div><strong style="font-size:13px;font-family:Montserrat,sans-serif">Reviews (anonymized employers):</strong>${s.reviews.map(r => `<div class="review-card" style="margin-top:8px"><div class="stars">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</div><p>${r.text}</p></div>`).join("")}</div>` : ""}`;
+            openModal("stuModal");
+        }
+
+        function filterStudents() {
+            const q = document.getElementById("sSearch").value.toLowerCase(), f = document.getElementById("sField").value, l = document.getElementById("sLevel").value;
+            let r = uniStudents;
+            if (q) r = r.filter(s => s.name.toLowerCase().includes(q) || s.field.toLowerCase().includes(q));
+            if (f) r = r.filter(s => s.field === f);
+            if (l) r = r.filter(s => s.level === l);
+            renderStudents(r.slice(0, 30));
+        }
+
+        function renderSkillGaps() {
+            const demanded = ["Python", "JavaScript", "SQL", "Excel", "Figma", "React", "SPSS", "AutoCAD", "SEO", "Tableau"];
+            const skillCount = {}; uniStudents.forEach(s => s.skills.forEach(sk => { skillCount[sk] = (skillCount[sk] || 0) + 1; }));
+            const topStudent = Object.entries(skillCount).sort((a, b) => b[1] - a[1]).slice(0, 10);
+            const maxD = uniStudents.length;
+            document.getElementById("demandedSkills").innerHTML = demanded.map((sk, i) => `<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="width:80px;font-size:13px;font-weight:600;font-family:Montserrat,sans-serif;flex-shrink:0">${sk}</div><div style="flex:1;background:#E2E8F0;border-radius:20px;height:8px;overflow:hidden"><div style="height:100%;background:var(--orange);border-radius:20px;width:${Math.round((10 - i) / 10 * 100)}%"></div></div></div>`).join("");
+            document.getElementById("studentSkills").innerHTML = topStudent.map(([sk, cnt]) => `<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="width:80px;font-size:13px;font-weight:600;font-family:Montserrat,sans-serif;flex-shrink:0">${sk}</div><div style="flex:1;background:#E2E8F0;border-radius:20px;height:8px;overflow:hidden"><div style="height:100%;background:var(--yellow);border-radius:20px;width:${Math.round(cnt / maxD * 100)}%"></div></div><span style="font-size:12px;color:#64748B">${cnt}</span></div>`).join("");
+        }
+
+        function applyFacultyFilter() { showToast("Faculty filter applied.", "info"); }
+        function exportCSV() {
+            const rows = [["Name", "Field", "Year", "XP", "Level", "Applications", "Completed", "Certificates"], ...uniStudents.slice(0, 100).map(s => [s.name, s.field, s.year, s.xp, s.level, s.applications, s.completedJobs, s.certificates])];
+            const csv = rows.map(r => r.join(",")).join("\n");
+            const a = document.createElement("a"); a.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv); a.download = "bridge-up-students.csv"; a.click();
+            showToast("CSV exported! ✅", "success");
+        }
+        function showTab(n, el) { document.querySelectorAll('[id^="tab-"]').forEach(t => t.style.display = "none"); document.getElementById("tab-" + n).style.display = "block"; document.querySelectorAll(".sidebar-item").forEach(s => s.classList.remove("active")); if (el) el.classList.add("active"); }
+    </script>
+</body>
+
+</html>

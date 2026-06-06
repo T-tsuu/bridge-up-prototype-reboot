@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Messages — Bridge Up</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div class="chat-layout">
+        <div class="chat-sidebar">
+            <div style="padding:16px;border-bottom:1px solid #E2E8F0">
+                <input type="text" id="contactSearch" placeholder="Search conversations…"
+                    style="width:100%;padding:8px 12px;border:1.5px solid #CBD5E1;border-radius:20px;font-size:13px;outline:none"
+                    oninput="filterContacts()" />
+            </div>
+            <div id="contactList"></div>
+        </div>
+        <div class="chat-main">
+            <div
+                style="background:var(--card);border-bottom:1px solid #E2E8F0;padding:14px 20px;display:flex;align-items:center;gap:12px">
+                <div id="chatHeaderAvatar" class="avatar avatar-sm" style="display:inline-flex"></div>
+                <div>
+                    <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:15px" id="chatHeaderName">
+                        Select a conversation</div>
+                    <div style="font-size:12px;color:var(--success)" id="chatHeaderStatus"></div>
+                </div>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div style="text-align:center;color:#94A3B8;margin:auto;padding:40px 20px">
+                    <div style="font-size:48px;margin-bottom:12px">💬</div>
+                    <p>Select a conversation to start messaging</p>
+                </div>
+            </div>
+            <div class="chat-input-bar">
+                <input type="text" id="msgInput" placeholder="Type a message…"
+                    onkeydown="if(event.key==='Enter')sendMsg()" />
+                <button class="btn btn-ghost btn-sm" onclick="showToast('File attachment coming soon.','info')"
+                    title="Attach file">📎</button>
+                <button class="btn btn-primary btn-sm" onclick="sendMsg()">Send</button>
+            </div>
+        </div>
+    </div>
+    <div id="toast-container"></div>
+    <script src="db.js"></script>
+    <script src="app.js"></script>
+    <script>
+        const CONVOS = [
+            { id: 1, name: "Djezzy HR Team", role: "Recruiter", msgs: [{ me: false, text: "Hello! We reviewed your application for the Marketing Intern position.", time: "10:20 AM" }, { me: true, text: "Hi! Thank you so much for reaching out. I'm very excited about this opportunity.", time: "10:25 AM" }, { me: false, text: "We'd like to schedule an interview. Are you available this week?", time: "10:26 AM" }, { me: true, text: "Absolutely! I'm available Tuesday and Thursday afternoon.", time: "10:28 AM" }, { me: false, text: "Perfect. We'll confirm via email. Please bring your CV and portfolio.", time: "10:30 AM" }], unread: 2 },
+            { id: 2, name: "Sonatrach Recruitment", role: "Recruiter", msgs: [{ me: false, text: "Your profile came up in our talent search for engineering interns.", time: "Yesterday" }, { me: true, text: "Thank you! I would love to learn more about the opportunity.", time: "Yesterday" }, { me: false, text: "We're looking for students with AutoCAD experience. Do you have that?", time: "Yesterday" }], unread: 1 },
+            { id: 3, name: "Cevital HR", role: "Recruiter", msgs: [{ me: true, text: "Hello, I applied to the Finance Analyst Intern position last week.", time: "Mon" }, { me: false, text: "Hi! Yes, we received your application. We'll review it shortly.", time: "Mon" }], unread: 0 },
+            { id: 4, name: "Université Badji Mokhtar", role: "University", msgs: [{ me: false, text: "Hello! We noticed you've been very active on Bridge Up. Keep it up!", time: "Sun" }, { me: true, text: "Thank you! The platform has been incredibly helpful.", time: "Sun" }], unread: 0 },
+            { id: 5, name: "Amine Benali", role: "Student", msgs: [{ me: false, text: "Hey, did you apply to the Djezzy internship too?", time: "Sat" }, { me: true, text: "Yes! Did you get a response?", time: "Sat" }, { me: false, text: "Not yet. Let's keep each other posted.", time: "Sat" }], unread: 0 },
+        ];
+        let activeConvo = null;
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const s = Auth.requireAuth(["student", "recruiter", "university"]); if (!s) return;
+            document.getElementById("nav").innerHTML = buildNavbar("Messages", s.role);
+            renderContacts(CONVOS);
+        });
+
+        function renderContacts(list) {
+            document.getElementById("contactList").innerHTML = list.map(c => `
+    <div class="chat-contact ${activeConvo?.id === c.id ? 'active' : ''}" onclick="openConvo(${c.id})">
+      <div class="avatar avatar-sm" style="display:inline-flex">${avatarInitials(c.name)}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.name}</div>
+        <div style="font-size:12px;color:#94A3B8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.msgs[c.msgs.length - 1].text}</div>
+      </div>
+      ${c.unread ? `<div class="unread">${c.unread}</div>` : ""}
+    </div>`).join("");
+        }
+
+        function openConvo(id) {
+            activeConvo = CONVOS.find(c => c.id === id); if (!activeConvo) return;
+            activeConvo.unread = 0;
+            renderContacts(CONVOS);
+            document.getElementById("chatHeaderAvatar").textContent = avatarInitials(activeConvo.name);
+            document.getElementById("chatHeaderName").textContent = activeConvo.name;
+            document.getElementById("chatHeaderStatus").textContent = "● Online";
+            renderMessages();
+        }
+
+        function renderMessages() {
+            document.getElementById("chatMessages").innerHTML = activeConvo.msgs.map(m => `
+    <div class="msg ${m.me ? 'me' : 'them'}">
+      <div class="msg-bubble">${m.text}</div>
+      <div class="msg-time">${m.time}</div>
+    </div>`).join("");
+            document.getElementById("chatMessages").scrollTop = 9999;
+        }
+
+        function sendMsg() {
+            const inp = document.getElementById("msgInput"), txt = inp.value.trim();
+            if (!txt || !activeConvo) return;
+            activeConvo.msgs.push({ me: true, text: txt, time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) });
+            inp.value = ""; renderMessages();
+            setTimeout(() => {
+                const replies = ["Got it, thanks!", "Sure, I'll get back to you shortly.", "That sounds great!", "Let me check and confirm.", "Perfect, talk soon!"];
+                activeConvo.msgs.push({ me: false, text: replies[Math.floor(Math.random() * replies.length)], time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) });
+                renderMessages();
+            }, 1200);
+        }
+
+        function filterContacts() {
+            const q = document.getElementById("contactSearch").value.toLowerCase();
+            renderContacts(CONVOS.filter(c => c.name.toLowerCase().includes(q)));
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Recruiter Dashboard — Bridge Up</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div class="page-content">
+        <div
+            style="background:var(--blue);border-radius:14px;padding:28px 32px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+            <div>
+                <div style="color:var(--muted);font-size:14px;margin-bottom:4px">Recruiter Dashboard</div>
+                <h2 style="color:#fff;margin-bottom:2px" id="rName">–</h2>
+                <div style="color:var(--muted);font-size:14px" id="rCompany">–</div>
+            </div>
+            <a href="recruiter-post-job.html"><button class="btn btn-primary">+ Post a New Opportunity</button></a>
+        </div>
+        <div class="grid-4" style="margin-bottom:28px">
+            <div class="stat-card">
+                <div class="stat-icon">📋</div>
+                <div class="stat-val" id="stPosted">–</div>
+                <div class="stat-label">Posted Jobs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📨</div>
+                <div class="stat-val" id="stApps">–</div>
+                <div class="stat-label">Applications</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-val" id="stActive">–</div>
+                <div class="stat-label">Active Listings</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎓</div>
+                <div class="stat-val" id="stHired">–</div>
+                <div class="stat-label">Hired</div>
+            </div>
+        </div>
+        <div class="layout-sidebar">
+            <div class="sidebar">
+                <div class="sidebar-item active" onclick="showTab('apps',this)">📨 Applications</div>
+                <div class="sidebar-item" onclick="showTab('listings',this)">📋 My Listings</div>
+                <div class="sidebar-item" onclick="showTab('talent',this)">🔍 Browse Talent</div>
+                <div class="sidebar-item" onclick="location.href='recruiter-post-job.html'">➕ Post New Job</div>
+                <div class="sidebar-item" onclick="location.href='chat.html'">💬 Messages</div>
+                <div class="sidebar-item" onclick="location.href='contract.html'">📝 Contracts</div>
+            </div>
+            <div>
+                <!-- APPLICATIONS -->
+                <div id="tab-apps">
+                    <div class="section-header" style="margin-bottom:16px">
+                        <h2>Applications Inbox</h2>
+                        <div style="display:flex;gap:8px">
+                            <div class="filter-chip active" onclick="filterApps('all',this)">All</div>
+                            <div class="filter-chip" onclick="filterApps('pending',this)">Pending</div>
+                            <div class="filter-chip" onclick="filterApps('accepted',this)">Accepted</div>
+                            <div class="filter-chip" onclick="filterApps('rejected',this)">Rejected</div>
+                        </div>
+                    </div>
+                    <div id="appsList"></div>
+                </div>
+                <!-- LISTINGS -->
+                <div id="tab-listings" style="display:none">
+                    <div class="section-header" style="margin-bottom:16px">
+                        <h2>My Job Listings</h2>
+                    </div>
+                    <div id="listingsList"></div>
+                </div>
+                <!-- TALENT -->
+                <div id="tab-talent" style="display:none">
+                    <div class="section-header" style="margin-bottom:16px">
+                        <h2>Talent Pool</h2>
+                    </div>
+                    <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+                        <div class="search-bar" style="flex:1">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="11" cy="11" r="8" />
+                                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                            </svg>
+                            <input type="text" id="tSearch" placeholder="Search by name, skill, field…"
+                                oninput="filterTalent()" />
+                        </div>
+                        <select id="tField" onchange="filterTalent()"
+                            style="padding:8px 14px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:13px;outline:none">
+                            <option value="">All Fields</option>
+                            <option>Marketing</option>
+                            <option>Computer Science</option>
+                            <option>Finance</option>
+                            <option>Law</option>
+                            <option>HR</option>
+                            <option>Engineering</option>
+                            <option>Design</option>
+                        </select>
+                        <select id="tLevel" onchange="filterTalent()"
+                            style="padding:8px 14px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:13px;outline:none">
+                            <option value="">All Levels</option>
+                            <option>Starter</option>
+                            <option>Rising Talent</option>
+                            <option>Experienced</option>
+                            <option>Pro</option>
+                            <option>Elite</option>
+                        </select>
+                    </div>
+                    <div id="talentGrid" class="grid-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- APPLICANT MODAL -->
+    <div class="modal-overlay" id="appModal">
+        <div class="modal" style="max-width:600px">
+            <div class="modal-header">
+                <h3 id="appModalName">Applicant</h3><button class="modal-close"
+                    onclick="closeModal('appModal')">×</button>
+            </div>
+            <div id="appModalBody"></div>
+            <div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end">
+                <button class="btn btn-danger btn-sm" onclick="decide('rejected')">✗ Reject</button>
+                <button class="btn btn-success btn-sm" onclick="decide('accepted')">✓ Accept & Send Contract</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+    <script src="db.js"></script>
+    <script src="app.js"></script>
+    <script>
+        let recruiter, myJobs = [], apps = [], selApp = null;
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const s = Auth.requireAuth(["recruiter"]); if (!s) return;
+            document.getElementById("nav").innerHTML = buildNavbar("Dashboard", "recruiter");
+            recruiter = BridgeDB.getRecruiterById(s.id) || BridgeDB.recruiters[0];
+            document.getElementById("rName").textContent = recruiter.name;
+            document.getElementById("rCompany").textContent = recruiter.company + " · " + recruiter.industry;
+            myJobs = BridgeDB.jobs.filter(j => j.recruiterId === recruiter.id);
+            if (!myJobs.length) myJobs = BridgeDB.jobs.slice(0, 8).map(j => ({ ...j, company: recruiter.company, recruiterId: recruiter.id }));
+            apps = BridgeDB.students.slice(0, 30).map((s, i) => ({ student: s, job: myJobs[i % myJobs.length], status: ["pending", "pending", "pending", "accepted", "rejected"][i % 5], date: `2026-03-${String(Math.max(1, 18 - i)).padStart(2, "0")}`, cover: "I am very excited about this opportunity. My background in " + s.field + " makes me a strong candidate.", id: "APP" + i }));
+            document.getElementById("stPosted").textContent = myJobs.length;
+            document.getElementById("stApps").textContent = apps.length;
+            document.getElementById("stActive").textContent = myJobs.filter(j => j.open).length;
+            document.getElementById("stHired").textContent = apps.filter(a => a.status === "accepted").length;
+            renderApps(apps); renderListings(); renderTalent(BridgeDB.students.slice(0, 24));
+        });
+
+        function renderApps(list) {
+            document.getElementById("appsList").innerHTML = list.map((a, i) => `
+    <div class="card card-sm" style="display:flex;align-items:center;gap:14px;margin-bottom:12px;cursor:pointer" onclick="openApp(${apps.indexOf(a)})">
+      <div class="avatar avatar-md" style="display:inline-flex">${avatarInitials(a.student.name)}</div>
+      <div style="flex:1">
+        <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:15px">${a.student.name}</div>
+        <div style="font-size:13px;color:#64748B">${a.student.field} · ${a.student.year}</div>
+        <div style="font-size:12px;color:#94A3B8;margin-top:2px">Applied to: <strong>${a.job.title}</strong> · ${a.date}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+        <span class="badge ${a.status === 'accepted' ? 'badge-green' : a.status === 'rejected' ? 'badge-gray' : 'badge-yellow'}">${a.status.charAt(0).toUpperCase() + a.status.slice(1)}</span>
+        <span class="badge badge-blue">${a.student.level}</span>
+      </div>
+    </div>`).join("") || `<div class="empty-state"><p>No applications found.</p></div>`;
+        }
+
+        function filterApps(s, el) { document.querySelectorAll("#tab-apps .filter-chip").forEach(c => c.classList.remove("active")); el.classList.add("active"); renderApps(s === "all" ? apps : apps.filter(a => a.status === s)); }
+
+        function openApp(i) {
+            selApp = apps[i]; const s = selApp.student;
+            document.getElementById("appModalName").textContent = s.name;
+            document.getElementById("appModalBody").innerHTML = `
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+      <div class="avatar avatar-lg" style="display:inline-flex">${avatarInitials(s.name)}</div>
+      <div><div style="font-family:Montserrat,sans-serif;font-size:16px;font-weight:700">${s.name}</div><div style="color:#64748B;font-size:14px">${s.field} · ${s.university}</div><div style="margin-top:8px">${renderXPBar(s.xp)}</div></div>
+    </div>
+    <div style="background:#F8FAFC;border-radius:8px;padding:14px;margin-bottom:14px"><div style="font-size:13px;font-weight:600;font-family:Montserrat,sans-serif;margin-bottom:6px">Cover Letter</div><p style="font-size:14px;color:#475569;line-height:1.6">${selApp.cover}</p></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">${s.skills.map(sk => `<span class="tag">${sk}</span>`).join("")}</div>
+    <div style="font-size:13px;color:#64748B">📊 ${s.applications} applications · ✅ ${s.completedJobs} completed · 📜 ${s.certificates} certificates</div>`;
+            openModal("appModal");
+        }
+
+        function decide(status) {
+            if (!selApp) return;
+            selApp.status = status; closeModal("appModal"); renderApps(apps);
+            document.getElementById("stHired").textContent = apps.filter(a => a.status === "accepted").length;
+            if (status === "accepted") { showToast("Application accepted! Contract sent to student. 📝", "success"); setTimeout(() => location.href = "contract.html", 1500); }
+            else showToast("Application rejected.", "info");
+        }
+
+        function renderListings() {
+            document.getElementById("listingsList").innerHTML = myJobs.map(j => `
+    <div class="card card-sm" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:12px">
+      <div><div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:15px">${j.title}</div><div style="font-size:13px;color:#64748B;margin-top:3px">${j.type} · ${j.location} · ${j.duration}</div><div style="font-size:12px;color:#94A3B8;margin-top:2px">${j.applications} applicants · Deadline: ${j.deadline}</div></div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="badge ${j.open ? 'badge-green' : 'badge-gray'}">${j.open ? 'Open' : 'Closed'}</span>
+        <button class="btn btn-outline btn-sm" onclick="location.href='job-listing.html?id=${j.id}'">View</button>
+        <button class="btn btn-ghost btn-sm" onclick="toggleJ(this,'${j.id}')">${j.open ? 'Close' : 'Reopen'}</button>
+      </div>
+    </div>`).join("");
+        }
+
+        function toggleJ(btn, id) { const j = BridgeDB.getJobById(id) || myJobs.find(x => x.id === id); if (j) { j.open = !j.open; btn.textContent = j.open ? 'Close' : 'Reopen'; } showToast(`Listing ${j.open ? 'reopened' : 'closed'}.`, "info"); }
+
+        function renderTalent(list) {
+            document.getElementById("talentGrid").innerHTML = list.map(s => `
+    <div class="card card-sm" style="cursor:pointer">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div class="avatar avatar-sm" style="display:inline-flex">${avatarInitials(s.name)}</div>
+        <div><div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">${s.name}</div><div style="font-size:12px;color:#64748B">${s.field}</div></div>
+      </div>
+      ${renderXPBar(s.xp)}
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px">${s.skills.slice(0, 3).map(sk => `<span class="tag" style="font-size:11px;padding:2px 8px">${sk}</span>`).join("")}</div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn btn-outline btn-sm" style="flex:1;justify-content:center" onclick="location.href='chat.html'">💬 Message</button>
+        <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center" onclick="showToast('Profile saved to shortlist!','success')">⭐ Save</button>
+      </div>
+    </div>`).join("");
+        }
+
+        function filterTalent() {
+            const q = document.getElementById("tSearch").value.toLowerCase(), f = document.getElementById("tField").value, l = document.getElementById("tLevel").value;
+            let r = BridgeDB.students;
+            if (q) r = r.filter(s => s.name.toLowerCase().includes(q) || s.skills.some(sk => sk.toLowerCase().includes(q)) || s.field.toLowerCase().includes(q));
+            if (f) r = r.filter(s => s.field === f);
+            if (l) r = r.filter(s => s.level === l);
+            renderTalent(r.slice(0, 24));
+        }
+
+        function showTab(n, el) { document.querySelectorAll('[id^="tab-"]').forEach(t => t.style.display = "none"); document.getElementById("tab-" + n).style.display = "block"; document.querySelectorAll(".sidebar-item").forEach(s => s.classList.remove("active")); if (el) el.classList.add("active"); }
+    </script>
+</body>
+
+</html>

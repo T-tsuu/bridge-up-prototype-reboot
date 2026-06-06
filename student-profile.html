@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>My Profile — Bridge Up</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .ph {
+            background: var(--blue);
+            border-radius: 14px;
+            padding: 32px;
+            margin-bottom: 20px;
+        }
+
+        .ps {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .slink {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border: 1.5px solid #CBD5E1;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: Montserrat, sans-serif;
+            color: var(--blue);
+            transition: border-color .2s;
+        }
+
+        .slink:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div class="page-content">
+        <div class="layout-sidebar">
+            <div>
+                <div class="ph">
+                    <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+                        <div id="pAvatar" class="avatar avatar-xl"></div>
+                        <div style="flex:1">
+                            <h2 style="color:#fff;margin-bottom:4px" id="pName">–</h2>
+                            <div style="color:var(--muted);font-size:15px;margin-bottom:8px" id="pUni">–</div>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px" id="pBadges"></div>
+                            <div id="pXP"></div>
+                        </div>
+                        <button class="btn btn-outline btn-sm" onclick="openModal('eModal')">Edit Profile</button>
+                    </div>
+                    <div style="color:var(--muted);font-size:15px;margin-top:16px;line-height:1.6" id="pBio"></div>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px" id="pLinks"></div>
+                </div>
+                <div class="ps">
+                    <div class="section-header" style="margin-bottom:14px">
+                        <h3>🛠️ Skills</h3>
+                    </div>
+                    <div id="pSkills" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+                </div>
+                <div class="ps">
+                    <div class="section-header" style="margin-bottom:14px">
+                        <h3>💼 Work History</h3>
+                    </div>
+                    <div id="pPortfolio"></div>
+                </div>
+                <div class="ps">
+                    <div class="section-header" style="margin-bottom:14px">
+                        <h3>📜 Certificates</h3><a href="certificate.html"
+                            style="color:var(--orange);font-size:13px;font-weight:600">View All →</a>
+                    </div>
+                    <div id="pCerts"></div>
+                </div>
+            </div>
+            <div>
+                <div class="grid-2" style="margin-bottom:16px">
+                    <div class="stat-card">
+                        <div class="stat-icon">📨</div>
+                        <div class="stat-val" id="sA">–</div>
+                        <div class="stat-label">Applications</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-val" id="sJ">–</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📜</div>
+                        <div class="stat-val" id="sC">–</div>
+                        <div class="stat-label">Certificates</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-val" id="sR">–</div>
+                        <div class="stat-label">Reviews</div>
+                    </div>
+                </div>
+                <div class="ps">
+                    <div class="section-header" style="margin-bottom:6px">
+                        <h3>⭐ Reviews</h3><span class="badge badge-gray" style="font-size:11px">Recruiters & unis
+                            only</span>
+                    </div>
+                    <p style="font-size:13px;color:#94A3B8;margin-bottom:14px">Written by employers after completed
+                        engagements.</p>
+                    <div id="pReviews"></div>
+                </div>
+                <div class="ps">
+                    <div class="section-header" style="margin-bottom:14px">
+                        <h3>📄 CV / Resume</h3>
+                    </div>
+                    <div style="border:2px dashed #CBD5E1;border-radius:10px;padding:28px;text-align:center">
+                        <div style="font-size:36px;margin-bottom:10px">📎</div>
+                        <p style="color:#64748B;margin-bottom:14px;font-size:14px">Upload your CV (PDF, max 5MB)</p>
+                        <input type="file" id="cvUp" accept=".pdf" style="display:none"
+                            onchange="showToast('CV uploaded successfully! ✅','success')" />
+                        <button class="btn btn-outline btn-sm" onclick="document.getElementById('cvUp').click()">Upload
+                            CV</button>
+                    </div>
+                </div>
+                <div class="ps">
+                    <div style="display:flex;align-items:center;justify-content:space-between">
+                        <div>
+                            <h3 style="margin-bottom:4px">💻 Freelance Mode</h3>
+                            <p style="font-size:13px;color:#64748B">Enable to offer services on the marketplace</p>
+                        </div>
+                        <label style="position:relative;display:inline-block;width:48px;height:26px;cursor:pointer">
+                            <input type="checkbox" id="flTog" style="opacity:0;width:0;height:0"
+                                onchange="toggleFL()" />
+                            <span id="flSlider"
+                                style="position:absolute;cursor:pointer;inset:0;background:#CBD5E1;border-radius:26px;transition:.3s"></span>
+                            <span id="flKnob"
+                                style="position:absolute;height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:.3s;pointer-events:none"></span>
+                        </label>
+                    </div>
+                    <div id="flBanner"
+                        style="display:none;margin-top:14px;background:#FFFBEB;border:1px solid var(--yellow);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--blue)">
+                        🎉 Freelance mode is active! <a href="marketplace.html"
+                            style="color:var(--orange);font-weight:600">Create your first gig →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT MODAL -->
+    <div class="modal-overlay" id="eModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Edit Profile</h3><button class="modal-close" onclick="closeModal('eModal')">×</button>
+            </div>
+            <div class="form-group"><label>Bio (max 300 chars)</label><textarea id="eBio" maxlength="300"></textarea>
+            </div>
+            <div class="form-group"><label>LinkedIn URL</label><input type="url" id="eLinkedIn"
+                    placeholder="https://linkedin.com/in/…" /></div>
+            <div class="form-group"><label>GitHub URL</label><input type="url" id="eGithub"
+                    placeholder="https://github.com/…" /></div>
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+                <button class="btn btn-ghost" onclick="closeModal('eModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+    <script src="db.js"></script>
+    <script src="app.js"></script>
+    <script>
+        let student;
+        window.addEventListener("DOMContentLoaded", () => {
+            const s = Auth.requireAuth(["student"]); if (!s) return;
+            document.getElementById("nav").innerHTML = buildNavbar("My Profile", "student");
+            student = BridgeDB.getStudentById(s.id) || BridgeDB.students[0];
+            render();
+        });
+        function render() {
+            const s = student;
+            document.getElementById("pAvatar").textContent = avatarInitials(s.name);
+            document.getElementById("pName").textContent = s.name;
+            document.getElementById("pUni").textContent = s.field + " · " + s.university;
+            document.getElementById("pBio").textContent = s.bio || "No bio yet.";
+            document.getElementById("pXP").innerHTML = renderXPBar(s.xp);
+            document.getElementById("pBadges").innerHTML = `<span class="badge badge-blue">${s.degree}</span><span class="badge badge-gray">${s.year}</span><span class="badge badge-yellow">${s.level}</span>${s.freelanceMode ? '<span class="badge badge-orange">Freelancer</span>' : ""}`;
+            const links = [];
+            if (s.linkedIn) links.push(`<a href="${s.linkedIn}" target="_blank" class="slink">🔗 LinkedIn</a>`);
+            if (s.github) links.push(`<a href="${s.github}" target="_blank" class="slink">💻 GitHub</a>`);
+            document.getElementById("pLinks").innerHTML = links.join("");
+            document.getElementById("sA").textContent = s.applications;
+            document.getElementById("sJ").textContent = s.completedJobs;
+            document.getElementById("sC").textContent = s.certificates;
+            document.getElementById("sR").textContent = s.reviews.length;
+            document.getElementById("pSkills").innerHTML = s.skills.map(sk => `<span class="tag">${sk}</span>`).join("") || `<span style="color:#94A3B8;font-size:14px">No skills added yet.</span>`;
+            document.getElementById("pPortfolio").innerHTML = s.portfolio.length
+                ? s.portfolio.map(p => `<div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #F1F5F9"><div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,var(--yellow),var(--orange));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">💼</div><div><div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">${p.title}</div><div style="font-size:13px;color:#64748B">${p.duration} · ${p.year}</div></div></div>`).join("")
+                : `<p style="color:#94A3B8;font-size:14px">No work history yet. Apply to opportunities to start building!</p>`;
+            document.getElementById("pCerts").innerHTML = s.certificates > 0
+                ? Array.from({ length: Math.min(s.certificates, 3) }, (_, i) => `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #F1F5F9"><span style="font-size:24px">🏅</span><div style="flex:1"><div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">Certificate of Completion #${i + 1}</div><div style="font-size:12px;color:#64748B">Issued by Bridge Up · 2026</div></div><a href="certificate.html"><button class="btn btn-outline btn-sm">View</button></a></div>`).join("")
+                : `<p style="color:#94A3B8;font-size:14px">Complete an internship or project to earn your first certificate.</p>`;
+            document.getElementById("pReviews").innerHTML = s.reviews.length
+                ? s.reviews.map(r => `<div class="review-card"><div class="reviewer">${r.reviewer}</div><div class="stars">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</div><p>${r.text}</p><div style="font-size:11px;color:#94A3B8;margin-top:6px">${r.date}</div></div>`).join("")
+                : `<p style="color:#94A3B8;font-size:14px">No reviews yet. Complete an engagement to receive your first review.</p>`;
+            const tog = document.getElementById("flTog");
+            tog.checked = s.freelanceMode;
+            setToggleUI(s.freelanceMode);
+        }
+        function setToggleUI(on) {
+            document.getElementById("flSlider").style.background = on ? "var(--yellow)" : "#CBD5E1";
+            document.getElementById("flKnob").style.transform = on ? "translateX(22px)" : "translateX(0)";
+            document.getElementById("flBanner").style.display = on ? "block" : "none";
+        }
+        function toggleFL() { const on = document.getElementById("flTog").checked; student.freelanceMode = on; setToggleUI(on); showToast(on ? "Freelance mode enabled! 🎉" : "Freelance mode disabled.", on ? "success" : "info"); }
+        function saveProfile() {
+            const b = document.getElementById("eBio").value, l = document.getElementById("eLinkedIn").value, g = document.getElementById("eGithub").value;
+            if (b) student.bio = b; if (l) student.linkedIn = l; if (g) student.github = g;
+            closeModal("eModal"); render(); showToast("Profile updated! ✅", "success");
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Job Listing — Bridge Up</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div class="page-content">
+        <!-- Browse mode (no ?id) -->
+        <div id="browseMode">
+            <div class="section-header" style="margin-bottom:16px">
+                <h2>Explore Opportunities</h2>
+            </div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+                <div class="search-bar" style="flex:1;min-width:240px">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input type="text" id="bSearch" placeholder="Search jobs, companies, skills…"
+                        oninput="doSearch()" />
+                </div>
+                <select id="bType" onchange="doSearch()"
+                    style="padding:10px 14px;border:1.5px solid #CBD5E1;border-radius:30px;font-size:14px;outline:none">
+                    <option value="">All Types</option>
+                    <option>Internship</option>
+                    <option>Part-time</option>
+                    <option>Remote</option>
+                    <option>Freelance Project</option>
+                    <option>Full-time</option>
+                </select>
+                <select id="bField" onchange="doSearch()"
+                    style="padding:10px 14px;border:1.5px solid #CBD5E1;border-radius:30px;font-size:14px;outline:none">
+                    <option value="">All Fields</option>
+                    <option>Marketing</option>
+                    <option>Computer Science</option>
+                    <option>Finance</option>
+                    <option>Law</option>
+                    <option>HR</option>
+                    <option>Engineering</option>
+                    <option>Design</option>
+                </select>
+                <select id="bLoc" onchange="doSearch()"
+                    style="padding:10px 14px;border:1.5px solid #CBD5E1;border-radius:30px;font-size:14px;outline:none">
+                    <option value="">All Locations</option>
+                    <option>Alger</option>
+                    <option>Oran</option>
+                    <option>Constantine</option>
+                    <option>Annaba</option>
+                    <option>Sétif</option>
+                    <option>Remote</option>
+                </select>
+            </div>
+            <div style="color:#64748B;font-size:14px;margin-bottom:16px" id="resultCount"></div>
+            <div id="browseGrid" class="grid-2"></div>
+        </div>
+
+        <!-- Detail mode (?id=...) -->
+        <div id="detailMode" style="display:none">
+            <button onclick="goBack()" class="btn btn-ghost btn-sm" style="margin-bottom:20px">← Back to
+                listings</button>
+            <div class="grid-2" style="align-items:start">
+                <div>
+                    <div class="card" style="margin-bottom:16px">
+                        <div
+                            style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px">
+                            <div>
+                                <div style="background:linear-gradient(135deg,var(--blue),#1E3A5F);width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:Montserrat,sans-serif;font-weight:700;font-size:18px;margin-bottom:12px"
+                                    id="companyLogo">–</div>
+                                <h2 id="dTitle" style="margin-bottom:4px">–</h2>
+                                <div style="color:#64748B;font-size:15px" id="dCompany">–</div>
+                            </div>
+                            <span id="dTypeBadge" class="badge"></span>
+                        </div>
+                        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px;font-size:14px;color:#475569"
+                            id="dMeta"></div>
+                        <div id="dTagsRow" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px"></div>
+                        <div
+                            style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:linear-gradient(90deg,#FFFBEB,#FFF7ED);border-radius:10px;margin-bottom:20px">
+                            <div>
+                                <div
+                                    style="font-size:13px;color:#64748B;font-family:Montserrat,sans-serif;font-weight:600">
+                                    XP Reward</div>
+                                <div id="dXP" class="job-xp" style="font-size:22px"></div>
+                            </div>
+                            <div>
+                                <div
+                                    style="font-size:13px;color:#64748B;font-family:Montserrat,sans-serif;font-weight:600">
+                                    Applicants</div>
+                                <div id="dApps"
+                                    style="font-size:22px;font-family:Montserrat,sans-serif;font-weight:700;color:var(--blue)">
+                                    –</div>
+                            </div>
+                            <div>
+                                <div
+                                    style="font-size:13px;color:#64748B;font-family:Montserrat,sans-serif;font-weight:600">
+                                    Deadline</div>
+                                <div id="dDeadline"
+                                    style="font-size:14px;font-family:Montserrat,sans-serif;font-weight:600;color:var(--blue)">
+                                    –</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:16px"
+                            onclick="openModal('applyModal')">🚀 Apply Now</button>
+                    </div>
+                    <div class="card">
+                        <h3 style="margin-bottom:14px">About the Company</h3>
+                        <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+                            <div style="background:linear-gradient(135deg,var(--blue),#1E3A5F);width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:Montserrat,sans-serif;font-weight:700;font-size:14px"
+                                id="cLogo2">–</div>
+                            <div>
+                                <div style="font-family:Montserrat,sans-serif;font-weight:700" id="cName">–</div>
+                                <div style="font-size:13px;color:#64748B" id="cIndustry">–</div>
+                            </div>
+                        </div>
+                        <p style="font-size:14px;color:#475569;line-height:1.6" id="cDesc">–</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="card" style="margin-bottom:16px">
+                        <h3 style="margin-bottom:14px">📋 Job Description</h3>
+                        <p id="dDesc" style="color:#475569;line-height:1.7;font-size:15px">–</p>
+                    </div>
+                    <div class="card" style="margin-bottom:16px">
+                        <h3 style="margin-bottom:14px">🛠️ Required Skills</h3>
+                        <div id="dSkills" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+                    </div>
+                    <div class="card">
+                        <h3 style="margin-bottom:14px">🎯 Similar Opportunities</h3>
+                        <div id="similarJobs"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- APPLY MODAL -->
+    <div class="modal-overlay" id="applyModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Apply for <span id="applyJobTitle">this job</span></h3><button class="modal-close"
+                    onclick="closeModal('applyModal')">×</button>
+            </div>
+            <p style="font-size:14px;color:#64748B;margin-bottom:16px">Your profile and CV will be automatically
+                attached. Add an optional message to the recruiter.</p>
+            <div class="form-group"><label>Cover Letter / Message (optional)</label><textarea id="coverLetter"
+                    placeholder="Hi, I'm very excited about this opportunity because…"
+                    style="min-height:120px"></textarea></div>
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+                <button class="btn btn-ghost" onclick="closeModal('applyModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="submitApp()">🚀 Submit Application</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal" style="text-align:center">
+            <div style="font-size:64px;margin-bottom:16px">🎉</div>
+            <h2 style="margin-bottom:10px">Application Sent!</h2>
+            <p style="color:#64748B;margin-bottom:8px">Your application has been submitted successfully.</p>
+            <p style="color:#64748B;margin-bottom:24px">You earned <span class="job-xp" style="font-size:16px">+10
+                    XP</span> for your first application!</p>
+            <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+                <button class="btn btn-outline" onclick="location.href='student-dashboard.html'">Back to
+                    Dashboard</button>
+                <button class="btn btn-primary" onclick="closeModal('successModal')">Browse More Jobs</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+    <script src="db.js"></script>
+    <script src="app.js"></script>
+    <script>
+        let currentJob = null;
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const s = Auth.requireAuth(["student", "recruiter"]); if (!s) return;
+            document.getElementById("nav").innerHTML = buildNavbar("Explore Jobs", s.role);
+            const params = new URLSearchParams(location.search);
+            const id = params.get("id");
+            if (id) { showDetail(id); } else { showBrowse(); }
+        });
+
+        function showBrowse() {
+            document.getElementById("browseMode").style.display = "block";
+            document.getElementById("detailMode").style.display = "none";
+            doSearch();
+        }
+
+        function doSearch() {
+            const q = document.getElementById("bSearch").value, t = document.getElementById("bType").value, f = document.getElementById("bField").value, l = document.getElementById("bLoc").value;
+            const results = BridgeDB.searchJobs(q, { type: t || undefined, field: f || undefined, location: l || undefined }).slice(0, 40);
+            document.getElementById("resultCount").textContent = `${results.length} opportunities found`;
+            document.getElementById("browseGrid").innerHTML = results.length ? results.map(renderJobCard).join("") : `<div class="empty-state" style="grid-column:1/-1"><p>No jobs match your search. Try different filters.</p></div>`;
+        }
+
+        function showDetail(id) {
+            const job = BridgeDB.getJobById(id);
+            if (!job) { showBrowse(); return; }
+            currentJob = job;
+            document.getElementById("browseMode").style.display = "none";
+            document.getElementById("detailMode").style.display = "block";
+            document.getElementById("dTitle").textContent = job.title;
+            document.getElementById("dCompany").textContent = job.company;
+            document.getElementById("companyLogo").textContent = job.company.slice(0, 2).toUpperCase();
+            document.getElementById("cLogo2").textContent = job.company.slice(0, 2).toUpperCase();
+            document.getElementById("cName").textContent = job.company;
+            document.getElementById("cIndustry").textContent = job.industry + " · " + job.city;
+            document.getElementById("cDesc").textContent = `${job.company} is a leading organization in ${job.industry} committed to nurturing young Algerian talent.`;
+            document.getElementById("dTypeBadge").textContent = job.type;
+            document.getElementById("dTypeBadge").className = `badge ${job.type === 'Internship' ? 'badge-blue' : job.type === 'Freelance Project' ? 'badge-orange' : 'badge-gray'}`;
+            document.getElementById("dMeta").innerHTML = `<span>📍 ${job.location}</span><span>⏱ ${job.duration}</span><span>🏭 ${job.industry}</span>`;
+            document.getElementById("dXP").textContent = `+${job.xpReward} XP`;
+            document.getElementById("dApps").textContent = job.applications;
+            document.getElementById("dDeadline").textContent = job.deadline;
+            document.getElementById("dDesc").textContent = job.description;
+            document.getElementById("dSkills").innerHTML = job.requiredSkills.map(s => `<span class="tag">${s}</span>`).join("");
+            document.getElementById("dTagsRow").innerHTML = job.requiredSkills.map(s => `<span class="tag">${s}</span>`).join("");
+            document.getElementById("applyJobTitle").textContent = job.title;
+            const similar = BridgeDB.jobs.filter(j => j.open && j.field === job.field && j.id !== job.id).slice(0, 3);
+            document.getElementById("similarJobs").innerHTML = similar.map(j => `<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #F1F5F9;cursor:pointer" onclick="showDetail('${j.id}')"><div><div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">${j.title}</div><div style="font-size:12px;color:#64748B">${j.company}</div></div><span class="job-xp">+${j.xpReward} XP</span></div>`).join("") || `<p style="color:#94A3B8;font-size:14px">No similar jobs found.</p>`;
+        }
+
+        function submitApp() {
+            if (!currentJob) return;
+            const s = Auth.get();
+            const cover = document.getElementById("coverLetter").value;
+            BridgeDB.applyToJob(s.id, currentJob.id, cover);
+            closeModal("applyModal");
+            openModal("successModal");
+            document.getElementById("dApps").textContent = currentJob.applications;
+        }
+
+        function goBack() { history.back(); }
+    </script>
+</body>
+
+</html>
