@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Privacy Policy — Bridge Up</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .legal-page {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+        }
+        .legal-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 32px;
+            border-bottom: 2px solid #E2E8F0;
+        }
+        .legal-header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--blue);
+            margin-bottom: 10px;
+        }
+        .legal-header p {
+            color: #64748B;
+            font-size: 14px;
+        }
+        .legal-section {
+            margin-bottom: 32px;
+        }
+        .legal-section h2 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .legal-section h2 .sec-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            background: var(--yellow);
+            color: var(--blue);
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .legal-section p,
+        .legal-section li {
+            font-size: 15px;
+            color: #374151;
+            line-height: 1.75;
+        }
+        .legal-section ul {
+            padding-left: 20px;
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .legal-section ul li {
+            list-style: disc;
+        }
+        .legal-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--orange);
+            margin-bottom: 32px;
+            transition: color .2s;
+        }
+        .legal-back:hover { color: var(--blue); }
+        .legal-divider {
+            border: none;
+            border-top: 1px solid #E2E8F0;
+            margin: 28px 0;
+        }
+        .legal-note {
+            background: #FFFBEB;
+            border: 1.5px solid #FDE68A;
+            border-radius: 10px;
+            padding: 16px 20px;
+            font-size: 13px;
+            color: #92400E;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+        .legal-note strong { font-family: 'Montserrat', sans-serif; }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 14px;
+            font-size: 14px;
+        }
+        .data-table th {
+            background: #F1F5F9;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            text-align: left;
+            padding: 10px 14px;
+            color: var(--blue);
+            border-bottom: 2px solid #E2E8F0;
+        }
+        .data-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #F1F5F9;
+            color: #374151;
+            vertical-align: top;
+        }
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table tr:hover td { background: #FAFAFA; }
+    </style>
+</head>
+<body>
+    <div class="legal-page">
+
+        <!-- Back link -->
+        <a href="register.html" class="legal-back">← Back to Registration</a>
+
+        <!-- Header -->
+        <div class="legal-header">
+            <a href="index.html" style="display:inline-block;margin-bottom:20px">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none" style="height:32px">
+                    <defs>
+                        <linearGradient id="gL3" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#FACC15"/>
+                            <stop offset="100%" stop-color="#F97316"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M10 55 Q22 20 38 55" stroke="url(#gL3)" stroke-width="5" fill="none" stroke-linecap="round"/>
+                    <path d="M28 55 Q44 10 62 55" stroke="url(#gL3)" stroke-width="5" fill="none" stroke-linecap="round"/>
+                    <path d="M50 55 Q70 5 90 55" stroke="url(#gL3)" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+                    <text x="10" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="#111827">Bridge</text>
+                    <text x="82" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="url(#gL3)">Up</text>
+                </svg>
+            </a>
+            <h1>Privacy Policy</h1>
+            <p>Effective date: January 1, 2025 &nbsp;·&nbsp; Last updated: June 1, 2026</p>
+        </div>
+
+        <div class="legal-note">
+            <strong>Prototype Notice:</strong> Bridge Up is currently a static frontend prototype. All data entered in the prototype is stored locally in your browser using localStorage and is never transmitted to a server. This Privacy Policy describes the intended data practices for the production version of Bridge Up.
+        </div>
+
+        <!-- 1. Introduction -->
+        <div class="legal-section">
+            <h2><span class="sec-num">1</span> Introduction</h2>
+            <p>Bridge Up ("we", "our", "us") is committed to protecting your personal information. This Privacy Policy explains what data we collect, how we use it, who we share it with, and what rights you have over your data. It applies to all users of the Bridge Up platform, including students, recruiters, universities, and freelancers.</p>
+        </div>
+
+        <hr class="legal-divider" />
+
+        <!-- 2. Data we collect -->
+        <div class="legal-section">
+            <h2><span class="sec-num">2</span> Data We Collect</h2>
+            <p>We collect the following categories of personal data:</p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Examples</th>
+                        <th>Source</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Identity data</strong></td>
+                        <td>Full name, profile photo, role (student, recruiter, etc.)</td>
+                        <td>You, during registration</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Contact data</strong></td>
+                        <td>Email address, phone number</td>
+                        <td>You, during registration</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Academic / professional data</strong></td>
+                        <td>University, field of study, degree, skills, work history, company info</td>
+                        <td>You, during onboarding and profile setup</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Usage data</strong></td>
+                        <td>Pages visited, job applications submitted, messages sent, features used</td>
+                        <td>Automatically via platform activity</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Device data</strong></td>
+                        <td>Browser type, operating system, IP address</td>
+                        <td>Automatically via your device</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr class="legal-divider" />
+
+        <!-- 3. How we use your data -->
+        <div class="legal-section">
+            <h2><span class="sec-num">3</span> How We Use Your Data</h2>
+            <p>We use your personal data to:</p>
+            <ul>
+                <li>Create and manage your account and profile</li>
+                <li>Match you with relevant job opportunities, candidates, or collaborators</li>
+                <li>Facilitate communication between users (messaging, notifications)</li>
+                <li>Improve and personalise your experience on the platform</li>
+                <li>Send you relevant updates, alerts, and platform news</li>
+                <li>Ensure the security and integrity of the platform</li>
+                <li>Comply with our legal obligations</li>
+            </ul>
+        </div>
+
+        <hr class="legal-divider" />
+
+        <!-- 4. Legal basis -->
+        <div class="legal-section">
+            <h2><span class="sec-num">4</span> Legal Basis for Processing</h2>
+            <p>We process your personal data on the following legal bases:</p>
+            <ul>
+                <li><strong>Contract performance</strong> — to provide you with the Service as described in our Terms and Conditions</li>
+                <li><strong>Consent</strong> — for optional features and marketing communications, which you may withdraw at any time</li>
+                <li><strong>Legitimate interests</strong> — to improve the platform, prevent fraud, and ensure security</li>
+                <li><strong>Legal obligation</strong> — where required by Algerian or applicable international law</li>
+            </ul>
+        </div>
+
+        <hr class="legal-divider" />
+
+        <!-- 5. Data sharing -->
+        <div class="legal-section">
+            <h2><span class="sec-num">5</span> Data Sharing</h2>
+            <p>We do not sell your personal data. We may share your data with:</p>
+            <ul>
+                <li><strong>Other users</strong> — your public profile information is visible to other Bridge Up users according to your privacy settings</li>
+                <li><strong>Service providers</strong> — third-party vendors who help us operate the platform (hosting, analytics, email delivery) under strict data processing agreements</li>
+                <li><strong>Legal authorities</strong> — when required by law, court order, or to protect the rights and safety of users</li>
+            </ul>
+        </div>
+
+        <hr class="legal-divider" />
+
+        <!-- 6. Data retention -->
+        <div class="legal-section">
+            <h2><span class="sec-num">6</span> Data Retention</h2>
+            <p>We retain your personal data for as long as your account is active, or as necessary to provide the Service. If you request account deletion, we will delete or anonymise your data within 30 days, unless we are required to retain it for legal or regulatory reasons.</p>
+        </div>
+
+        <hr class="legal-divider" />
+
+        <!-- 7. Your rights -->
+        <div class="legal-section">
+            <h2><span class="sec-num">7</span> Your Rights</h2>
+            <p>Under applicable data protection law, you have the right to:</p>
+            <ul>
+                <li><strong>Access</strong> the personal data we hold about you</li>
+                <li><strong>Rectify</strong> inaccurate or incomplete data</li>
+                <li><strong>Erase</strong> your personal data ("right to be forgotten")</li>
+                <li><strong>Restrict</strong> or <strong>object</strong> to certain types of processing</li>
+                <li><strong>Data portability</strong> — receive your data in a structured, machine-readable format</li>
+                <li><strong>Withdraw consent</strong> at any time for processing based on consent</li>
+            </ul>
+            <p style="margin-top:12px">To exercise any of these rights, please contact us at <a href="mailto:privacy@bridgeup.dz" style="color:var(--orange);font-weight:600">privacy@bridgeup.dz</a>.</p>
+        </div>
+
+        <hr class="legal-divider" />
+
+        <!-- 8. Cookies -->
+        <div class="legal-section">
+            <h2><span class="sec-num">8</span> Cookies and Local Storage</h2>
+            <p>Bridge Up uses browser localStorage to store your session and profile data on your device for the purpose of maintaining your login state and preferences. In the production version of Bridge Up, we will provide a cookie consent mechanism and detailed cookie policy. We do not currently use third-party tracking cookies.</p>
+        </div>
+
+        <hr class="legal-divider" />
+
+        <!-- 9. Security -->
+        <div class="legal-section">
+            <h2><span class="sec-num">9</span> Security</h2>
+            <p>We take appropriate technical and organisational measures to protect your personal data against unauthorised access, alteration, disclosure, or destruction. However, no method of internet transmission or electronic storage is 100% secure. We encourage you to use a strong, unique password and to log out after each session.</p>
+        </div>
+
+        <hr class="legal-divider" />
+
+        <!-- 10. Children -->
+        <div class="legal-section">
+            <h2><span class="sec-num">10</span> Children's Privacy</h2>
+            <p>Bridge Up is not directed to children under the age of 16. We do not knowingly collect personal data from users under 16. If we become aware that a child under 16 has provided us with personal data, we will take steps to delete that information promptly.</p>
+        </div>
+
+        <hr class="legal-divider" />
+
+        <!-- 11. Changes -->
+        <div class="legal-section">
+            <h2><span class="sec-num">11</span> Changes to This Policy</h2>
+            <p>We may update this Privacy Policy from time to time. When we do, we will revise the "Last updated" date at the top of this page and, for material changes, notify users via the platform or email. We encourage you to review this Policy periodically.</p>
+        </div>
+
+        <hr class="legal-divider" />
+
+        <!-- 12. Contact -->
+        <div class="legal-section">
+            <h2><span class="sec-num">12</span> Contact</h2>
+            <p>If you have any questions or concerns about this Privacy Policy or the way we handle your personal data, please contact our Data Protection contact:</p>
+            <p style="margin-top:10px">
+                <strong style="font-family:'Montserrat',sans-serif">Bridge Up — Privacy</strong><br>
+                Annaba, Algeria<br>
+                <a href="mailto:privacy@bridgeup.dz" style="color:var(--orange);font-weight:600">privacy@bridgeup.dz</a>
+            </p>
+        </div>
+
+        <!-- Back CTA -->
+        <div style="text-align:center;margin-top:40px">
+            <a href="register.html" class="btn btn-primary">← Back to Registration</a>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -83,6 +83,368 @@
         .panel.active {
             display: block;
         }
+
+        .field-error {
+            color: #EF4444;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        input.invalid,
+        select.invalid,
+        textarea.invalid {
+            border-color: #EF4444 !important;
+        }
+
+        .steps-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 32px;
+            gap: 0;
+        }
+
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+            gap: 6px;
+        }
+
+        .step-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: #E2E8F0;
+            z-index: 0;
+        }
+
+        .step-item.done::after,
+        .step-item.active::after {
+            background: var(--yellow);
+        }
+
+        .step-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #E2E8F0;
+            color: #94A3B8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Montserrat, sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            position: relative;
+            z-index: 1;
+            transition: all .3s;
+        }
+
+        .step-item.active .step-dot {
+            background: var(--yellow);
+            color: var(--blue);
+        }
+
+        .step-item.done .step-dot {
+            background: var(--blue);
+            color: #fff;
+        }
+
+        .step-label {
+            font-size: 11px;
+            color: #94A3B8;
+            font-family: Montserrat, sans-serif;
+            font-weight: 600;
+        }
+
+        .step-item.active .step-label {
+            color: var(--blue);
+        }
+
+        .step-item.done .step-label {
+            color: var(--blue);
+        }
+
+        .upload-zone {
+            border: 2px dashed #CBD5E1;
+            border-radius: 12px;
+            padding: 36px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color .2s, background .2s;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--orange);
+            background: #FFFBEB;
+        }
+
+        .upload-zone.has-file {
+            border-color: var(--yellow);
+            background: #FFFBEB;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        .pending-ring {
+            position: relative;
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pending-ring::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 3px solid var(--yellow);
+            animation: pulse-ring 1.4s ease-out infinite;
+        }
+
+        .pending-ring-inner {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: var(--yellow);
+            border-right-color: var(--orange);
+            animation: spin 0.9s linear infinite;
+        }
+
+        .invite-option {
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 18px 16px;
+            cursor: pointer;
+            transition: all .2s;
+            margin-bottom: 12px;
+        }
+
+        .invite-option:hover {
+            border-color: var(--orange);
+        }
+
+        .invite-option.selected {
+            border-color: var(--yellow);
+            background: #FFFBEB;
+        }
+
+        .company-preview {
+            background: linear-gradient(135deg, #FFFBEB, #FFF7ED);
+            border: 2px solid var(--yellow);
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .company-logo-placeholder {
+            width: 52px;
+            height: 52px;
+            border-radius: 10px;
+            background: var(--blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .legal-consent {
+            margin-top: 20px;
+            padding: 16px 18px;
+            background: #F8FAFC;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .legal-consent-label {
+            font-size: 12px;
+            font-weight: 700;
+            font-family: Montserrat, sans-serif;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .consent-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .consent-row input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            min-width: 17px;
+            border: 2px solid #CBD5E1;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1px;
+            accent-color: var(--yellow);
+        }
+
+        .consent-row label {
+            font-size: 13px;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 400;
+            color: #374151;
+            cursor: pointer;
+            line-height: 1.5;
+        }
+
+        .consent-row label a {
+            color: var(--orange);
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .consent-row label a:hover {
+            color: var(--blue);
+        }
+
+        .consent-error {
+            color: #EF4444;
+            font-size: 12px;
+            margin-top: 2px;
+            display: none;
+        }
+
+        .uni-combobox {
+            position: relative;
+        }
+
+        .uni-combobox-input {
+            width: 100%;
+            padding-right: 44px;
+        }
+
+        .uni-combobox-toggle {
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            color: #64748B;
+            font-size: 14px;
+            cursor: pointer;
+            line-height: 1;
+            padding: 4px;
+        }
+
+        .uni-combobox-toggle:hover {
+            color: var(--orange);
+        }
+
+        .uni-combobox-menu {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1.5px solid #CBD5E1;
+            border-radius: 12px;
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.14);
+            max-height: 280px;
+            overflow-y: auto;
+            z-index: 30;
+            display: none;
+        }
+
+        .uni-combobox.open .uni-combobox-menu {
+            display: block;
+        }
+
+        .uni-combobox-option,
+        .uni-combobox-empty {
+            padding: 12px 14px;
+        }
+
+        .uni-combobox-option {
+            cursor: pointer;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .uni-combobox-option:last-child {
+            border-bottom: none;
+        }
+
+        .uni-combobox-option:hover,
+        .uni-combobox-option.active {
+            background: #FFFBEB;
+        }
+
+        .uni-option-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            font-family: Montserrat, sans-serif;
+            line-height: 1.35;
+        }
+
+        .uni-option-meta {
+            margin-top: 4px;
+            font-size: 12px;
+            color: #64748B;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .uni-combobox-empty {
+            font-size: 13px;
+            color: #64748B;
+        }
+
+        .uni-selected-hint {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #64748B;
+            display: none;
+        }
+
+        .uni-selected-hint strong {
+            color: var(--blue);
+        }
     </style>
 </head>
 
@@ -90,8 +452,8 @@
     <div class="reg-wrap">
         <div class="reg-box">
             <div style="text-align:center;margin-bottom:28px">
-                <a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none"
-                        style="height:36px">
+                <a href="index.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none" style="height:36px">
                         <defs>
                             <linearGradient id="gL" x1="0%" y1="0%" x2="100%" y2="0%">
                                 <stop offset="0%" stop-color="#FACC15" />
@@ -103,35 +465,23 @@
                         <path d="M28 55 Q44 10 62 55" stroke="url(#gL)" stroke-width="5" fill="none"
                             stroke-linecap="round" />
                         <path d="M50 55 Q70 5 90 55" stroke="url(#gL)" stroke-width="5.5" fill="none"
-                            stroke-linecap="round" /><text x="10" y="75" font-family="Montserrat,sans-serif"
-                            font-weight="700" font-size="22" fill="#111827">Bridge</text><text x="82" y="75"
-                            font-family="Montserrat,sans-serif" font-weight="700" font-size="22"
+                            stroke-linecap="round" />
+                        <text x="10" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22"
+                            fill="#111827">Bridge</text>
+                        <text x="82" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22"
                             fill="url(#gL)">Up</text>
-                    </svg></a>
+                    </svg>
+                </a>
             </div>
-            <div class="steps-bar" id="stepsBar" style="display:none">
-                <div class="step-item active" id="si1">
-                    <div class="step-dot">1</div>
-                    <div class="step-label">Account</div>
-                </div>
-                <div class="step-item" id="si2">
-                    <div class="step-dot">2</div>
-                    <div class="step-label">Profile</div>
-                </div>
-                <div class="step-item" id="si3">
-                    <div class="step-dot">3</div>
-                    <div class="step-label">Interests</div>
-                </div>
-                <div class="step-item" id="si4">
-                    <div class="step-dot">4</div>
-                    <div class="step-label">Done</div>
-                </div>
-            </div>
+
+            <div id="stepsBar" style="display:none"></div>
 
             <div class="panel active" id="p0">
                 <h2 style="margin-bottom:6px">Create your account</h2>
-                <p style="color:#64748B;margin-bottom:24px;font-size:15px">Already have an account? <a href="login.html"
-                        style="color:var(--orange);font-weight:600">Sign In</a></p>
+                <p style="color:#64748B;margin-bottom:24px;font-size:15px">
+                    Already have an account? <a href="login.html"
+                        style="color:var(--orange);font-weight:600">Sign In</a>
+                </p>
                 <div class="role-grid">
                     <div class="role-card" onclick="selectRole('student',this)">
                         <div style="font-size:36px;margin-bottom:8px">👩‍🎓</div>
@@ -157,152 +507,1362 @@
             </div>
 
             <div class="panel" id="p1">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px"><button onclick="goStep(0)"
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px">
+                    <button onclick="goStep(0)"
                         style="background:none;border:none;font-size:20px;cursor:pointer;color:#64748B">←</button>
                     <div>
                         <h3 id="p1title">Account Info</h3>
-                        <p style="font-size:13px;color:#64748B">Step 1 of 3</p>
+                        <p style="font-size:13px;color:#64748B">Step 1</p>
                     </div>
                 </div>
                 <div id="p1fields"></div>
-                <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="goStep(2)">Continue
-                    →</button>
+                <button class="btn btn-primary" style="width:100%;justify-content:center"
+                    onclick="tryGoStep(2)">Continue →</button>
             </div>
 
             <div class="panel" id="p2">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px"><button onclick="goStep(1)"
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px">
+                    <button onclick="goStep(1)"
                         style="background:none;border:none;font-size:20px;cursor:pointer;color:#64748B">←</button>
                     <div>
-                        <h3 id="p2title">More Details</h3>
-                        <p style="font-size:13px;color:#64748B">Step 2 of 3</p>
+                        <h3 id="p2title">Details</h3>
+                        <p style="font-size:13px;color:#64748B">Step 2</p>
                     </div>
                 </div>
                 <div id="p2fields"></div>
-                <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="goStep(3)">Continue
+                <button class="btn btn-primary" id="p2btn"
+                    style="width:100%;justify-content:center;margin-top:16px" onclick="tryGoStep(3)">Continue
                     →</button>
             </div>
 
             <div class="panel" id="p3">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px"><button onclick="goStep(2)"
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px">
+                    <button id="p3back" onclick="goBackFromP3()"
                         style="background:none;border:none;font-size:20px;cursor:pointer;color:#64748B">←</button>
                     <div>
-                        <h3>Select Interests</h3>
-                        <p style="font-size:13px;color:#64748B">Step 3 of 3 — pick up to 5</p>
+                        <h3 id="p3title">Interests</h3>
+                        <p style="font-size:13px;color:#64748B">Step 3</p>
                     </div>
                 </div>
-                <div class="int-grid" id="intGrid"></div>
-                <div style="margin-top:20px">
-                    <label style="font-size:13px;font-weight:600;font-family:Montserrat,sans-serif">Skills (press Enter
-                        to add)</label>
-                    <div style="display:flex;gap:8px;margin-top:6px"><input type="text" id="skillInput"
-                            placeholder="e.g. Python, Figma…"
-                            style="flex:1;padding:9px 14px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:14px;outline:none" /><button
-                            class="btn btn-outline btn-sm" onclick="addSkill()">Add</button></div>
-                    <div id="skillTags" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"></div>
+                <div id="p3fields"></div>
+
+                <div class="legal-consent" id="legalConsent">
+                    <div class="legal-consent-label">Legal Agreement</div>
+                    <div class="consent-row">
+                        <input type="checkbox" id="chk_terms" />
+                        <label for="chk_terms">
+                            I have read and agree to the
+                            <a href="terms.html" target="_blank">Terms and Conditions</a>
+                        </label>
+                    </div>
+                    <div class="consent-row">
+                        <input type="checkbox" id="chk_privacy" />
+                        <label for="chk_privacy">
+                            I have read and agree to the
+                            <a href="privacy.html" target="_blank">Privacy Policy</a>
+                        </label>
+                    </div>
+                    <div class="consent-error" id="err_consent">
+                        You must accept both the Terms and Conditions and Privacy Policy to continue.
+                    </div>
                 </div>
-                <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:24px"
+
+                <button class="btn btn-primary" id="p3btn" style="width:100%;justify-content:center;margin-top:20px"
                     onclick="finish()">🚀 Create My Account</button>
             </div>
 
             <div class="panel" id="p4" style="text-align:center;padding:20px 0">
                 <div style="font-size:72px;margin-bottom:16px">🎉</div>
                 <h2 style="margin-bottom:10px">You're in!</h2>
-                <p style="color:#64748B;margin-bottom:28px">Your Bridge Up account is ready.</p>
+                <p style="color:#64748B;margin-bottom:8px">Your Bridge Up account is ready.</p>
+                <p id="p4sub" style="color:#64748B;font-size:14px;margin-bottom:28px"></p>
                 <button class="btn btn-primary btn-lg" style="margin:0 auto" onclick="goToDash()">Go to My Dashboard
                     →</button>
             </div>
         </div>
     </div>
+
     <div id="toast-container"></div>
+    <script src="data/universities.json.js"></script>
     <script src="db.js"></script>
     <script src="app.js"></script>
     <script>
+        const DEMO_COMPANIES = {
+            "BRIDGEUP": {
+                name: "Bridge Up",
+                industry: "EdTech / HR Tech",
+                size: "11-50",
+                city: "Annaba",
+                emoji: "🌉",
+                description: "The team building Algeria's professional bridge platform.",
+            },
+            "CEVITAL2026": {
+                name: "Cevital Group",
+                industry: "Agri-food & Industry",
+                size: "200+",
+                city: "Bejaia",
+                emoji: "🏭",
+                description: "Algeria's largest private industrial group.",
+            },
+            "DJEZZY": {
+                name: "Djezzy",
+                industry: "Telecommunications",
+                size: "200+",
+                city: "Alger",
+                emoji: "📡",
+                description: "Algeria's leading mobile telecommunications operator.",
+            },
+            "SONATRACH": {
+                name: "Sonatrach",
+                industry: "Energy & Oil",
+                size: "200+",
+                city: "Alger",
+                emoji: "⛽",
+                description: "Algeria's national energy company.",
+            },
+            "YASSIR_TEAM": {
+                name: "Yassir",
+                industry: "Tech / Mobility",
+                size: "51-200",
+                city: "Alger",
+                emoji: "🚗",
+                description: "North Africa's leading super-app for ride-hailing and delivery.",
+            },
+            "OOREDOO_DZ": {
+                name: "Ooredoo Algeria",
+                industry: "Telecommunications",
+                size: "200+",
+                city: "Alger",
+                emoji: "📱",
+                description: "Algeria's third-largest mobile network operator.",
+            },
+        };
+
         const INTS = ["Marketing", "Finance", "Design", "IT & Dev", "Engineering", "Law", "HR", "Sales", "Logistics", "Education", "Healthcare", "Other"];
         const INT_ICONS = { "Marketing": "📣", "Finance": "💰", "Design": "🎨", "IT & Dev": "💻", "Engineering": "⚙️", "Law": "⚖️", "HR": "👥", "Sales": "📈", "Logistics": "🚛", "Education": "📚", "Healthcare": "🏥", "Other": "🌐" };
         const FIELDS = ["Marketing", "Computer Science", "Finance", "Law", "HR", "Engineering", "Design", "Medicine", "Architecture", "Journalism", "Economics", "Accounting", "Management", "Logistics", "Education", "Biology"];
-        let role = "", selInts = [], selSkills = [];
+
+        let role = "";
+        let selInts = [], selSkills = [];
+        let verificationUploaded = false, verificationUnlocked = false;
+        let recruiterJoinChoice = null;
+        let matchedCompany = null;
+        let recruiterUsesInvite = false;
+
+        const UNIVERSITY_SOURCE = Array.isArray(window.BridgeUpUniversities) ? window.BridgeUpUniversities : [];
+        const universityComboState = {
+            all: UNIVERSITY_SOURCE,
+            filtered: [],
+            open: false,
+            activeIndex: -1,
+            selected: null,
+            mode: null,
+        };
+
+        function renderStepsBar(steps, currentStep) {
+            const bar = document.getElementById("stepsBar");
+            bar.style.display = "flex";
+            bar.innerHTML = steps.map((label, i) => {
+                const n = i + 1;
+                const cls = n < currentStep ? "done" : n === currentStep ? "active" : "";
+                return `
+                <div class="step-item ${cls}" id="si${n}">
+                    <div class="step-dot">${n < currentStep ? "✓" : n}</div>
+                    <div class="step-label">${label}</div>
+                </div>`;
+            }).join("");
+        }
+
+        function getStepLabels() {
+            if (role === "recruiter") {
+                return recruiterUsesInvite
+                    ? ["Account", "Team", "Consent", "Done"]
+                    : ["Account", "Team", "Company", "Done"];
+            }
+            if (role === "university") return ["Account", "Contact", "Verify", "Done"];
+            if (role === "student") return ["Account", "Academic", "Interests", "Done"];
+            if (role === "freelancer") return ["Account", "Services", "Interests", "Done"];
+            return ["Account", "Profile", "Details", "Done"];
+        }
 
         window.addEventListener("DOMContentLoaded", () => {
+            if (Auth.get()) { goToDash(); return; }
             const p = new URLSearchParams(location.search).get("role");
             if (p) selectRole(p, null);
-            document.getElementById("intGrid").innerHTML = INTS.map(i => `<div class="int-chip" id="ic_${i.replace(/ /g, '_')}" onclick="toggleInt('${i}')">${INT_ICONS[i] || "⭐"}<br>${i}</div>`).join("");
-            document.getElementById("skillInput").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); addSkill(); } });
         });
+
+        function normalizeSearchText(value = "") {
+            return String(value)
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/[’']/g, "")
+                .replace(/[^a-zA-Z0-9\s.-]/g, " ")
+                .replace(/\s+/g, " ")
+                .trim()
+                .toLowerCase();
+        }
+
+        function buildUniversitySearchIndex(university) {
+            return normalizeSearchText([
+                university.name || "",
+                university.city || "",
+                university.abbreviation || ""
+            ].join(" "));
+        }
+
+        function ensureUniversityDataset() {
+            if (universityComboState.all.length) return universityComboState.all;
+
+            if (typeof BridgeDB !== "undefined" && Array.isArray(BridgeDB.universities) && BridgeDB.universities.length) {
+                universityComboState.all = BridgeDB.universities.map((u, index) => ({
+                    id: u.id || `uni_${index + 1}`,
+                    name: u.name,
+                    abbreviation: u.abbreviation || "",
+                    city: u.city || "",
+                    searchIndex: buildUniversitySearchIndex(u),
+                }));
+            }
+
+            return universityComboState.all;
+        }
+
+        function getUniversityById(id) {
+            if (!id) return null;
+            return ensureUniversityDataset().find(u => u.id === id) || null;
+        }
+
+        function getUniversityByName(name) {
+            if (!name) return null;
+            return ensureUniversityDataset().find(u => u.name === name) || null;
+        }
+
+        function filterUniversities(query) {
+            const all = ensureUniversityDataset();
+            const term = normalizeSearchText(query);
+
+            if (!term) return all.slice(0, 12);
+
+            const terms = term.split(" ").filter(Boolean);
+            return all.filter(u => terms.every(part => u.searchIndex.includes(part))).slice(0, 12);
+        }
+
+        function getUniversityFieldIds() {
+            if (universityComboState.mode === "student") {
+                return {
+                    comboId: "studentUniversityCombobox",
+                    inputId: "f_university",
+                    listId: "f_university_list",
+                    hiddenIdId: "f_university_id",
+                    hiddenNameId: "f_university_name",
+                    hintId: "f_university_hint",
+                    errorId: "err_university"
+                };
+            }
+
+            if (universityComboState.mode === "university") {
+                return {
+                    comboId: "institutionUniversityCombobox",
+                    inputId: "f_institution_name",
+                    listId: "f_institution_name_list",
+                    hiddenIdId: "f_institution_id",
+                    hiddenNameId: "f_institution_name_value",
+                    hintId: "f_institution_name_hint",
+                    errorId: "err_name"
+                };
+            }
+
+            return null;
+        }
+
+        function renderUniversityOptions() {
+            const ids = getUniversityFieldIds();
+            const list = ids ? document.getElementById(ids.listId) : null;
+            if (!list) return;
+
+            if (!universityComboState.filtered.length) {
+                list.innerHTML = `<div class="uni-combobox-empty">No universities found. Try name, city, or abbreviation.</div>`;
+                return;
+            }
+
+            list.innerHTML = universityComboState.filtered.map((u, index) => `
+            <div
+                class="uni-combobox-option ${index === universityComboState.activeIndex ? "active" : ""}"
+                role="option"
+                id="${ids.listId}_option_${index}"
+                aria-selected="${u.id === universityComboState.selected?.id ? "true" : "false"}"
+                data-uni-id="${u.id}"
+                onmousedown="handleUniversityOptionMouseDown(event, '${u.id}')"
+                onmousemove="setActiveUniversityIndex(${index})"
+            >
+                <div class="uni-option-name">${u.name}</div>
+                <div class="uni-option-meta">
+                    ${u.city ? `<span>${u.city}</span>` : ""}
+                    ${u.abbreviation ? `<span>${u.abbreviation}</span>` : ""}
+                </div>
+            </div>
+        `).join("");
+        }
+
+        function openUniversityMenu() {
+            const ids = getUniversityFieldIds();
+            if (!ids) return;
+
+            const wrap = document.getElementById(ids.comboId);
+            const input = document.getElementById(ids.inputId);
+            if (!wrap || !input) return;
+
+            universityComboState.open = true;
+            wrap.classList.add("open");
+            input.setAttribute("aria-expanded", "true");
+            renderUniversityOptions();
+        }
+
+        function closeUniversityMenu() {
+            const ids = getUniversityFieldIds();
+            if (!ids) return;
+
+            const wrap = document.getElementById(ids.comboId);
+            const input = document.getElementById(ids.inputId);
+            if (!wrap || !input) return;
+
+            universityComboState.open = false;
+            universityComboState.activeIndex = -1;
+            wrap.classList.remove("open");
+            input.setAttribute("aria-expanded", "false");
+            renderUniversityOptions();
+        }
+
+        function setActiveUniversityIndex(index) {
+            universityComboState.activeIndex = index;
+            renderUniversityOptions();
+        }
+
+        function updateUniversityHiddenFields() {
+            const ids = getUniversityFieldIds();
+            if (!ids) return;
+
+            const hiddenId = document.getElementById(ids.hiddenIdId);
+            const hiddenName = document.getElementById(ids.hiddenNameId);
+            const hint = document.getElementById(ids.hintId);
+            const selected = universityComboState.selected;
+
+            if (hiddenId) hiddenId.value = selected ? selected.id : "";
+            if (hiddenName) hiddenName.value = selected ? selected.name : "";
+
+            if (hint) {
+                if (selected) {
+                    hint.style.display = "block";
+                    hint.innerHTML = `<strong>Selected:</strong> ${selected.name}${selected.city ? ` · ${selected.city}` : ""}${selected.abbreviation ? ` · ${selected.abbreviation}` : ""}`;
+                } else {
+                    hint.style.display = "none";
+                    hint.innerHTML = "";
+                }
+            }
+        }
+
+        function selectUniversityById(id, { close = true } = {}) {
+            const ids = getUniversityFieldIds();
+            const selected = getUniversityById(id);
+            const input = ids ? document.getElementById(ids.inputId) : null;
+            if (!ids || !input) return;
+
+            universityComboState.selected = selected || null;
+            input.value = selected ? selected.name : input.value;
+            updateUniversityHiddenFields();
+            clearErr(ids.errorId);
+
+            if (selected) {
+                universityComboState.filtered = filterUniversities(selected.name);
+            }
+
+            if (close) closeUniversityMenu();
+        }
+
+        function clearUniversitySelection({ keepInput = true } = {}) {
+            const ids = getUniversityFieldIds();
+            const input = ids ? document.getElementById(ids.inputId) : null;
+            universityComboState.selected = null;
+            if (input && !keepInput) input.value = "";
+            updateUniversityHiddenFields();
+        }
+
+        function refreshUniversityResults({ preserveActive = false } = {}) {
+            const ids = getUniversityFieldIds();
+            const input = ids ? document.getElementById(ids.inputId) : null;
+            if (!input) return;
+
+            universityComboState.filtered = filterUniversities(input.value);
+            if (!preserveActive) {
+                universityComboState.activeIndex = universityComboState.filtered.length ? 0 : -1;
+            } else if (universityComboState.activeIndex >= universityComboState.filtered.length) {
+                universityComboState.activeIndex = universityComboState.filtered.length ? universityComboState.filtered.length - 1 : -1;
+            }
+            renderUniversityOptions();
+        }
+
+        function syncUniversitySelectionFromCurrentInput() {
+            const ids = getUniversityFieldIds();
+            const input = ids ? document.getElementById(ids.inputId) : null;
+            if (!input) return;
+
+            const exact = getUniversityByName(input.value.trim());
+            if (exact) {
+                universityComboState.selected = exact;
+                updateUniversityHiddenFields();
+            }
+        }
+
+        function initUniversityCombobox(mode, initialUniversityName = "", initialUniversityId = "") {
+            ensureUniversityDataset();
+            universityComboState.mode = mode;
+
+            const ids = getUniversityFieldIds();
+            if (!ids) return;
+
+            const input = document.getElementById(ids.inputId);
+            const combo = document.getElementById(ids.comboId);
+            if (!input || !combo) return;
+
+            const initialSelected = getUniversityById(initialUniversityId) || getUniversityByName(initialUniversityName);
+            universityComboState.selected = initialSelected || null;
+
+            if (initialSelected) {
+                input.value = initialSelected.name;
+            } else if (initialUniversityName) {
+                input.value = initialUniversityName;
+            }
+
+            updateUniversityHiddenFields();
+            refreshUniversityResults();
+
+            input.addEventListener("focus", () => {
+                refreshUniversityResults();
+                openUniversityMenu();
+            });
+
+            input.addEventListener("click", () => {
+                refreshUniversityResults({ preserveActive: true });
+                openUniversityMenu();
+            });
+
+            input.addEventListener("input", () => {
+                if (universityComboState.selected && input.value.trim() !== universityComboState.selected.name) {
+                    clearUniversitySelection({ keepInput: true });
+                }
+                refreshUniversityResults();
+                openUniversityMenu();
+            });
+
+            input.addEventListener("keydown", (event) => {
+                if (!universityComboState.open && ["ArrowDown", "ArrowUp", "Enter"].includes(event.key)) {
+                    refreshUniversityResults();
+                    openUniversityMenu();
+                }
+
+                if (event.key === "ArrowDown") {
+                    event.preventDefault();
+                    if (!universityComboState.filtered.length) return;
+                    const next = universityComboState.activeIndex < universityComboState.filtered.length - 1
+                        ? universityComboState.activeIndex + 1
+                        : 0;
+                    setActiveUniversityIndex(next);
+                    return;
+                }
+
+                if (event.key === "ArrowUp") {
+                    event.preventDefault();
+                    if (!universityComboState.filtered.length) return;
+                    const next = universityComboState.activeIndex > 0
+                        ? universityComboState.activeIndex - 1
+                        : universityComboState.filtered.length - 1;
+                    setActiveUniversityIndex(next);
+                    return;
+                }
+
+                if (event.key === "Enter") {
+                    if (universityComboState.open && universityComboState.activeIndex >= 0) {
+                        event.preventDefault();
+                        const active = universityComboState.filtered[universityComboState.activeIndex];
+                        if (active) selectUniversityById(active.id);
+                    } else {
+                        syncUniversitySelectionFromCurrentInput();
+                    }
+                    return;
+                }
+
+                if (event.key === "Escape") {
+                    closeUniversityMenu();
+                }
+            });
+
+            input.addEventListener("blur", () => {
+                setTimeout(() => {
+                    syncUniversitySelectionFromCurrentInput();
+                    const selected = universityComboState.selected;
+                    if (selected) {
+                        input.value = selected.name;
+                    }
+                    closeUniversityMenu();
+                }, 120);
+            });
+
+            document.addEventListener("click", (event) => {
+                if (!combo.contains(event.target)) {
+                    syncUniversitySelectionFromCurrentInput();
+                    if (universityComboState.selected) {
+                        input.value = universityComboState.selected.name;
+                    }
+                    closeUniversityMenu();
+                }
+            }, { once: true });
+
+            combo.dataset.ready = "true";
+        }
+
+        function toggleUniversityMenu() {
+            if (universityComboState.open) {
+                closeUniversityMenu();
+            } else {
+                refreshUniversityResults({ preserveActive: true });
+                openUniversityMenu();
+                const ids = getUniversityFieldIds();
+                document.getElementById(ids?.inputId || "")?.focus();
+            }
+        }
+
+        function handleUniversityOptionMouseDown(event, id) {
+            event.preventDefault();
+            selectUniversityById(id);
+        }
 
         function selectRole(r, el) {
             role = r;
+            recruiterUsesInvite = false;
+            recruiterJoinChoice = null;
+            matchedCompany = null;
+            selInts = [];
+            selSkills = [];
+            universityComboState.mode = null;
+            universityComboState.selected = null;
+            universityComboState.filtered = [];
+            universityComboState.activeIndex = -1;
+            universityComboState.open = false;
+
             document.querySelectorAll(".role-card").forEach(c => c.classList.remove("selected"));
             if (el) el.classList.add("selected");
-            document.getElementById("stepsBar").style.display = "flex";
-            buildP1(r); buildP2(r);
+
+            buildP1(r);
+            buildP2(r);
+            buildP3(r);
             goStep(1);
         }
 
+        function goStep(panelNum) {
+            document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+            document.getElementById("p" + panelNum).classList.add("active");
+
+            if (panelNum === 0) {
+                document.getElementById("stepsBar").style.display = "none";
+                return;
+            }
+
+            renderStepsBar(getStepLabels(), panelNum);
+        }
+
+        function goBackFromP3() {
+            goStep(2);
+        }
+
         function buildP1(r) {
-            document.getElementById("p1title").textContent = r === "university" ? "Institutional Info" : "Account Info";
+            document.getElementById("p1title").textContent =
+                r === "university" ? "Institutional Info" : "Account Info";
+
+            if (r === "university") {
+                document.getElementById("p1fields").innerHTML = `
+            <div class="form-group">
+                <label>University Name <span style="color:#EF4444">*</span></label>
+                <div class="uni-combobox" id="institutionUniversityCombobox">
+                    <input
+                        type="text"
+                        id="f_institution_name"
+                        class="uni-combobox-input"
+                        placeholder="Search by university, city, or abbreviation"
+                        autocomplete="off"
+                        role="combobox"
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-controls="f_institution_name_list"
+                    />
+                    <button type="button" class="uni-combobox-toggle" aria-label="Toggle universities list" onclick="toggleUniversityMenu()">▾</button>
+                    <input type="hidden" id="f_institution_id" />
+                    <input type="hidden" id="f_institution_name_value" />
+                    <div class="uni-combobox-menu" id="f_institution_name_list" role="listbox"></div>
+                </div>
+                <div class="uni-selected-hint" id="f_institution_name_hint"></div>
+                <div class="field-error" id="err_name">Please select your university.</div>
+            </div>
+            <div class="form-group">
+                <label>Email <span style="color:#EF4444">*</span></label>
+                <input type="email" id="f_email" placeholder="you@email.dz"/>
+                <div class="field-error" id="err_email">Please enter a valid email address.</div>
+            </div>
+            <div class="form-group">
+                <label>Password <span style="color:#EF4444">*</span></label>
+                <input type="password" id="f_pass" placeholder="Min 8 characters"/>
+                <div class="field-error" id="err_pass">Password must be at least 8 characters.</div>
+            </div>
+            <div class="form-group">
+                <label>Phone Number <span style="color:#EF4444">*</span></label>
+                <input type="tel" id="f_phone" placeholder="+213 5XX XXX XXX"/>
+                <div class="field-error" id="err_phone">Phone number is required.</div>
+            </div>
+        `;
+                initUniversityCombobox("university");
+                return;
+            }
+
             document.getElementById("p1fields").innerHTML = `
-    <div class="form-group"><label>Full Name</label><input type="text" id="f_name" placeholder="${r === "university" ? "University Name" : "Your full name"}"/></div>
-    <div class="form-group"><label>Email</label><input type="email" id="f_email" placeholder="you@email.dz"/></div>
-    <div class="form-group"><label>Password</label><input type="password" id="f_pass" placeholder="Min 8 characters"/></div>
-    ${r !== "university" ? `<div class="form-group"><label>Phone <span style="color:#94A3B8">(optional)</span></label><input type="tel" id="f_phone" placeholder="+213 5XX XXX XXX"/></div>` : ""}`;
+            <div class="form-group">
+                <label>Full Name <span style="color:#EF4444">*</span></label>
+                <input type="text" id="f_name" placeholder="Your full name"/>
+                <div class="field-error" id="err_name">This field is required.</div>
+            </div>
+            <div class="form-group">
+                <label>Email <span style="color:#EF4444">*</span></label>
+                <input type="email" id="f_email" placeholder="you@email.dz"/>
+                <div class="field-error" id="err_email">Please enter a valid email address.</div>
+            </div>
+            <div class="form-group">
+                <label>Password <span style="color:#EF4444">*</span></label>
+                <input type="password" id="f_pass" placeholder="Min 8 characters"/>
+                <div class="field-error" id="err_pass">Password must be at least 8 characters.</div>
+            </div>
+            <div class="form-group">
+                <label>Phone Number <span style="color:#EF4444">*</span></label>
+                <input type="tel" id="f_phone" placeholder="+213 5XX XXX XXX"/>
+                <div class="field-error" id="err_phone">Phone number is required.</div>
+            </div>
+        `;
         }
 
         function buildP2(r) {
-            document.getElementById("p2title").textContent = r === "student" ? "Academic Info" : r === "recruiter" ? "Company Info" : r === "university" ? "Contact Person" : "Service Info";
-            const unis = BridgeDB.universities.map(u => `<option>${u.name}</option>`).join("");
-            const flds = FIELDS.map(f => `<option>${f}</option>`).join("");
-            if (r === "student") document.getElementById("p2fields").innerHTML = `
-    <div class="form-group"><label>University</label><select><option value="">Select…</option>${unis}</select></div>
-    <div class="form-group"><label>Field of Study</label><select><option value="">Select…</option>${flds}</select></div>
-    <div class="form-group"><label>Degree Type</label><select><option>Bachelor</option><option>Master</option><option>PhD</option><option>Engineer</option></select></div>
-    <div class="form-group"><label>Academic Year</label><select><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option><option>5th Year</option><option>Graduate 2025</option></select></div>`;
-            else if (r === "recruiter") document.getElementById("p2fields").innerHTML = `
-    <div class="form-group"><label>Company Name</label><input type="text" placeholder="Your company name"/></div>
-    <div class="form-group"><label>Industry</label><input type="text" placeholder="e.g. Tech, Marketing…"/></div>
-    <div class="form-group"><label>Company Size</label><select><option>1-10</option><option>11-50</option><option>51-200</option><option>200+</option></select></div>
-    <div class="form-group"><label>City / Wilaya</label><input type="text" placeholder="e.g. Annaba, Alger…"/></div>`;
-            else if (r === "university") document.getElementById("p2fields").innerHTML = `
-    <div class="form-group"><label>Contact Person Name</label><input type="text"/></div>
-    <div class="form-group"><label>Title / Role</label><input type="text" placeholder="e.g. Vice-Rector"/></div>
-    <div class="form-group"><label>Department</label><input type="text"/></div>
-    <div class="form-group"><label>Phone</label><input type="tel"/></div>`;
-            else document.getElementById("p2fields").innerHTML = `
-    <div class="form-group"><label>Service Category</label><input type="text" placeholder="e.g. Web Development, Graphic Design…"/></div>
-    <div class="form-group"><label>Hourly Rate (DZD)</label><input type="number" placeholder="e.g. 2000"/></div>
-    <div class="form-group"><label>Short Bio</label><textarea placeholder="Describe your services…"></textarea></div>`;
+            if (r === "recruiter") {
+                document.getElementById("p2title").textContent = "Join a Team or Start Fresh";
+                document.getElementById("p2fields").innerHTML = `
+                <p style="font-size:14px;color:#64748B;margin-bottom:18px;line-height:1.6">
+                    Do you have an invite code from a company already on Bridge Up, or are you setting up a new company account?
+                </p>
+
+                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:12px;color:#64748B">
+                    💡 <strong>Demo invite codes you can try:</strong>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+                        ${Object.entries(DEMO_COMPANIES).map(([code, co]) =>
+                    `<span onclick="fillCode('${code}')"
+                                style="background:#E2E8F0;border-radius:6px;padding:3px 10px;cursor:pointer;font-family:monospace;font-size:12px;font-weight:700;color:var(--blue);transition:background .15s"
+                                onmouseover="this.style.background='#FFFBEB'"
+                                onmouseout="this.style.background='#E2E8F0'"
+                                title="${co.name}">${code}</span>`
+                ).join("")}
+                    </div>
+                </div>
+
+                <div class="invite-option" id="opt_new" onclick="selectInvite('new')">
+                    <div style="display:flex;align-items:center;gap:12px">
+                        <span style="font-size:28px">🏢</span>
+                        <div>
+                            <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">Create a new company account</div>
+                            <div style="font-size:12px;color:#64748B;margin-top:2px">I'm the first from my company to join Bridge Up</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="invite-option" id="opt_invite" onclick="selectInvite('invite')">
+                    <div style="display:flex;align-items:center;gap:12px">
+                        <span style="font-size:28px">🔗</span>
+                        <div>
+                            <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">Join via invite code</div>
+                            <div style="font-size:12px;color:#64748B;margin-top:2px">My company is already on Bridge Up</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="invite_input_wrap" style="display:none;margin-top:4px">
+                    <div class="form-group">
+                        <label>Invite Code <span style="color:#EF4444">*</span></label>
+                        <div style="display:flex;gap:8px">
+                            <input type="text" id="f_invite_link"
+                                placeholder="e.g. BRIDGEUP"
+                                style="text-transform:uppercase;letter-spacing:1px;font-family:monospace;font-size:15px;font-weight:700"
+                                oninput="this.value=this.value.toUpperCase();previewCompany(this.value)"/>
+                            <button class="btn btn-outline btn-sm" type="button" onclick="previewCompany(document.getElementById('f_invite_link').value)">Check</button>
+                        </div>
+                        <div class="field-error" id="err_invite">Please enter a valid invite code.</div>
+                    </div>
+                    <div id="company_preview" style="display:none"></div>
+                </div>
+
+                <div class="field-error" id="err_invite_choice" style="margin-top:8px">Please select an option above.</div>
+            `;
+            } else if (r === "student") {
+                document.getElementById("p2title").textContent = "Academic Info";
+                const flds = FIELDS.map(f => `<option>${f}</option>`).join("");
+                document.getElementById("p2fields").innerHTML = `
+                <div class="form-group">
+                    <label>University <span style="color:#EF4444">*</span></label>
+                    <div class="uni-combobox" id="studentUniversityCombobox">
+                        <input
+                            type="text"
+                            id="f_university"
+                            class="uni-combobox-input"
+                            placeholder="Search by university, city, or abbreviation"
+                            autocomplete="off"
+                            role="combobox"
+                            aria-autocomplete="list"
+                            aria-expanded="false"
+                            aria-controls="f_university_list"
+                        />
+                        <button type="button" class="uni-combobox-toggle" aria-label="Toggle universities list" onclick="toggleUniversityMenu()">▾</button>
+                        <input type="hidden" id="f_university_id" />
+                        <input type="hidden" id="f_university_name" />
+                        <div class="uni-combobox-menu" id="f_university_list" role="listbox"></div>
+                    </div>
+                    <div class="uni-selected-hint" id="f_university_hint"></div>
+                    <div class="field-error" id="err_university">Please select your university.</div>
+                </div>
+                <div class="form-group">
+                    <label>Field of Study <span style="color:#EF4444">*</span></label>
+                    <select id="f_field"><option value="">Select…</option>${flds}</select>
+                    <div class="field-error" id="err_field">Please select your field of study.</div>
+                </div>
+                <div class="form-group">
+                    <label>Degree Type <span style="color:#EF4444">*</span></label>
+                    <select id="f_degree">
+                        <option value="">Select…</option>
+                        <option>Bachelor</option><option>Master</option>
+                        <option>PhD</option><option>Engineer</option>
+                    </select>
+                    <div class="field-error" id="err_degree">Please select your degree type.</div>
+                </div>
+                <div class="form-group">
+                    <label>Academic Year <span style="color:#EF4444">*</span></label>
+                    <select id="f_year">
+                        <option value="">Select…</option>
+                        <option>1st Year</option><option>2nd Year</option><option>3rd Year</option>
+                        <option>4th Year</option><option>5th Year</option><option>Graduate 2025</option>
+                    </select>
+                    <div class="field-error" id="err_year">Please select your academic year.</div>
+                </div>
+            `;
+                initUniversityCombobox("student");
+            } else if (r === "university") {
+                document.getElementById("p2title").textContent = "Contact Person";
+                document.getElementById("p2fields").innerHTML = `
+                <div class="form-group">
+                    <label>Contact Person Name <span style="color:#EF4444">*</span></label>
+                    <input type="text" id="f_contact_name" placeholder="e.g. Dr. Ahmed Benkhelif"/>
+                    <div class="field-error" id="err_contact_name">Contact person name is required.</div>
+                </div>
+                <div class="form-group">
+                    <label>Title / Role <span style="color:#EF4444">*</span></label>
+                    <input type="text" id="f_contact_title" placeholder="e.g. Vice-Rector of External Relations"/>
+                    <div class="field-error" id="err_contact_title">Title is required.</div>
+                </div>
+                <div class="form-group">
+                    <label>Department <span style="color:#EF4444">*</span></label>
+                    <input type="text" id="f_contact_dept" placeholder="e.g. Academic Affairs"/>
+                    <div class="field-error" id="err_contact_dept">Department is required.</div>
+                </div>
+            `;
+            } else {
+                document.getElementById("p2title").textContent = "Service Info";
+                document.getElementById("p2fields").innerHTML = `
+                <div class="form-group">
+                    <label>Service Category <span style="color:#EF4444">*</span></label>
+                    <input type="text" id="f_service_cat" placeholder="e.g. Web Development, Graphic Design…"/>
+                    <div class="field-error" id="err_service_cat">Service category is required.</div>
+                </div>
+                <div class="form-group">
+                    <label>Hourly Rate (DZD) <span style="color:#EF4444">*</span></label>
+                    <input type="number" id="f_hourly_rate" placeholder="e.g. 2000" min="0"/>
+                    <div class="field-error" id="err_hourly_rate">Please enter your hourly rate.</div>
+                </div>
+                <div class="form-group">
+                    <label>Short Bio <span style="color:#EF4444">*</span></label>
+                    <textarea id="f_bio" placeholder="Describe your services and experience…" rows="3"></textarea>
+                    <div class="field-error" id="err_bio">Please write a short bio.</div>
+                </div>
+            `;
+            }
+        }
+
+        function buildP3(r) {
+            verificationUploaded = false;
+            verificationUnlocked = false;
+
+            const chkT = document.getElementById("chk_terms");
+            const chkP = document.getElementById("chk_privacy");
+            if (chkT) chkT.checked = false;
+            if (chkP) chkP.checked = false;
+            const errConsent = document.getElementById("err_consent");
+            if (errConsent) errConsent.style.display = "none";
+
+            const btn = document.getElementById("p3btn");
+            btn.style.opacity = "";
+            btn.style.cursor = "";
+            btn.disabled = false;
+
+            if (r === "student" || r === "freelancer") {
+                document.getElementById("p3title").textContent = "Select Interests";
+                btn.textContent = "🚀 Create My Account";
+                btn.onclick = finish;
+
+                document.getElementById("p3fields").innerHTML = `
+                <div class="int-grid" id="intGrid">
+                    ${INTS.map(i => `
+                        <div class="int-chip" id="ic_${i.replace(/ /g, '_')}" onclick="toggleInt('${i}')">
+                            ${INT_ICONS[i] || "⭐"}<br>${i}
+                        </div>`).join("")}
+                </div>
+                <div style="margin-top:20px">
+                    <label style="font-size:13px;font-weight:600;font-family:Montserrat,sans-serif">
+                        Skills <span style="color:#94A3B8;font-weight:400">(press Enter to add)</span>
+                    </label>
+                    <div style="display:flex;gap:8px;margin-top:6px">
+                        <input type="text" id="skillInput"
+                            placeholder="e.g. Python, Figma…"
+                            style="flex:1;padding:9px 14px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:14px;outline:none"/>
+                        <button class="btn btn-outline btn-sm" type="button" onclick="addSkill()">Add</button>
+                    </div>
+                    <div id="skillTags" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"></div>
+                </div>
+            `;
+                setTimeout(() => {
+                    document.getElementById("skillInput")?.addEventListener("keydown", e => {
+                        if (e.key === "Enter") { e.preventDefault(); addSkill(); }
+                    });
+                }, 0);
+
+            } else if (r === "university") {
+                document.getElementById("p3title").textContent = "Verification Document";
+                btn.textContent = "🚀 Create My Account";
+                btn.disabled = true;
+                btn.style.opacity = "0.5";
+                btn.style.cursor = "not-allowed";
+                btn.onclick = function () { if (verificationUnlocked) finish(); };
+
+                document.getElementById("p3fields").innerHTML = `
+                <p style="font-size:14px;color:#64748B;margin-bottom:20px;line-height:1.6">
+                    Upload an official document to verify your institution (ministry letter, official stamp, or faculty card).
+                </p>
+                <div class="upload-zone" id="uploadZone" onclick="document.getElementById('verDoc').click()">
+                    <div style="font-size:48px;margin-bottom:12px">📄</div>
+                    <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:15px;margin-bottom:6px">Click to upload document</div>
+                    <div style="font-size:13px;color:#94A3B8">PDF, PNG or JPG · Max 10 MB</div>
+                    <input type="file" id="verDoc" accept=".pdf,.png,.jpg,.jpeg" style="display:none" onchange="handleDocUpload(this)"/>
+                </div>
+                <div id="pendingWrap" style="display:none;text-align:center;padding:24px 0">
+                    <div class="pending-ring"><div class="pending-ring-inner"></div></div>
+                    <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:15px;color:var(--blue);margin-bottom:8px">Verifying document…</div>
+                    <div style="font-size:13px;color:#64748B">Checking authenticity, please wait.</div>
+                    <div id="pendingTimer" style="font-size:28px;font-weight:800;font-family:Montserrat,sans-serif;color:var(--yellow);margin-top:12px">10</div>
+                </div>
+                <div id="verifiedBanner" style="display:none;background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:10px;padding:16px 20px;text-align:center;margin-top:8px">
+                    <div style="font-size:36px;margin-bottom:8px">✅</div>
+                    <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:15px;color:#166534">Document received!</div>
+                    <div style="font-size:13px;color:#166534;margin-top:4px">Your account will be reviewed within 48 hours. You can continue now.</div>
+                </div>
+            `;
+
+            } else if (r === "recruiter") {
+                if (recruiterUsesInvite && matchedCompany) {
+                    document.getElementById("p3title").textContent = "Confirm & Consent";
+                    btn.textContent = "🚀 Create My Account";
+                    btn.onclick = finish;
+
+                    document.getElementById("p3fields").innerHTML = `
+                    <div style="background:linear-gradient(135deg, #FFFBEB, #FFF7ED);border:2px solid var(--yellow);border-radius:12px;padding:18px 20px;margin-bottom:8px">
+                        <div style="display:flex;align-items:center;gap:14px">
+                            <div class="company-logo-placeholder">${matchedCompany.emoji}</div>
+                            <div>
+                                <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:16px;color:var(--blue)">${matchedCompany.name}</div>
+                                <div style="font-size:13px;color:#64748B;margin-top:2px">${matchedCompany.industry} · ${matchedCompany.city} · ${matchedCompany.size} employees</div>
+                                <div style="font-size:12px;color:#94A3B8;margin-top:6px">${matchedCompany.description}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="font-size:14px;color:#64748B;line-height:1.6;margin-bottom:4px">
+                        You're joining this company as a team member. Review the legal terms below to complete your account.
+                    </p>
+                `;
+                } else {
+                    document.getElementById("p3title").textContent = "Company Info";
+                    btn.textContent = "🚀 Create My Account";
+                    btn.onclick = finish;
+
+                    document.getElementById("p3fields").innerHTML = `
+                    <div class="form-group">
+                        <label>Company Name <span style="color:#EF4444">*</span></label>
+                        <input type="text" id="f_company" placeholder="Your company name"/>
+                        <div class="field-error" id="err_company">Company name is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Industry <span style="color:#EF4444">*</span></label>
+                        <input type="text" id="f_industry" placeholder="e.g. Tech, Marketing…"/>
+                        <div class="field-error" id="err_industry">Industry is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Company Size <span style="color:#EF4444">*</span></label>
+                        <select id="f_size">
+                            <option value="">Select…</option>
+                            <option>1-10</option><option>11-50</option>
+                            <option>51-200</option><option>200+</option>
+                        </select>
+                        <div class="field-error" id="err_size">Please select company size.</div>
+                    </div>
+                    <div class="form-group">
+                        <label>City / Wilaya <span style="color:#EF4444">*</span></label>
+                        <input type="text" id="f_city" placeholder="e.g. Annaba, Alger…"/>
+                        <div class="field-error" id="err_city">City is required.</div>
+                    </div>
+                `;
+                }
+            }
+        }
+
+        function selectInvite(choice) {
+            recruiterJoinChoice = choice;
+            recruiterUsesInvite = choice === "invite";
+            document.getElementById("opt_new").classList.toggle("selected", choice === "new");
+            document.getElementById("opt_invite").classList.toggle("selected", choice === "invite");
+            document.getElementById("invite_input_wrap").style.display = choice === "invite" ? "block" : "none";
+            clearErr("err_invite_choice");
+            clearErr("err_invite");
+            if (choice === "new") {
+                matchedCompany = null;
+                const preview = document.getElementById("company_preview");
+                if (preview) {
+                    preview.style.display = "none";
+                    preview.innerHTML = "";
+                }
+            }
+        }
+
+        function fillCode(code) {
+            selectInvite("invite");
+            document.getElementById("f_invite_link").value = code;
+            previewCompany(code);
+        }
+
+        function previewCompany(code) {
+            const co = DEMO_COMPANIES[code.trim().toUpperCase()];
+            const wrap = document.getElementById("company_preview");
+            const errEl = document.getElementById("err_invite");
+            if (!code.trim()) {
+                wrap.style.display = "none";
+                wrap.innerHTML = "";
+                matchedCompany = null;
+                return;
+            }
+            if (co) {
+                matchedCompany = co;
+                errEl.style.display = "none";
+                document.getElementById("f_invite_link").classList.remove("invalid");
+                wrap.style.display = "block";
+                wrap.innerHTML = `
+                <div class="company-preview">
+                    <div class="company-logo-placeholder">${co.emoji}</div>
+                    <div>
+                        <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:15px;color:var(--blue)">${co.name}</div>
+                        <div style="font-size:13px;color:#64748B;margin-top:2px">${co.industry} · ${co.city} · ${co.size} employees</div>
+                        <div style="font-size:12px;color:#94A3B8;margin-top:4px">${co.description}</div>
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:10px;font-size:12px;color:var(--orange);font-weight:600">
+                    ✓ Valid code — you'll join this company as a team member
+                </div>
+            `;
+            } else {
+                matchedCompany = null;
+                wrap.style.display = "none";
+                wrap.innerHTML = "";
+            }
+        }
+
+        function handleDocUpload(input) {
+            if (!input.files.length) return;
+            const file = input.files[0];
+            verificationUploaded = true;
+
+            const zone = document.getElementById("uploadZone");
+            zone.classList.add("has-file");
+            zone.innerHTML = `
+            <div style="font-size:48px;margin-bottom:12px">📎</div>
+            <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px;color:var(--blue)">${file.name}</div>
+            <div style="font-size:12px;color:#64748B;margin-top:4px">Uploaded — processing…</div>
+        `;
+
+            document.getElementById("pendingWrap").style.display = "block";
+
+            let count = 10;
+            const timerEl = document.getElementById("pendingTimer");
+            timerEl.textContent = count;
+
+            const interval = setInterval(() => {
+                count--;
+                timerEl.textContent = count;
+                if (count <= 0) {
+                    clearInterval(interval);
+                    document.getElementById("pendingWrap").style.display = "none";
+                    document.getElementById("verifiedBanner").style.display = "block";
+                    verificationUnlocked = true;
+                    const btn = document.getElementById("p3btn");
+                    btn.disabled = false;
+                    btn.style.opacity = "";
+                    btn.style.cursor = "";
+                    btn.onclick = finish;
+                }
+            }, 1000);
         }
 
         function toggleInt(n) {
             const c = document.getElementById("ic_" + n.replace(/ /g, "_"));
-            if (selInts.includes(n)) { selInts = selInts.filter(x => x !== n); c.classList.remove("selected"); }
-            else if (selInts.length < 5) { selInts.push(n); c.classList.add("selected"); }
-            else showToast("Max 5 interests.", "error");
+            if (selInts.includes(n)) {
+                selInts = selInts.filter(x => x !== n);
+                c.classList.remove("selected");
+            } else if (selInts.length < 5) {
+                selInts.push(n);
+                c.classList.add("selected");
+            } else {
+                showToast("Maximum 5 interests.", "error");
+            }
         }
 
         function addSkill() {
-            const inp = document.getElementById("skillInput"), v = inp.value.trim();
+            const inp = document.getElementById("skillInput");
+            const v = inp.value.trim();
             if (!v || selSkills.includes(v) || selSkills.length >= 8) { inp.value = ""; return; }
-            selSkills.push(v); inp.value = "";
-            document.getElementById("skillTags").innerHTML = selSkills.map((s, i) => `<span class="tag tag-active" style="cursor:pointer" onclick="selSkills.splice(${i},1);document.getElementById('skillTags').innerHTML=selSkills.map((x,j)=>'<span class=\\'tag tag-active\\' onclick=\\'selSkills.splice('+j+',1);\\'> × '+x+'</span>').join('')">× ${s}</span>`).join("");
+            selSkills.push(v);
+            inp.value = "";
+            renderSkillTags();
         }
 
-        function goStep(n) {
-            document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
-            document.getElementById("p" + n).classList.add("active");
-            [1, 2, 3, 4].forEach(i => { const el = document.getElementById("si" + i); if (!el) return; el.classList.remove("active", "done"); if (i < n) el.classList.add("done"); else if (i === n) el.classList.add("active"); });
+        function renderSkillTags() {
+            document.getElementById("skillTags").innerHTML = selSkills.map((s, i) =>
+                `<span class="tag tag-active" style="cursor:pointer" onclick="removeSkill(${i})">× ${s}</span>`
+            ).join("");
+        }
+
+        function removeSkill(i) {
+            selSkills.splice(i, 1);
+            renderSkillTags();
+        }
+
+        function val(id) { return (document.getElementById(id)?.value || "").trim(); }
+
+        function showErr(id, msg) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.textContent = msg || el.textContent;
+            el.style.display = "block";
+            const input = el.previousElementSibling?.tagName === "DIV"
+                ? el.previousElementSibling.querySelector("input,select,textarea")
+                : el.previousElementSibling;
+            if (input) input.classList.add("invalid");
+        }
+
+        function clearErr(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.style.display = "none";
+            const input = el.previousElementSibling?.tagName === "DIV"
+                ? el.previousElementSibling.querySelector("input,select,textarea")
+                : el.previousElementSibling;
+            if (input) input.classList.remove("invalid");
+        }
+
+        function validateConsent() {
+            const chkT = document.getElementById("chk_terms");
+            const chkP = document.getElementById("chk_privacy");
+            const errEl = document.getElementById("err_consent");
+            if (!chkT.checked || !chkP.checked) {
+                errEl.style.display = "block";
+                document.getElementById("legalConsent").scrollIntoView({ behavior: "smooth", block: "nearest" });
+                return false;
+            }
+            errEl.style.display = "none";
+            return true;
+        }
+
+        function validateStep1() {
+            let ok = true;
+
+            if (role === "university") {
+                const institutionId = val("f_institution_id");
+                const institutionName = val("f_institution_name_value");
+
+                if (!institutionId || !institutionName) {
+                    showErr("err_name", "Please select your university.");
+                    ok = false;
+                } else {
+                    clearErr("err_name");
+                }
+            } else {
+                const name = val("f_name");
+                if (!name) {
+                    showErr("err_name");
+                    ok = false;
+                } else {
+                    clearErr("err_name");
+                }
+            }
+
+            const email = val("f_email");
+            const pass = val("f_pass");
+            const phone = val("f_phone");
+
+            if (!email || !email.includes("@")) { showErr("err_email"); ok = false; } else clearErr("err_email");
+            if (pass.length < 8) { showErr("err_pass"); ok = false; } else clearErr("err_pass");
+            if (!phone) { showErr("err_phone"); ok = false; } else clearErr("err_phone");
+            return ok;
+        }
+
+        function validateStep2() {
+            let ok = true;
+
+            if (role === "recruiter") {
+                if (!recruiterJoinChoice) {
+                    showErr("err_invite_choice", "Please select an option above.");
+                    ok = false;
+                } else {
+                    clearErr("err_invite_choice");
+                }
+                if (recruiterJoinChoice === "invite") {
+                    const code = val("f_invite_link");
+                    if (!code) {
+                        showErr("err_invite", "Please enter an invite code.");
+                        ok = false;
+                    } else if (!DEMO_COMPANIES[code.toUpperCase()]) {
+                        showErr("err_invite", "Invalid invite code. Try one of the demo codes above.");
+                        document.getElementById("f_invite_link").classList.add("invalid");
+                        ok = false;
+                    } else {
+                        clearErr("err_invite");
+                        matchedCompany = DEMO_COMPANIES[code.toUpperCase()];
+                    }
+                }
+            } else if (role === "student") {
+                const universityId = val("f_university_id");
+                const universityName = val("f_university_name");
+                if (!universityId || !universityName) {
+                    showErr("err_university", "Please select your university.");
+                    ok = false;
+                } else {
+                    clearErr("err_university");
+                }
+
+                const checks = [
+                    ["f_field", "err_field", "Please select your field of study."],
+                    ["f_degree", "err_degree", "Please select your degree type."],
+                    ["f_year", "err_year", "Please select your academic year."],
+                ];
+                checks.forEach(([fid, eid, msg]) => {
+                    if (!val(fid)) { showErr(eid, msg); ok = false; } else clearErr(eid);
+                });
+            } else if (role === "university") {
+                const checks = [
+                    ["f_contact_name", "err_contact_name", "Contact person name is required."],
+                    ["f_contact_title", "err_contact_title", "Title is required."],
+                    ["f_contact_dept", "err_contact_dept", "Department is required."],
+                ];
+                checks.forEach(([fid, eid, msg]) => {
+                    if (!val(fid)) { showErr(eid, msg); ok = false; } else clearErr(eid);
+                });
+            } else if (role === "freelancer") {
+                const checks = [
+                    ["f_service_cat", "err_service_cat", "Service category is required."],
+                    ["f_hourly_rate", "err_hourly_rate", "Please enter your hourly rate."],
+                    ["f_bio", "err_bio", "Please write a short bio."],
+                ];
+                checks.forEach(([fid, eid, msg]) => {
+                    if (!val(fid)) { showErr(eid, msg); ok = false; } else clearErr(eid);
+                });
+            }
+            return ok;
+        }
+
+        function validateStep3() {
+            if (role === "recruiter" && !recruiterUsesInvite) {
+                let ok = true;
+                const checks = [
+                    ["f_company", "err_company", "Company name is required."],
+                    ["f_industry", "err_industry", "Industry is required."],
+                    ["f_size", "err_size", "Please select company size."],
+                    ["f_city", "err_city", "City is required."],
+                ];
+                checks.forEach(([fid, eid, msg]) => {
+                    if (!val(fid)) { showErr(eid, msg); ok = false; } else clearErr(eid);
+                });
+                if (!ok) return false;
+            }
+
+            if (role === "university") {
+                if (!verificationUnlocked) {
+                    showToast("Please upload your verification document first.", "error");
+                    return false;
+                }
+            }
+
+            if (!validateConsent()) return false;
+            return true;
+        }
+
+        function tryGoStep(target) {
+            const current = target - 1;
+
+            if (current === 1 && !validateStep1()) return;
+            if (current === 2 && !validateStep2()) return;
+            if (current === 3 && !validateStep3()) return;
+
+            if (current === 2 && role === "recruiter" && recruiterJoinChoice === "invite") {
+                if (!validateStep2()) return;
+                recruiterUsesInvite = true;
+                buildP3("recruiter");
+                goStep(3);
+                return;
+            }
+
+            goStep(target);
         }
 
         function finish() {
-            const name = document.getElementById("f_name")?.value || "New User";
-            const email = document.getElementById("f_email")?.value || `user${Date.now()}@mail.dz`;
-            const id = role === "student" ? `STU${Date.now()}` : role === "recruiter" ? `REC${Date.now()}` : `UNI${Date.now()}`;
-            Auth.save({ role, id, email, name });
+            if (!validateStep3()) return;
+
+            const name = role === "university"
+                ? (val("f_institution_name_value") || "New University")
+                : (val("f_name") || "New User");
+
+            const email = val("f_email") || `user${Date.now()}@mail.dz`;
+            const phone = val("f_phone") || null;
+
+            const ts = Date.now();
+            const id = role === "student" ? `STU_${ts}`
+                : role === "recruiter" ? `REC_${ts}`
+                    : role === "university" ? `UNI_${ts}`
+                        : `FRL_${ts}`;
+
+            const password = val("f_pass") || "";
+
+            let profile = {
+                id, role, name, email, phone,
+                interests: selInts,
+                skills: selSkills,
+                xp: 0, completedJobs: 0, certificates: 0, applications: 0,
+                reviews: [], portfolio: [],
+                createdAt: new Date().toISOString(),
+                agreedToTerms: true,
+                agreedToPrivacy: true,
+            };
+
+            if (role === "student") {
+                const selectedUniversity = getUniversityById(val("f_university_id")) || getUniversityByName(val("f_university_name"));
+                const stableUniversityName = selectedUniversity ? selectedUniversity.name : val("f_university_name");
+
+                Object.assign(profile, {
+                    university: stableUniversityName,
+                    universityId: selectedUniversity ? selectedUniversity.id : null,
+                    universityCity: selectedUniversity ? selectedUniversity.city : "",
+                    universityAbbreviation: selectedUniversity ? selectedUniversity.abbreviation : "",
+                    field: val("f_field"),
+                    degree: val("f_degree"),
+                    year: val("f_year"),
+                    bio: `${val("f_degree") || "Bachelor"} student in ${val("f_field") || "my field"} at ${stableUniversityName || "my university"}.`,
+                    freelanceMode: false,
+                    linkedIn: null, github: null,
+                });
+
+            } else if (role === "recruiter") {
+                if (recruiterUsesInvite && matchedCompany) {
+                    Object.assign(profile, {
+                        company: matchedCompany.name,
+                        industry: matchedCompany.industry,
+                        size: matchedCompany.size,
+                        city: matchedCompany.city,
+                        description: matchedCompany.description,
+                        joinedViaInvite: true,
+                        postedJobs: [],
+                        verified: false,
+                    });
+                } else {
+                    Object.assign(profile, {
+                        company: val("f_company"),
+                        industry: val("f_industry"),
+                        size: val("f_size"),
+                        city: val("f_city"),
+                        description: `${val("f_company")} is committed to nurturing young talent.`,
+                        joinedViaInvite: false,
+                        postedJobs: [],
+                        verified: false,
+                    });
+                }
+
+            } else if (role === "university") {
+                const selectedInstitution = getUniversityById(val("f_institution_id")) || getUniversityByName(val("f_institution_name_value"));
+                const stableInstitutionName = selectedInstitution ? selectedInstitution.name : val("f_institution_name_value");
+
+                Object.assign(profile, {
+                    name: stableInstitutionName,
+                    university: stableInstitutionName,
+                    universityId: selectedInstitution ? selectedInstitution.id : null,
+                    universityCity: selectedInstitution ? selectedInstitution.city : "",
+                    universityAbbreviation: selectedInstitution ? selectedInstitution.abbreviation : "",
+                    contactPerson: {
+                        name: val("f_contact_name"),
+                        title: val("f_contact_title"),
+                        dept: val("f_contact_dept"),
+                    },
+                    verificationPending: true,
+                    city: selectedInstitution ? selectedInstitution.city : "",
+                    faculties: [],
+                    registeredStudents: 0,
+                });
+
+            } else if (role === "freelancer") {
+                Object.assign(profile, {
+                    serviceCategory: val("f_service_cat"),
+                    hourlyRate: val("f_hourly_rate"),
+                    bio: val("f_bio"),
+                    freelanceMode: true,
+                    field: val("f_service_cat"),
+                    university: "", degree: "", year: "",
+                    linkedIn: null, github: null,
+                });
+            }
+
+            Auth.save({ role: profile.role, id, email, name: profile.name });
+            ProfileStore.save(profile);
+            UserStore.register({ email, password, role: profile.role, id, name: profile.name });
+
+            if (role === "recruiter" && recruiterUsesInvite && matchedCompany) {
+                document.getElementById("p4sub").textContent =
+                    `You've joined ${matchedCompany.name} as a team member.`;
+            } else if (role === "university") {
+                document.getElementById("p4sub").textContent =
+                    "Your institution is pending verification. Explore the dashboard in the meantime.";
+            } else {
+                document.getElementById("p4sub").textContent = "";
+            }
+
             goStep(4);
         }
 
         function goToDash() {
             const s = Auth.get();
-            location.href = s.role === "student" ? "student-dashboard.html" : s.role === "recruiter" ? "recruiter-dashboard.html" : s.role === "university" ? "university-dashboard.html" : "marketplace.html";
+            if (!s) { location.href = "login.html"; return; }
+            location.href = s.role === "student" ? "student-dashboard.html"
+                : s.role === "recruiter" ? "recruiter-dashboard.html"
+                    : s.role === "university" ? "university-dashboard.html"
+                        : s.role === "freelancer" ? "marketplace.html"
+                            : "student-dashboard.html";
         }
     </script>
 </body>

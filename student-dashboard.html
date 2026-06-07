@@ -96,29 +96,70 @@
     <script src="app.js"></script>
     <script>
         let student;
+
         window.addEventListener("DOMContentLoaded", () => {
-            const s = Auth.requireAuth(["student"]); if (!s) return;
+            const s = Auth.requireAuth(["student", "freelancer"]);
+            if (!s) return;
             document.getElementById("nav").innerHTML = buildNavbar("Dashboard", "student");
-            student = BridgeDB.getStudentById(s.id) || BridgeDB.students[0];
+
+            // Resolve profile: prefer ProfileStore (real onboarding data), then BridgeDB
+            student = resolveProfile(s);
+
+            if (!student) {
+                // Truly no data — show a minimal placeholder and prompt to complete profile
+                student = {
+                    id: s.id, role: s.role, name: s.name || s.email || "User",
+                    xp: 0, level: "Starter", applications: 0, completedJobs: 0, certificates: 0,
+                    interests: [], skills: [], field: "", university: ""
+                };
+            }
+
             document.getElementById("wName").textContent = student.name;
-            document.getElementById("sApps").textContent = student.applications;
-            document.getElementById("sJobs").textContent = student.completedJobs;
-            document.getElementById("sCerts").textContent = student.certificates;
-            document.getElementById("xpBar").innerHTML = renderXPBar(student.xp);
-            document.getElementById("feedJobs").innerHTML = BridgeDB.getRecommendedJobs(student.id, 6).map(renderJobCard).join("");
+            document.getElementById("sApps").textContent = student.applications ?? 0;
+            document.getElementById("sJobs").textContent = student.completedJobs ?? 0;
+            document.getElementById("sCerts").textContent = student.certificates ?? 0;
+            document.getElementById("xpBar").innerHTML = renderXPBar(student.xp ?? 0);
+
+            // For job recommendations, use BridgeDB listings (demo content is fine here)
+            // but look up by student's field/interests if available, else show top open jobs
+            const recJobs = student.field
+                ? BridgeDB.getRecommendedJobs(student.id, 6)
+                : BridgeDB.jobs.filter(j=>j.open).slice(0, 6);
+            document.getElementById("feedJobs").innerHTML = recJobs.map(renderJobCard).join("");
+
             document.getElementById("activity").innerHTML = [
-                { i: "📨", t: "You applied to <strong>Marketing Intern</strong> at Djezzy", d: "2 hours ago" },
-                { i: "⭐", t: "New review from <strong>Cevital</strong>", d: "Yesterday" },
-                { i: "🏆", t: "Earned <span class='job-xp'>+200 XP</span> for completing an internship", d: "3 days ago" },
-                { i: "📜", t: "Certificate for <strong>HR Assistant</strong> is ready", d: "1 week ago" },
-            ].map(a => `<div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid #F1F5F9"><span style="font-size:20px">${a.i}</span><div><div style="font-size:14px">${a.t}</div><div style="font-size:12px;color:#94A3B8;margin-top:2px">${a.d}</div></div></div>`).join("");
-            const types = ["All", ...new Set(BridgeDB.jobs.map(j => j.type))];
-            document.getElementById("fRow").innerHTML = types.map(t => `<div class="filter-chip ${t === "All" ? "active" : ""}" onclick="applyFilter('${t}',this)">${t}</div>`).join("");
-            document.getElementById("jobsGrid").innerHTML = BridgeDB.getRecommendedJobs(student.id, 40).map(renderJobCard).join("");
+                { i:"📨", t:"Applied to <strong>Marketing Intern</strong> at Djezzy", d:"2 hours ago" },
+                { i:"⭐", t:"New review from <strong>Cevital</strong>", d:"Yesterday" },
+                { i:"🏆", t:"Earned <span class='job-xp'>+200 XP</span> for completing an internship", d:"3 days ago" },
+                { i:"📜", t:"Certificate for <strong>HR Assistant</strong> is ready", d:"1 week ago" },
+            ].map(a=>`<div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid #F1F5F9"><span style="font-size:20px">${a.i}</span><div><div style="font-size:14px">${a.t}</div><div style="font-size:12px;color:#94A3B8;margin-top:2px">${a.d}</div></div></div>`).join("");
+
+            const types = ["All", ...new Set(BridgeDB.jobs.map(j=>j.type))];
+            document.getElementById("fRow").innerHTML = types.map(t=>
+                `<div class="filter-chip ${t==="All"?"active":""}" onclick="applyFilter('${t}',this)">${t}</div>`
+            ).join("");
+            document.getElementById("jobsGrid").innerHTML = BridgeDB.jobs.filter(j=>j.open).slice(0,40).map(renderJobCard).join("");
         });
-        function filterJobs() { const q = document.getElementById("jSearch").value, ac = document.querySelector("#fRow .active")?.textContent; const f = ac && ac !== "All" ? { type: ac } : {}; document.getElementById("jobsGrid").innerHTML = BridgeDB.searchJobs(q, f).slice(0, 40).map(renderJobCard).join(""); }
-        function applyFilter(t, el) { document.querySelectorAll("#fRow .filter-chip").forEach(c => c.classList.remove("active")); el.classList.add("active"); document.getElementById("jobsGrid").innerHTML = BridgeDB.searchJobs("", t === "All" ? {} : { type: t }).slice(0, 40).map(renderJobCard).join(""); }
-        function showSec(n, el) { document.querySelectorAll('[id^="sec-"]').forEach(e => e.style.display = "none"); document.getElementById("sec-" + n).style.display = "block"; document.querySelectorAll(".sidebar-item").forEach(e => e.classList.remove("active")); el.classList.add("active"); }
+
+        function filterJobs() {
+            const q = document.getElementById("jSearch").value;
+            const ac = document.querySelector("#fRow .active")?.textContent;
+            const f = ac && ac !== "All" ? { type: ac } : {};
+            document.getElementById("jobsGrid").innerHTML = BridgeDB.searchJobs(q, f).slice(0,40).map(renderJobCard).join("");
+        }
+
+        function applyFilter(t, el) {
+            document.querySelectorAll("#fRow .filter-chip").forEach(c=>c.classList.remove("active"));
+            el.classList.add("active");
+            document.getElementById("jobsGrid").innerHTML = BridgeDB.searchJobs("", t==="All"?{}:{type:t}).slice(0,40).map(renderJobCard).join("");
+        }
+
+        function showSec(n, el) {
+            document.querySelectorAll('[id^="sec-"]').forEach(e=>e.style.display="none");
+            document.getElementById("sec-"+n).style.display="block";
+            document.querySelectorAll(".sidebar-item").forEach(e=>e.classList.remove("active"));
+            el.classList.add("active");
+        }
     </script>
 </body>
 

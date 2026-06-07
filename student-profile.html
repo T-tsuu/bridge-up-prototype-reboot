@@ -176,52 +176,106 @@
     <script src="app.js"></script>
     <script>
         let student;
+
         window.addEventListener("DOMContentLoaded", () => {
-            const s = Auth.requireAuth(["student"]); if (!s) return;
+            const s = Auth.requireAuth(["student", "freelancer"]);
+            if (!s) return;
             document.getElementById("nav").innerHTML = buildNavbar("My Profile", "student");
-            student = BridgeDB.getStudentById(s.id) || BridgeDB.students[0];
+
+            // Resolve from ProfileStore first (real onboarding data), then BridgeDB
+            student = resolveProfile(s);
+
+            if (!student) {
+                student = {
+                    id: s.id, role: s.role, name: s.name || s.email || "User",
+                    xp: 0, level: "Starter", applications: 0, completedJobs: 0, certificates: 0,
+                    reviews: [], portfolio: [], skills: [], interests: [],
+                    field: "", university: "", degree: "", year: "",
+                    bio: "", linkedIn: null, github: null, freelanceMode: false
+                };
+            }
+
             render();
         });
+
         function render() {
             const s = student;
-            document.getElementById("pAvatar").textContent = avatarInitials(s.name);
-            document.getElementById("pName").textContent = s.name;
-            document.getElementById("pUni").textContent = s.field + " · " + s.university;
+            document.getElementById("pAvatar").textContent = avatarInitials(s.name || "");
+            document.getElementById("pName").textContent = s.name || "–";
+
+            // Build subtitle: field · university (handle missing data gracefully)
+            const subtitle = [s.field, s.university].filter(Boolean).join(" · ") || "Profile incomplete";
+            document.getElementById("pUni").textContent = subtitle;
             document.getElementById("pBio").textContent = s.bio || "No bio yet.";
-            document.getElementById("pXP").innerHTML = renderXPBar(s.xp);
-            document.getElementById("pBadges").innerHTML = `<span class="badge badge-blue">${s.degree}</span><span class="badge badge-gray">${s.year}</span><span class="badge badge-yellow">${s.level}</span>${s.freelanceMode ? '<span class="badge badge-orange">Freelancer</span>' : ""}`;
+            document.getElementById("pXP").innerHTML = renderXPBar(s.xp ?? 0);
+
+            const lvl = BridgeDB.getLevel(s.xp ?? 0);
+            document.getElementById("pBadges").innerHTML = [
+                s.degree ? `<span class="badge badge-blue">${s.degree}</span>` : "",
+                s.year   ? `<span class="badge badge-gray">${s.year}</span>` : "",
+                `<span class="badge badge-yellow">${lvl.name}</span>`,
+                s.freelanceMode ? `<span class="badge badge-orange">Freelancer</span>` : "",
+            ].join("");
+
             const links = [];
             if (s.linkedIn) links.push(`<a href="${s.linkedIn}" target="_blank" class="slink">🔗 LinkedIn</a>`);
-            if (s.github) links.push(`<a href="${s.github}" target="_blank" class="slink">💻 GitHub</a>`);
+            if (s.github)   links.push(`<a href="${s.github}"   target="_blank" class="slink">💻 GitHub</a>`);
             document.getElementById("pLinks").innerHTML = links.join("");
-            document.getElementById("sA").textContent = s.applications;
-            document.getElementById("sJ").textContent = s.completedJobs;
-            document.getElementById("sC").textContent = s.certificates;
-            document.getElementById("sR").textContent = s.reviews.length;
-            document.getElementById("pSkills").innerHTML = s.skills.map(sk => `<span class="tag">${sk}</span>`).join("") || `<span style="color:#94A3B8;font-size:14px">No skills added yet.</span>`;
-            document.getElementById("pPortfolio").innerHTML = s.portfolio.length
-                ? s.portfolio.map(p => `<div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #F1F5F9"><div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,var(--yellow),var(--orange));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">💼</div><div><div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">${p.title}</div><div style="font-size:13px;color:#64748B">${p.duration} · ${p.year}</div></div></div>`).join("")
+
+            document.getElementById("sA").textContent = s.applications ?? 0;
+            document.getElementById("sJ").textContent = s.completedJobs ?? 0;
+            document.getElementById("sC").textContent = s.certificates ?? 0;
+            document.getElementById("sR").textContent = (s.reviews || []).length;
+
+            document.getElementById("pSkills").innerHTML = (s.skills || []).length
+                ? s.skills.map(sk=>`<span class="tag">${sk}</span>`).join("")
+                : `<span style="color:#94A3B8;font-size:14px">No skills added yet.</span>`;
+
+            document.getElementById("pPortfolio").innerHTML = (s.portfolio || []).length
+                ? s.portfolio.map(p=>`<div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #F1F5F9"><div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,var(--yellow),var(--orange));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">💼</div><div><div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">${p.title}</div><div style="font-size:13px;color:#64748B">${p.duration} · ${p.year}</div></div></div>`).join("")
                 : `<p style="color:#94A3B8;font-size:14px">No work history yet. Apply to opportunities to start building!</p>`;
-            document.getElementById("pCerts").innerHTML = s.certificates > 0
-                ? Array.from({ length: Math.min(s.certificates, 3) }, (_, i) => `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #F1F5F9"><span style="font-size:24px">🏅</span><div style="flex:1"><div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">Certificate of Completion #${i + 1}</div><div style="font-size:12px;color:#64748B">Issued by Bridge Up · 2026</div></div><a href="certificate.html"><button class="btn btn-outline btn-sm">View</button></a></div>`).join("")
+
+            const certs = s.certificates ?? 0;
+            document.getElementById("pCerts").innerHTML = certs > 0
+                ? Array.from({length:Math.min(certs,3)},(_,i)=>`<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #F1F5F9"><span style="font-size:24px">🏅</span><div style="flex:1"><div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">Certificate of Completion #${i+1}</div><div style="font-size:12px;color:#64748B">Issued by Bridge Up · 2026</div></div><a href="certificate.html"><button class="btn btn-outline btn-sm">View</button></a></div>`).join("")
                 : `<p style="color:#94A3B8;font-size:14px">Complete an internship or project to earn your first certificate.</p>`;
-            document.getElementById("pReviews").innerHTML = s.reviews.length
-                ? s.reviews.map(r => `<div class="review-card"><div class="reviewer">${r.reviewer}</div><div class="stars">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</div><p>${r.text}</p><div style="font-size:11px;color:#94A3B8;margin-top:6px">${r.date}</div></div>`).join("")
+
+            document.getElementById("pReviews").innerHTML = (s.reviews || []).length
+                ? s.reviews.map(r=>`<div class="review-card"><div class="reviewer">${r.reviewer}</div><div class="stars">${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)}</div><p>${r.text}</p><div style="font-size:11px;color:#94A3B8;margin-top:6px">${r.date}</div></div>`).join("")
                 : `<p style="color:#94A3B8;font-size:14px">No reviews yet. Complete an engagement to receive your first review.</p>`;
+
             const tog = document.getElementById("flTog");
-            tog.checked = s.freelanceMode;
-            setToggleUI(s.freelanceMode);
+            tog.checked = !!s.freelanceMode;
+            setToggleUI(!!s.freelanceMode);
         }
+
         function setToggleUI(on) {
             document.getElementById("flSlider").style.background = on ? "var(--yellow)" : "#CBD5E1";
             document.getElementById("flKnob").style.transform = on ? "translateX(22px)" : "translateX(0)";
             document.getElementById("flBanner").style.display = on ? "block" : "none";
         }
-        function toggleFL() { const on = document.getElementById("flTog").checked; student.freelanceMode = on; setToggleUI(on); showToast(on ? "Freelance mode enabled! 🎉" : "Freelance mode disabled.", on ? "success" : "info"); }
+
+        function toggleFL() {
+            const on = document.getElementById("flTog").checked;
+            student.freelanceMode = on;
+            // Persist the change
+            ProfileStore.patch({ freelanceMode: on });
+            setToggleUI(on);
+            showToast(on ? "Freelance mode enabled! 🎉" : "Freelance mode disabled.", on ? "success" : "info");
+        }
+
         function saveProfile() {
-            const b = document.getElementById("eBio").value, l = document.getElementById("eLinkedIn").value, g = document.getElementById("eGithub").value;
-            if (b) student.bio = b; if (l) student.linkedIn = l; if (g) student.github = g;
-            closeModal("eModal"); render(); showToast("Profile updated! ✅", "success");
+            const b = document.getElementById("eBio").value;
+            const l = document.getElementById("eLinkedIn").value;
+            const g = document.getElementById("eGithub").value;
+            if (b) student.bio = b;
+            if (l) student.linkedIn = l;
+            if (g) student.github = g;
+            // Persist changes to ProfileStore
+            ProfileStore.patch({ bio: student.bio, linkedIn: student.linkedIn, github: student.github });
+            closeModal("eModal");
+            render();
+            showToast("Profile updated! ✅", "success");
         }
     </script>
 </body>

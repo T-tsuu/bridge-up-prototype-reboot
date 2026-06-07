@@ -7,180 +7,198 @@
     <title>Login — Bridge Up</title>
     <link rel="stylesheet" href="css/style.css" />
     <style>
-        .login-wrap {
-            min-height: 100vh;
-            display: flex;
-        }
-
+        .login-wrap { min-height:100vh; display:flex; }
         .login-left {
-            flex: 1;
-            background: var(--blue);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 48px 40px;
-            text-align: center;
+            flex:1; background:var(--blue);
+            display:flex; flex-direction:column; align-items:center;
+            justify-content:center; padding:48px 40px; text-align:center;
         }
-
         .login-right {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 32px;
+            flex:1; display:flex; align-items:center;
+            justify-content:center; padding:40px 32px;
         }
-
         .login-box {
-            background: var(--card);
-            border-radius: 14px;
-            box-shadow: var(--shadow);
-            padding: 40px 36px;
-            width: 100%;
-            max-width: 440px;
+            background:var(--card); border-radius:14px; box-shadow:var(--shadow);
+            padding:40px 36px; width:100%; max-width:440px;
         }
-
         .demo-pill {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #F8FAFC;
-            border: 1.5px solid #E2E8F0;
-            border-radius: 8px;
-            padding: 10px 14px;
-            cursor: pointer;
-            transition: border-color .2s;
-            margin-bottom: 8px;
+            display:flex; align-items:center; gap:10px;
+            background:#F8FAFC; border:1.5px solid #E2E8F0;
+            border-radius:8px; padding:10px 14px; cursor:pointer;
+            transition:border-color .2s; margin-bottom:8px;
         }
-
-        .demo-pill:hover {
-            border-color: var(--yellow);
-        }
-
+        .demo-pill:hover { border-color:var(--yellow); }
         .use-btn {
-            margin-left: auto;
-            background: var(--yellow);
-            color: var(--blue);
-            border: none;
-            border-radius: 6px;
-            padding: 5px 12px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: Montserrat, sans-serif;
+            margin-left:auto; background:var(--yellow); color:var(--blue);
+            border:none; border-radius:6px; padding:5px 12px;
+            font-size:12px; font-weight:700; cursor:pointer;
+            font-family:Montserrat,sans-serif;
         }
-
-        @media(max-width:768px) {
-            .login-left {
-                display: none;
-            }
-        }
+        @media(max-width:768px) { .login-left { display:none; } }
     </style>
 </head>
 
 <body>
-    <div id="auth-topbar" style="position: absolute; width: 100%">
-        <div
-            style="display:flex;align-items:center;justify-content:space-between;padding:12px 24px;background-color:var(--blue);border-bottom:1px solid rgba(255,255,255,0.08);">
+    <div id="auth-topbar" style="position:absolute;width:100%">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 24px;background-color:var(--blue);border-bottom:1px solid rgba(255,255,255,0.08);">
             <a href="index.html"
                 style="display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--card);font-family:Montserrat,sans-serif;font-weight:700;font-size:14px;opacity:0.85;transition:opacity .2s;"
                 onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'">
                 ← Bridge Up
             </a>
-            
         </div>
     </div>
+
     <div class="login-wrap">
         <div class="login-left">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none"
-                style="height:52px;margin-bottom:32px">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none" style="height:52px;margin-bottom:32px">
                 <defs>
                     <linearGradient id="gL" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#FACC15" />
-                        <stop offset="100%" stop-color="#F97316" />
+                        <stop offset="0%" stop-color="#FACC15"/>
+                        <stop offset="100%" stop-color="#F97316"/>
                     </linearGradient>
                 </defs>
-                <path d="M10 55 Q22 20 38 55" stroke="url(#gL)" stroke-width="5" fill="none" stroke-linecap="round" />
-                <path d="M28 55 Q44 10 62 55" stroke="url(#gL)" stroke-width="5" fill="none" stroke-linecap="round" />
-                <path d="M50 55 Q70 5 90 55" stroke="url(#gL)" stroke-width="5.5" fill="none" stroke-linecap="round" />
-                <text x="10" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22"
-                    fill="#F1F5F9">Bridge</text><text x="82" y="75" font-family="Montserrat,sans-serif"
-                    font-weight="700" font-size="22" fill="url(#gL)">Up</text>
+                <path d="M10 55 Q22 20 38 55" stroke="url(#gL)" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <path d="M28 55 Q44 10 62 55" stroke="url(#gL)" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <path d="M50 55 Q70 5 90 55" stroke="url(#gL)" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+                <text x="10" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="#F1F5F9">Bridge</text>
+                <text x="82" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="url(#gL)">Up</text>
             </svg>
             <h2 style="color:#fff;margin-bottom:12px">Welcome back.</h2>
-            <p style="color:var(--muted);font-size:16px;line-height:1.6;max-width:320px">Your bridge to Algeria's
-                professional world.</p>
+            <p style="color:var(--muted);font-size:16px;line-height:1.6;max-width:320px">
+                Your bridge to Algeria's professional world.
+            </p>
             <div style="margin-top:40px;display:flex;flex-direction:column;gap:16px;width:100%;max-width:300px">
-                <div style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px"><span
-                        style="color:var(--yellow);font-size:20px">✅</span> Personalized job recommendations</div>
-                <div style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px"><span
-                        style="color:var(--yellow);font-size:20px">🏆</span> XP points & certificates</div>
-                <div style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px"><span
-                        style="color:var(--yellow);font-size:20px">📝</span> Digital contracts & security</div>
-                <div style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px"><span
-                        style="color:var(--yellow);font-size:20px">💬</span> In-app chat with recruiters</div>
+                <div style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px">
+                    <span style="color:var(--yellow);font-size:20px">✅</span> Personalized job recommendations
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px">
+                    <span style="color:var(--yellow);font-size:20px">🏆</span> XP points & certificates
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px">
+                    <span style="color:var(--yellow);font-size:20px">📝</span> Digital contracts & security
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px">
+                    <span style="color:var(--yellow);font-size:20px">💬</span> In-app chat with recruiters
+                </div>
             </div>
         </div>
+
         <div class="login-right">
             <div class="login-box">
                 <h2 style="margin-bottom:6px">Sign In</h2>
-                <p style="color:#64748B;margin-bottom:28px;font-size:15px">No account? <a href="register.html"
-                        style="color:var(--orange);font-weight:600">Get Started</a></p>
+                <p style="color:#64748B;margin-bottom:28px;font-size:15px">
+                    No account? <a href="register.html" style="color:var(--orange);font-weight:600">Get Started</a>
+                </p>
                 <form id="loginForm">
-                    <div class="form-group"><label>Email</label><input type="email" id="loginEmail"
-                            placeholder="you@example.dz" required /></div>
-                    <div class="form-group"><label>Password</label><input type="password" id="loginPassword"
-                            placeholder="••••••••" required /><span class="form-error" id="loginError">Invalid email or
-                            password.</span></div>
-                    <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Sign
-                        In</button>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" placeholder="you@example.dz" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required />
+                        <span class="form-error" id="loginError">Invalid email or password.</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary"
+                        style="width:100%;justify-content:center">Sign In</button>
                 </form>
+
                 <div style="display:flex;align-items:center;gap:12px;margin:24px 0">
-                    <hr style="flex:1;border:none;border-top:1px solid #E2E8F0" /><span
-                        style="font-size:13px;color:#94A3B8;white-space:nowrap">Try a demo account</span>
-                    <hr style="flex:1;border:none;border-top:1px solid #E2E8F0" />
+                    <hr style="flex:1;border:none;border-top:1px solid #E2E8F0"/>
+                    <span style="font-size:13px;color:#94A3B8;white-space:nowrap">Try a demo account</span>
+                    <hr style="flex:1;border:none;border-top:1px solid #E2E8F0"/>
                 </div>
-                <div class="demo-pill" onclick="fillDemo('student@demo.dz','demo1234')"><span
-                        style="font-size:22px">👩‍🎓</span>
+
+                <div class="demo-pill" onclick="fillDemo('student@demo.dz','demo1234')">
+                    <span style="font-size:22px">👩‍🎓</span>
                     <div>
                         <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">Student Demo</div>
                         <div style="font-size:12px;color:#64748B">student@demo.dz · demo1234</div>
-                    </div><button class="use-btn">Use →</button>
+                    </div>
+                    <button class="use-btn" type="button">Use →</button>
                 </div>
-                <div class="demo-pill" onclick="fillDemo('recruiter@demo.dz','demo1234')"><span
-                        style="font-size:22px">🏢</span>
+                <div class="demo-pill" onclick="fillDemo('recruiter@demo.dz','demo1234')">
+                    <span style="font-size:22px">🏢</span>
                     <div>
-                        <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">Recruiter Demo
-                        </div>
+                        <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">Recruiter Demo</div>
                         <div style="font-size:12px;color:#64748B">recruiter@demo.dz · demo1234</div>
-                    </div><button class="use-btn">Use →</button>
+                    </div>
+                    <button class="use-btn" type="button">Use →</button>
                 </div>
-                <div class="demo-pill" onclick="fillDemo('university@demo.dz','demo1234')"><span
-                        style="font-size:22px">🏛️</span>
+                <div class="demo-pill" onclick="fillDemo('university@demo.dz','demo1234')">
+                    <span style="font-size:22px">🏛️</span>
                     <div>
-                        <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">University Demo
-                        </div>
+                        <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">University Demo</div>
                         <div style="font-size:12px;color:#64748B">university@demo.dz · demo1234</div>
-                    </div><button class="use-btn">Use →</button>
+                    </div>
+                    <button class="use-btn" type="button">Use →</button>
                 </div>
             </div>
         </div>
     </div>
+
     <div id="toast-container"></div>
     <script src="db.js"></script>
     <script src="app.js"></script>
     <script>
-        window.addEventListener("DOMContentLoaded", () => { const s = Auth.get(); if (s) go(s.role); });
-        function fillDemo(e, p) { document.getElementById("loginEmail").value = e; document.getElementById("loginPassword").value = p; showToast("Demo credentials filled — click Sign In!", "info"); }
-        document.getElementById("loginForm").addEventListener("submit", function (e) {
-            e.preventDefault();
-            const email = document.getElementById("loginEmail").value.trim(), pass = document.getElementById("loginPassword").value;
-            const r = BridgeDB.login(email, pass);
-            if (r.success) { Auth.save({ role: r.role, id: r.id, email }); showToast("Welcome back!", "success"); setTimeout(() => go(r.role), 800); }
-            else document.getElementById("loginError").style.display = "block";
+        window.addEventListener("DOMContentLoaded", () => {
+            const s = Auth.get();
+            if (s) go(s.role);
         });
-        function go(role) { location.href = role === "student" ? "student-dashboard.html" : role === "recruiter" ? "recruiter-dashboard.html" : "university-dashboard.html"; }
+
+        function fillDemo(e, p) {
+            document.getElementById("loginEmail").value = e;
+            document.getElementById("loginPassword").value = p;
+            showToast("Demo credentials filled — click Sign In!", "info");
+        }
+
+        document.getElementById("loginForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const email = document.getElementById("loginEmail").value.trim();
+            const pass  = document.getElementById("loginPassword").value;
+            const errEl = document.getElementById("loginError");
+            errEl.style.display = "none";
+
+            // 1. Check UserStore first (all prototype-registered users survive logout here)
+            const registered = UserStore.validate(email, pass);
+            if (registered) {
+                Auth.save({ role: registered.role, id: registered.id, email, name: registered.name });
+
+                // Restore full profile from ProfileVault (saved at registration, survives logout)
+                const vaulted = ProfileVault.get(registered.id);
+                if (vaulted) ProfileStore.save(vaulted);
+
+                showToast(`Welcome back, ${registered.name}! 👋`, "success");
+                setTimeout(() => go(registered.role), 800);
+                return;
+            }
+
+            // 2. Fall back to BridgeDB demo accounts
+            const r = BridgeDB.login(email, pass);
+            if (r.success) {
+                Auth.save({ role: r.role, id: r.id, email });
+                let profile = null;
+                if (r.role === "student")         profile = BridgeDB.getStudentById(r.id);
+                else if (r.role === "recruiter")  profile = BridgeDB.getRecruiterById(r.id);
+                else if (r.role === "university") profile = BridgeDB.getUniversityById(r.id);
+                if (profile) ProfileStore.save({ ...profile, role: r.role });
+                showToast("Welcome back!", "success");
+                setTimeout(() => go(r.role), 800);
+                return;
+            }
+
+            // 3. Both failed
+            errEl.style.display = "block";
+        });
+
+        function go(role) {
+            location.href = role === "student"    ? "student-dashboard.html"
+                          : role === "recruiter"  ? "recruiter-dashboard.html"
+                          : role === "university" ? "university-dashboard.html"
+                          : role === "freelancer" ? "marketplace.html"
+                          : "student-dashboard.html";
+        }
     </script>
 </body>
-
 </html>
