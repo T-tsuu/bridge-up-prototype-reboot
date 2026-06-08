@@ -34,6 +34,23 @@
             font-size:12px; font-weight:700; cursor:pointer;
             font-family:Montserrat,sans-serif;
         }
+        .intent-banner {
+            background:linear-gradient(135deg,#FFF7ED,#FFFBEB);
+            border:1.5px solid rgba(249,115,22,0.2);
+            border-radius:10px;
+            padding:14px 16px;
+            margin-bottom:20px;
+        }
+        .intent-banner h4 {
+            margin-bottom:6px;
+            font-size:15px;
+            color:var(--blue);
+        }
+        .intent-banner p {
+            color:#64748B;
+            font-size:13px;
+            line-height:1.55;
+        }
         @media(max-width:768px) { .login-left { display:none; } }
     </style>
 </head>
@@ -86,9 +103,14 @@
 
         <div class="login-right">
             <div class="login-box">
+                <div id="intentBanner" class="intent-banner" style="display:none">
+                    <h4>Continue to this opportunity</h4>
+                    <p>Sign in to continue where you left off. Students and freelancers will be returned to the opportunity after authentication.</p>
+                </div>
+
                 <h2 style="margin-bottom:6px">Sign In</h2>
                 <p style="color:#64748B;margin-bottom:28px;font-size:15px">
-                    No account? <a href="register.html" style="color:var(--orange);font-weight:600">Get Started</a>
+                    No account? <a href="register.html" id="registerLink" style="color:var(--orange);font-weight:600">Get Started</a>
                 </p>
                 <form id="loginForm">
                     <div class="form-group">
@@ -144,7 +166,16 @@
     <script>
         window.addEventListener("DOMContentLoaded", () => {
             const s = Auth.get();
-            if (s) go(s.role);
+            if (s) navigateAfterAuth(s.role);
+
+            const pending = PendingRedirect.get();
+            const params = new URLSearchParams(location.search);
+            const fromOpportunity = params.get("intent") === "opportunity" || (pending && pending.source === "opportunity-flow");
+
+            if (fromOpportunity) {
+                document.getElementById("intentBanner").style.display = "block";
+                document.getElementById("registerLink").href = "register.html?intent=opportunity";
+            }
         });
 
         function fillDemo(e, p) {
@@ -170,7 +201,7 @@
                 if (vaulted) ProfileStore.save(vaulted);
 
                 showToast(`Welcome back, ${registered.name}! 👋`, "success");
-                setTimeout(() => go(registered.role), 800);
+                setTimeout(() => navigateAfterAuth(registered.role), 800);
                 return;
             }
 
@@ -184,21 +215,13 @@
                 else if (r.role === "university") profile = BridgeDB.getUniversityById(r.id);
                 if (profile) ProfileStore.save({ ...profile, role: r.role });
                 showToast("Welcome back!", "success");
-                setTimeout(() => go(r.role), 800);
+                setTimeout(() => navigateAfterAuth(r.role), 800);
                 return;
             }
 
             // 3. Both failed
             errEl.style.display = "block";
         });
-
-        function go(role) {
-            location.href = role === "student"    ? "student-dashboard.html"
-                          : role === "recruiter"  ? "recruiter-dashboard.html"
-                          : role === "university" ? "university-dashboard.html"
-                          : role === "freelancer" ? "marketplace.html"
-                          : "student-dashboard.html";
-        }
     </script>
 </body>
 </html>

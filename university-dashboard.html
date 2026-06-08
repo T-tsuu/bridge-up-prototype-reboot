@@ -103,46 +103,51 @@
             if (!s) return;
             document.getElementById("nav").innerHTML = buildNavbar("Dashboard", "university");
 
-            // Resolve university profile: ProfileStore first, then BridgeDB
             university = resolveProfile(s);
 
             if (!university) {
                 university = {
-                    id: s.id, role: "university",
+                    id: s.id,
+                    role: "university",
                     name: s.name || s.email || "University",
-                    contactPerson: { name: "–", title: "–" },
-                    city: "–",
+                    contactName: "",
+                    contactTitle: "",
+                    city: "–"
                 };
             }
 
-            document.getElementById("uName").textContent = university.name;
-            const cp = university.contactPerson;
-            document.getElementById("uContact").textContent =
-                cp ? `${cp.name || ""}${cp.title ? " · " + cp.title : ""}` : "–";
+            document.getElementById("uName").textContent = university.name || "University";
+            document.getElementById("uContact").textContent = formatUniversityContact(university);
 
-            // Get university stats from BridgeDB (for demo student population data)
-            // For newly registered universities, their ID won't match any students
-            // so we use a sample uni's stats for the demo display
             uniStats = BridgeDB.getUniversityStats(university.id);
 
-            // If no students found for this uni (new registration), use first demo uni's data
             if (!uniStats.totalStudents) {
                 const demoUniId = BridgeDB.universities[0].id;
                 uniStats = BridgeDB.getUniversityStats(demoUniId);
-                // Keep the display note that this is sample data
             }
 
             uniStudents = uniStats.students || [];
 
-            document.getElementById("uStudents").textContent   = uniStats.totalStudents;
-            document.getElementById("uAvgXP").textContent      = uniStats.avgXP;
-            document.getElementById("uCerts").textContent      = uniStats.totalCerts;
+            document.getElementById("uStudents").textContent = uniStats.totalStudents;
+            document.getElementById("uAvgXP").textContent = uniStats.avgXP;
+            document.getElementById("uCerts").textContent = uniStats.totalCerts;
             document.getElementById("uCompletion").textContent = uniStats.completionRate + "%";
 
             renderOverview();
             renderStudentsList(uniStudents.slice(0, 30));
             renderFields(uniStats.topFields || []);
         });
+
+        function formatUniversityContact(profile) {
+            const legacyContact = profile?.contactPerson || {};
+            const contactName = profile?.contactName || legacyContact.name || "";
+            const contactTitle = profile?.contactTitle || legacyContact.title || "";
+            const parts = [contactName, contactTitle].filter(Boolean);
+
+            if (parts.length) return parts.join(" · ");
+            if (profile?.email) return profile.email;
+            return "–";
+        }
 
         function renderOverview() {
             const levels = ["Starter", "Rising Talent", "Experienced", "Pro", "Elite"];
@@ -202,7 +207,7 @@
             const filtered = q
                 ? uniStudents.filter(s =>
                     s.name.toLowerCase().includes(q) || s.field.toLowerCase().includes(q)
-                  )
+                )
                 : uniStudents;
             renderStudentsList(filtered.slice(0, 30));
         }
