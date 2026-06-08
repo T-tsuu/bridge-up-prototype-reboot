@@ -93,6 +93,248 @@
       transform: translateY(-1px);
     }
 
+    .section-heading {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-heading p {
+      color: #64748B;
+      margin-top: 12px;
+      font-size: 17px;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background: #fff;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+      height: 100%;
+    }
+
+    .testimonial-rating {
+      display: flex;
+      gap: 4px;
+      color: #F59E0B;
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+
+    .testimonial-copy {
+      color: #475569;
+      font-size: 15px;
+      line-height: 1.75;
+      margin-bottom: 22px;
+    }
+
+    .testimonial-person {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .testimonial-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(250,204,21,0.18), rgba(249,115,22,0.22));
+      color: var(--blue);
+      font-family: Montserrat, sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .testimonial-person strong {
+      display: block;
+      color: var(--blue);
+      font-size: 15px;
+      margin-bottom: 3px;
+    }
+
+    .testimonial-person span {
+      color: #64748B;
+      font-size: 13px;
+    }
+
+    .faq-section {
+      background: #F8FAFC;
+    }
+
+    .faq-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .faq-item {
+      background: #fff;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 20px 22px;
+      text-align: left;
+      background: transparent;
+      border: none;
+      color: var(--blue);
+      font-family: Montserrat, sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .faq-question:hover {
+      background: rgba(248, 250, 252, 0.9);
+    }
+
+    .faq-icon {
+      font-size: 22px;
+      line-height: 1;
+      color: #F59E0B;
+      transition: transform .2s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 22px 20px;
+      color: #64748B;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    .site-footer {
+      background: var(--blue);
+      color: var(--muted);
+      padding: 56px 24px 24px;
+    }
+
+    .footer-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .footer-brand-block {
+      max-width: 320px;
+    }
+
+    .footer-brand-block p {
+      color: rgba(241,245,249,0.72);
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 14px 0 18px;
+    }
+
+    .footer-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: rgba(241,245,249,0.68);
+      font-size: 13px;
+    }
+
+    .footer-column h4 {
+      color: #fff;
+      margin-bottom: 14px;
+      font-size: 14px;
+      font-family: Montserrat, sans-serif;
+      letter-spacing: 0.02em;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      color: rgba(241,245,249,0.78);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color .2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--yellow);
+    }
+
+    .footer-divider {
+      max-width: 1200px;
+      margin: 28px auto 0;
+      border-top: 1px solid rgba(241,245,249,0.1);
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      color: rgba(241,245,249,0.62);
+      font-size: 13px;
+    }
+
+    .footer-divider-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-divider-links a {
+      color: rgba(241,245,249,0.74);
+      text-decoration: none;
+    }
+
+    .footer-divider-links a:hover {
+      color: var(--yellow);
+    }
+
+    @media (max-width: 980px) {
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .footer-brand-block {
+        max-width: none;
+        grid-column: 1 / -1;
+      }
+    }
+
     @media (max-width: 640px) {
       .hero-search-form {
         flex-wrap: wrap;
@@ -116,6 +358,29 @@
 
       .hero-side-link {
         justify-content: center;
+      }
+
+      .faq-question {
+        padding: 18px 18px;
+        font-size: 15px;
+      }
+
+      .faq-answer {
+        padding: 0 18px 18px;
+      }
+
+      .site-footer {
+        padding: 44px 20px 20px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .footer-divider {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
   </style>
@@ -177,34 +442,12 @@
   </div>
 </section>
 
-<!-- STATS STRIP -->
-<section style="background:#0F172A;padding:48px 0;" id="stats">
-  <div class="container grid-4" style="text-align:center">
-    <div>
-      <div style="font-family:Montserrat,sans-serif;font-weight:800;font-size:36px;background:linear-gradient(90deg,#FACC15,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" id="counter-students">5,100+</div>
-      <div style="color:rgba(241,245,249,0.7);font-size:14px;margin-top:4px">Students Registered</div>
-    </div>
-    <div>
-      <div style="font-family:Montserrat,sans-serif;font-weight:800;font-size:36px;background:linear-gradient(90deg,#FACC15,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">250+</div>
-      <div style="color:rgba(241,245,249,0.7);font-size:14px;margin-top:4px">Verified Recruiters</div>
-    </div>
-    <div>
-      <div style="font-family:Montserrat,sans-serif;font-weight:800;font-size:36px;background:linear-gradient(90deg,#FACC15,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">400+</div>
-      <div style="color:rgba(241,245,249,0.7);font-size:14px;margin-top:4px">Open Opportunities</div>
-    </div>
-    <div>
-      <div style="font-family:Montserrat,sans-serif;font-weight:800;font-size:36px;background:linear-gradient(90deg,#FACC15,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">20</div>
-      <div style="color:rgba(241,245,249,0.7);font-size:14px;margin-top:4px">Partner Universities</div>
-    </div>
-  </div>
-</section>
-
 <!-- HOW IT WORKS -->
 <section class="section" id="how">
   <div class="container">
-    <div style="text-align:center;margin-bottom:48px">
+    <div class="section-heading">
       <h2>How Bridge <span class="grad-text">Up</span> Works</h2>
-      <p style="color:#64748B;margin-top:12px;font-size:17px">Three steps to your first real experience</p>
+      <p>Three steps to your first real experience</p>
     </div>
     <div class="grid-3">
       <div class="card" style="text-align:center;padding:36px 28px">
@@ -255,6 +498,28 @@
   </div>
 </section>
 
+<!-- STATS STRIP -->
+<section style="background:#0F172A;padding:48px 0;" id="stats">
+  <div class="container grid-4" style="text-align:center">
+    <div>
+      <div style="font-family:Montserrat,sans-serif;font-weight:800;font-size:36px;background:linear-gradient(90deg,#FACC15,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" id="counter-students">5,100+</div>
+      <div style="color:rgba(241,245,249,0.7);font-size:14px;margin-top:4px">Students Registered</div>
+    </div>
+    <div>
+      <div style="font-family:Montserrat,sans-serif;font-weight:800;font-size:36px;background:linear-gradient(90deg,#FACC15,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">250+</div>
+      <div style="color:rgba(241,245,249,0.7);font-size:14px;margin-top:4px">Verified Recruiters</div>
+    </div>
+    <div>
+      <div style="font-family:Montserrat,sans-serif;font-weight:800;font-size:36px;background:linear-gradient(90deg,#FACC15,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">400+</div>
+      <div style="color:rgba(241,245,249,0.7);font-size:14px;margin-top:4px">Open Opportunities</div>
+    </div>
+    <div>
+      <div style="font-family:Montserrat,sans-serif;font-weight:800;font-size:36px;background:linear-gradient(90deg,#FACC15,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">20</div>
+      <div style="color:rgba(241,245,249,0.7);font-size:14px;margin-top:4px">Partner Universities</div>
+    </div>
+  </div>
+</section>
+
 <!-- XP GAMIFICATION SECTION -->
 <section class="section">
   <div class="container">
@@ -286,6 +551,132 @@
   </div>
 </section>
 
+<!-- TESTIMONIALS -->
+<section class="section" style="background:var(--blue)">
+  <div class="container">
+    <div class="section-heading">
+      <h2 style="color:#fff">Trusted by the people building careers</h2>
+      <p>Bridge Up helps students, recruiters, and universities move from disconnected efforts to one clearer workflow.</p>
+    </div>
+
+    <div class="testimonial-grid">
+      <article class="testimonial-card">
+        <div class="testimonial-rating" aria-label="5 out of 5 stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="testimonial-copy">“I used Bridge Up to find my first marketing internship in Annaba. The opportunity felt relevant to my profile, and having one place for applications and certificates made the process much less stressful.”</p>
+        <div class="testimonial-person">
+          <div class="testimonial-avatar">SB</div>
+          <div>
+            <strong>Sara B.</strong>
+            <span>Master’s student · Business & Marketing</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="testimonial-card">
+        <div class="testimonial-rating" aria-label="5 out of 5 stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="testimonial-copy">“As a recruiter, I need motivated junior talent without sorting through random applications. Bridge Up gives us a more focused pipeline and a better view of student skills before interviews.”</p>
+        <div class="testimonial-person">
+          <div class="testimonial-avatar">KM</div>
+          <div>
+            <strong>Karim M.</strong>
+            <span>Talent Partner · Digital Agency</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="testimonial-card">
+        <div class="testimonial-rating" aria-label="5 out of 5 stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="testimonial-copy">“What stands out is the visibility for universities. We can imagine tracking placements, identifying where students succeed, and using that feedback to strengthen employability programs.”</p>
+        <div class="testimonial-person">
+          <div class="testimonial-avatar">NA</div>
+          <div>
+            <strong>Nadia A.</strong>
+            <span>Career Services Lead · Partner University</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq-section" id="faq">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Frequently asked questions</h2>
+      <p>Quick answers for students, recruiters, and universities exploring the platform.</p>
+    </div>
+
+    <div class="faq-wrap">
+      <div class="faq-item open">
+        <button class="faq-question" type="button" aria-expanded="true">
+          <span>Who is Bridge Up for?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          Bridge Up is designed for students looking for internships, freelance projects, and early-career opportunities, as well as recruiters seeking student talent and universities that want better visibility into student outcomes.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>Can students join for free?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          Yes. In this prototype, students can create an account, complete a profile, explore opportunities, and experience the core flow without any payment step.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>What can recruiters do on the platform?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          Recruiters can join the platform, post opportunities, review incoming applicants, and use Bridge Up as a focused entry point for student and junior talent.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>How do universities fit into the experience?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          Universities get a dedicated path to monitor placements, review performance signals, and better understand how academic programs connect with real market demand.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>Are certificates and XP part of the prototype?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          Yes. The homepage and related flows position XP, rewards, and certificates as part of the product story, helping students understand how experience on the platform translates into visible progress.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>How can someone contact Bridge Up?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          For the prototype, visitors can use the placeholder contact details in the footer or the feedback entry point to reach the team and share interest, partnership ideas, or questions.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section style="background:linear-gradient(135deg,#FACC15,#F97316);padding:60px 24px;text-align:center">
   <h2 style="color:var(--blue);margin-bottom:12px">Ready to bridge the gap?</h2>
@@ -294,12 +685,71 @@
 </section>
 
 <!-- FOOTER -->
-<footer style="background:var(--blue);color:var(--muted);padding:32px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
-  <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:16px">Bridge<span style="background:linear-gradient(90deg,#FACC15,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Up</span></div>
-  <div style="font-size:14px">Your bridge to the professional world · © 2026 Bridge Up</div>
-  <div style="display:flex;gap:20px;font-size:14px">
-    <a href="login.html" style="color:var(--muted)">Login</a>
-    <a href="register.html" style="color:var(--yellow)">Get Started</a>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand-block">
+      <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:16px">Bridge<span style="background:linear-gradient(90deg,#FACC15,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Up</span></div>
+      <p>Your bridge to the professional world — a prototype platform connecting students, recruiters, and universities around opportunities, outcomes, and career readiness.</p>
+      <div class="footer-meta">
+        <span>Prototype contact: hello@bridgeup.dz</span>
+        <span>Partnerships: partners@bridgeup.dz</span>
+        <span>Annaba, Algeria</span>
+      </div>
+    </div>
+
+    <div class="footer-column">
+      <h4>Platform</h4>
+      <div class="footer-links">
+        <a href="#how">How it Works</a>
+        <a href="#personas">Who It’s For</a>
+        <a href="#stats">Platform Numbers</a>
+        <a href="job-listing.html">Explore Opportunities</a>
+        <a href="marketplace.html">Marketplace</a>
+      </div>
+    </div>
+
+    <div class="footer-column">
+      <h4>Entry Points</h4>
+      <div class="footer-links">
+        <a href="register.html?role=student">For Students</a>
+        <a href="register.html?role=recruiter">For Recruiters</a>
+        <a href="register.html?role=university">For Universities</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Create Account</a>
+      </div>
+    </div>
+
+    <div class="footer-column">
+      <h4>Resources</h4>
+      <div class="footer-links">
+        <a href="#faq">FAQ</a>
+        <a href="job-listing.html?q=internship">Internships</a>
+        <a href="job-listing.html?q=freelance">Freelance Projects</a>
+        <a href="job-listing.html?q=remote">Remote Opportunities</a>
+        <a href="https://forms.gle/Ga3BMMrb7mSNCXHE9" target="_blank" rel="noopener noreferrer">Send Feedback</a>
+      </div>
+    </div>
+
+    <div class="footer-column">
+      <h4>Trust & Legal</h4>
+      <div class="footer-links">
+        <a href="./terms.html" target="_blank">Terms & Conditions</a>
+        <a href="./privacy.html">Privacy Policy</a>
+        <a href="#">Cookie Notice</a>
+        <a href="#">Community Guidelines</a>
+        <a href="#">Contact Support</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-divider">
+    <div>© 2026 Bridge Up. All rights reserved.</div>
+    <div class="footer-divider-links">
+      <a href="./terms.html" target="_blank">Terms</a>
+      <a href="./privacy.html" target="_blank">Privacy</a>
+      <a href="#">Cookies</a>
+      <a href="mailto:hello@bridgeup.dz">hello@bridgeup.dz</a>
+    </div>
   </div>
 </footer>
 
@@ -326,6 +776,26 @@
         ? `job-listing.html?q=${encodeURIComponent(query)}`
         : "job-listing.html";
       window.location.href = target;
+    });
+
+    const faqItems = document.querySelectorAll(".faq-item");
+
+    faqItems.forEach((item) => {
+      const button = item.querySelector(".faq-question");
+      button?.addEventListener("click", () => {
+        const isOpen = item.classList.contains("open");
+
+        faqItems.forEach((faq) => {
+          faq.classList.remove("open");
+          const faqButton = faq.querySelector(".faq-question");
+          faqButton?.setAttribute("aria-expanded", "false");
+        });
+
+        if (!isOpen) {
+          item.classList.add("open");
+          button.setAttribute("aria-expanded", "true");
+        }
+      });
     });
   });
 </script>
