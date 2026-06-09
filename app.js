@@ -227,13 +227,22 @@ function showToast(msg, type = "info", duration = 3500) {
     }
     const toast = document.createElement("div");
     toast.className = `toast ${type}`;
-    toast.textContent = msg;
+    toast.innerHTML = `<div class="toast-msg"></div><button class="toast-close" aria-label="Close">&times;</button>`;
+    toast.querySelector('.toast-msg').textContent = msg;
     container.appendChild(toast);
     requestAnimationFrame(() => { requestAnimationFrame(() => { toast.classList.add("show"); }); });
-    setTimeout(() => {
+
+    const closeBtn = toast.querySelector('.toast-close');
+    let hideTimeout = setTimeout(() => {
         toast.classList.remove("show");
         setTimeout(() => toast.remove(), 400);
     }, duration);
+
+    closeBtn.addEventListener('click', () => {
+        clearTimeout(hideTimeout);
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 200);
+    });
 }
 
 
