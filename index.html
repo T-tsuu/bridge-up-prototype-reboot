@@ -2,1446 +2,1743 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Bridge Up — Your Bridge to the Professional World</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <style>
-    .hero-search {
-      width: 100%;
-      max-width: 760px;
-      margin: 28px auto 0;
-    }
-
-    .hero-search-form {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: #fff;
-      border: 1.5px solid rgba(250, 204, 21, 0.28);
-      border-radius: 999px;
-      padding: 10px 10px 10px 18px;
-      box-shadow: 0 18px 48px rgba(15, 23, 42, 0.18);
-    }
-
-    .hero-search-icon {
-      color: #64748B;
-      flex-shrink: 0;
-    }
-
-    .hero-search-input {
-      flex: 1;
-      border: none;
-      outline: none;
-      background: transparent;
-      color: var(--blue);
-      font-size: 15px;
-      min-width: 0;
-    }
-
-    .hero-search-input::placeholder {
-      color: #94A3B8;
-    }
-
-    .hero-search-note {
-      margin-top: 10px;
-      color: rgba(241, 245, 249, 0.72);
-      font-size: 1.1rem;
-    }
-
-    .nav-spaces {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      margin-left: 12px
-    }
-
-    .nav-space-link {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: transparent;
-      color: var(--muted);
-      border: 1px solid rgba(250, 204, 21, 0.14);
-      font-weight: 700;
-      text-decoration: none
-    }
-
-    .nav-space-link:hover {
-      background: rgba(250, 204, 21, 0.06);
-      border-color: rgba(250, 204, 21, 0.28)
-    }
-
-    .hero {
-      position: relative;
-      padding: 48px 0;
-      overflow: hidden
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 1;
-      max-width: 1000px;
-      margin-inline: auto;
-      padding-inline: 24px;
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      grid-template-rows: auto auto;
-      column-gap: 12px;
-      row-gap: 36px;
-      align-items: center
-    }
-
-    .hero-left {
-      padding-right: 28px;
-      max-width: 100%;
-      text-align: left;
-    }
-
-    .hero-left h1 {
-      font-size: clamp(2.75rem, 4.5vw, 5.2rem);
-      line-height: 1.03;
-      margin-bottom: 12px
-    }
-
-    .hero-left p {
-      text-align: left;
-      color: #94A3B8;
-      font-size: clamp(1.125rem, 1.1vw, 1.25rem);
-      margin-bottom: 6px
-    }
-
-    .hero-right {
-      display: flex;
-      justify-content: center
-    }
-
-    .hero-card-stack {
-      position: relative;
-      width: 100%;
-      max-width: 360px
-    }
-
-    .hero-card {
-      background: #0F172A;
-      border: 1px solid rgba(241, 245, 249, 0.06);
-      border-radius: 18px;
-      padding: 20px;
-      color: var(--muted);
-      box-shadow: 0 18px 48px rgba(2, 6, 23, 0.6)
-    }
-
-    .hero-card-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px
-    }
-
-    .hero-card-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #FACC15, #F97316);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      color: #071027
-    }
-
-    .xp-bar-track {
-      height: 8px;
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 999px;
-      overflow: hidden
-    }
-
-    .xp-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #FACC15, #F97316);
-      border-radius: 999px;
-      width: 64%
-    }
-
-    .level-badge {
-      font-weight: 800;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 12px
-    }
-
-    .hero-floating-badge {
-      position: absolute;
-      background: #071027;
-      border: 1px solid rgba(241, 245, 249, 0.04);
-      border-radius: 14px;
-      padding: 8px 10px;
-      box-shadow: 0 8px 24px rgba(2, 6, 23, 0.6);
-      font-weight: 700
-    }
-
-    .hero-float-1 {
-      top: -12px;
-      right: -12px
-    }
-
-    .hero-float-2 {
-      bottom: -12px;
-      left: -12px
-    }
-
-    @media (max-width:900px) {
-      .hero-inner {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
-        gap: 16px;
-        padding-inline: 16px
-      }
-
-      .hero-left {
-        padding-right: 0;
-        text-align: center;
-        max-width: none;
-        width: 100%;
-        margin-inline: auto
-      }
-
-      .hero-right {
-        display: none
-      }
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0
-    }
-
-    .hero-bg-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: .15
-    }
-
-    .hero-bg-orb-1 {
-      width: 600px;
-      height: 600px;
-      background: #FACC15;
-      top: -200px;
-      right: -100px
-    }
-
-    .hero-bg-orb-2 {
-      width: 400px;
-      height: 400px;
-      background: #F97316;
-      bottom: -100px;
-      left: 10%
-    }
-
-    .hero-bg-grid {
-      position: absolute;
-      inset: 0;
-      background-image: linear-gradient(rgba(241, 245, 249, .03) 1px, transparent 1px), linear-gradient(90deg, rgba(241, 245, 249, .03) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%)
-    }
-
-    .hero-actions {
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .hero-primary-cta {
-      display: flex;
-      justify-content: center;
-      margin-top: 26px;
-    }
-
-    .hero-side-ctas {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 16px;
-    }
-
-    .hero-side-ctas a {
-      text-decoration: none;
-    }
-
-    .hero-side-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(250, 204, 21, 0.18);
-      color: rgba(241, 245, 249, 0.92);
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background .2s, border-color .2s, transform .2s;
-    }
-
-    .hero-side-link:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(250, 204, 21, 0.38);
-      transform: translateY(-1px);
-    }
-
-    .section-heading {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-
-    .section-heading p {
-      color: #64748B;
-      margin-top: 12px;
-      font-size: 17px;
-    }
-
-    .landing-section-soft {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0));
-    }
-
-    .landing-card {
-      background: #fff;
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      border-radius: 18px;
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
-    }
-
-    .feature-card {
-      text-align: left;
-      padding: 30px 28px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .feature-icon-wrap {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(250, 204, 21, 0.14);
-      color: var(--blue);
-      border: 1px solid rgba(250, 204, 21, 0.24);
-    }
-
-    .feature-icon-wrap svg,
-    .persona-icon svg,
-    .stat-icon-box svg,
-    .journey-icon svg,
-    .faq-icon svg,
-    .footer-link-icon svg,
-    .rating-stars svg {
-      width: 20px;
-      height: 20px;
-      stroke-width: 2;
-    }
-
-    .feature-step {
-      font-family: Montserrat, sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #F97316;
-    }
-
-    .feature-card p {
-      color: #64748B;
-      line-height: 1.7;
-      margin: 0;
-    }
-
-    .persona-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
-    }
-
-    .persona-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(250, 204, 21, 0.16);
-      border-radius: 18px;
-      padding: 28px;
-      color: #fff;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-      height: 100%;
-    }
-
-    .persona-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 18px;
-      background: rgba(250, 204, 21, 0.12);
-      color: #FACC15;
-      border: 1px solid rgba(250, 204, 21, 0.18);
-    }
-
-    .persona-card p {
-      color: rgba(241, 245, 249, 0.74);
-      margin: 0 0 22px;
-      line-height: 1.7;
-    }
-
-    .stats-strip {
-      background: #0F172A;
-      padding: 52px 0;
-    }
-
-    .stats-grid {
-      text-align: center;
-      gap: 18px;
-    }
-
-    .stat-block {
-      padding: 20px 16px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(241, 245, 249, 0.06);
-    }
-
-    .stat-icon-box {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-      color: #FACC15;
-      background: rgba(250, 204, 21, 0.08);
-      border: 1px solid rgba(250, 204, 21, 0.14);
-    }
-
-    .stat-value {
-      font-family: Montserrat, sans-serif;
-      font-weight: 800;
-      font-size: 36px;
-      line-height: 1.1;
-      color: #fff;
-      margin-bottom: 6px;
-    }
-
-    .stat-label {
-      color: rgba(241, 245, 249, 0.72);
-      font-size: 14px;
-    }
-
-    .xp-layout {
-      align-items: center;
-      gap: 48px;
-    }
-
-    .xp-intro {
-      color: #64748B;
-      margin: 16px 0 24px;
-      font-size: 17px;
-    }
-
-    .xp-level-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .xp-level-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .xp-level-note {
-      font-size: 14px;
-      color: #64748B;
-    }
-
-    .badge-elite {
-      background: linear-gradient(90deg, #FACC15, #F97316);
-      color: var(--blue);
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      min-width: 100px;
-      text-align: center;
-      font-family: Montserrat, sans-serif;
-    }
-
-    .xp-journey-card {
-      padding: 30px 30px 28px;
-    }
-
-    .xp-journey-head {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .journey-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(250, 204, 21, 0.14);
-      color: var(--blue);
-      border: 1px solid rgba(250, 204, 21, 0.24);
-      flex-shrink: 0;
-    }
-
-    .journey-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .journey-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      font-size: 14px;
-    }
-
-    .journey-row span:first-child {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--text);
-    }
-
-    .journey-row strong {
-      font-family: Montserrat, sans-serif;
-      font-size: 15px;
-      color: var(--blue);
-    }
-
-    .journey-row-icon {
-      width: 18px;
-      height: 18px;
-      color: #F97316;
-      flex-shrink: 0;
-    }
-
-    .testimonial-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
-    }
-
-    .testimonial-card {
-      background: #fff;
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      border-radius: 18px;
-      padding: 28px;
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
-      height: 100%;
-    }
-
-    .testimonial-rating {
-      display: flex;
-      gap: 6px;
-      color: #F59E0B;
-      margin-bottom: 16px;
-    }
-
-    .rating-stars {
-      display: inline-flex;
-      gap: 6px;
-      color: #FACC15;
-    }
-
-    .testimonial-copy {
-      color: #475569;
-      font-size: 15px;
-      line-height: 1.75;
-      margin-bottom: 22px;
-    }
-
-    .testimonial-person {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .testimonial-avatar {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, rgba(250, 204, 21, 0.18), rgba(249, 115, 22, 0.22));
-      color: var(--blue);
-      font-family: Montserrat, sans-serif;
-      font-size: 14px;
-      font-weight: 800;
-      flex-shrink: 0;
-    }
-
-    .testimonial-person strong {
-      display: block;
-      color: var(--blue);
-      font-size: 15px;
-      margin-bottom: 3px;
-    }
-
-    .testimonial-person span {
-      color: #64748B;
-      font-size: 13px;
-    }
-
-    .faq-section {
-      background: #F8FAFC;
-    }
-
-    .faq-wrap {
-      max-width: 860px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .faq-item {
-      background: #fff;
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
-    }
-
-    .faq-question {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 20px 22px;
-      text-align: left;
-      background: transparent;
-      border: none;
-      color: var(--blue);
-      font-family: Montserrat, sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .faq-question:hover {
-      background: rgba(248, 250, 252, 0.9);
-    }
-
-    .faq-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #F59E0B;
-      background: rgba(250, 204, 21, 0.1);
-      border: 1px solid rgba(250, 204, 21, 0.18);
-      transition: transform .2s ease;
-      flex-shrink: 0;
-    }
-
-    .faq-item.open .faq-icon {
-      transform: rotate(45deg);
-    }
-
-    .faq-answer {
-      display: none;
-      padding: 0 22px 20px;
-      color: #64748B;
-      font-size: 15px;
-      line-height: 1.75;
-    }
-
-    .faq-item.open .faq-answer {
-      display: block;
-    }
-
-    .landing-cta {
-      background: #0F172A;
-      color: #fff;
-      padding: 64px 24px;
-    }
-
-    .landing-cta-shell {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 34px;
-      border-radius: 24px;
-      background: linear-gradient(135deg, rgba(250, 204, 21, 0.96), rgba(249, 115, 22, 0.95));
-      box-shadow: 0 24px 48px rgba(15, 23, 42, 0.22);
-      text-align: center;
-    }
-
-    .landing-cta-shell p {
-      color: rgba(15, 23, 42, 0.78);
-      font-size: 18px;
-      margin: 0 auto 28px;
-      max-width: 620px;
-    }
-
-    .site-footer {
-      background: var(--blue);
-      color: var(--muted);
-      padding: 56px 24px 24px;
-    }
-
-    .footer-grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr;
-      gap: 28px;
-      align-items: start;
-    }
-
-    .footer-brand-block {
-      max-width: 320px;
-    }
-
-    .footer-brand-block p {
-      color: rgba(241, 245, 249, 0.72);
-      font-size: 14px;
-      line-height: 1.7;
-      margin: 14px 0 18px;
-    }
-
-    .footer-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      color: rgba(241, 245, 249, 0.68);
-      font-size: 13px;
-    }
-
-    .footer-meta-line {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .footer-meta-line svg {
-      width: 15px;
-      height: 15px;
-      color: #FACC15;
-      flex-shrink: 0;
-    }
-
-    .footer-column h4 {
-      color: #fff;
-      margin-bottom: 14px;
-      font-size: 14px;
-      font-family: Montserrat, sans-serif;
-      letter-spacing: 0.02em;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .footer-links a {
-      color: rgba(241, 245, 249, 0.78);
-      text-decoration: none;
-      font-size: 14px;
-      transition: color .2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .footer-links a:hover {
-      color: var(--yellow);
-    }
-
-    .footer-link-icon {
-      width: 14px;
-      height: 14px;
-      color: rgba(241, 245, 249, 0.48);
-      flex-shrink: 0;
-    }
-
-    .footer-divider {
-      max-width: 1200px;
-      margin: 28px auto 0;
-      border-top: 1px solid rgba(241, 245, 249, 0.1);
-      padding-top: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      color: rgba(241, 245, 249, 0.62);
-      font-size: 13px;
-    }
-
-    .footer-divider-links {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .footer-divider-links a {
-      color: rgba(241, 245, 249, 0.74);
-      text-decoration: none;
-    }
-
-    .footer-divider-links a:hover {
-      color: var(--yellow);
-    }
-
-    @media (max-width: 980px) {
-      .testimonial-grid,
-      .persona-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .footer-brand-block {
-        max-width: none;
-        grid-column: 1 / -1;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .hero-search-form {
-        flex-wrap: wrap;
-        border-radius: 24px;
-        padding: 14px;
-      }
-
-      .hero-search-input {
-        width: 100%;
-      }
-
-      .hero-search-form .btn {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .hero-side-ctas {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .hero-side-link {
-        justify-content: center;
-      }
-
-      .feature-card,
-      .persona-card,
-      .testimonial-card,
-      .xp-journey-card {
-        padding: 24px 20px;
-      }
-
-      .journey-row {
-        align-items: flex-start;
-      }
-
-      .journey-row span:first-child {
-        align-items: flex-start;
-      }
-
-      .faq-question {
-        padding: 18px 18px;
-        font-size: 15px;
-      }
-
-      .faq-answer {
-        padding: 0 18px 18px;
-      }
-
-      .landing-cta {
-        padding: 48px 20px;
-      }
-
-      .landing-cta-shell {
-        padding: 28px 20px;
-        border-radius: 20px;
-      }
-
-      .site-footer {
-        padding: 44px 20px 20px;
-      }
-
-      .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 22px;
-      }
-
-      .footer-divider {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Bridge Up — Your Bridge to the Professional World</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .hero-search {
+            width: 100%;
+            max-width: 760px;
+            margin: 28px auto 0;
+        }
+
+        .hero-search-form {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fff;
+            border: 1.5px solid rgba(250, 204, 21, 0.28);
+            border-radius: 999px;
+            padding: 10px 10px 10px 18px;
+            box-shadow: 0 18px 48px rgba(15, 23, 42, 0.18);
+        }
+
+        .hero-search-icon {
+            color: #64748B;
+            flex-shrink: 0;
+        }
+
+        .hero-search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: var(--blue);
+            font-size: 15px;
+            min-width: 0;
+        }
+
+        .hero-search-input::placeholder {
+            color: #94A3B8;
+        }
+
+        .hero-search-note {
+            margin-top: 10px;
+            color: rgba(241, 245, 249, 0.72);
+            font-size: 1.1rem;
+        }
+
+        .navbar.navbar-landing {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            min-height: 76px;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background: rgba(15, 23, 42, 0.96);
+            border-bottom: 1px solid rgba(241, 245, 249, 0.06);
+            box-shadow: 0 10px 28px rgba(2, 6, 23, 0.26);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .navbar-landing .nav-brand {
+            flex-shrink: 0;
+        }
+
+        .navbar-landing .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            justify-content: center;
+            min-width: 0;
+        }
+
+        .navbar-landing .nav-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 0 12px;
+            border-radius: 999px;
+            color: rgba(241, 245, 249, 0.76);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            transition: background .2s, color .2s, border-color .2s;
+            border: 1px solid transparent;
+            white-space: nowrap;
+        }
+
+        .navbar-landing .nav-links a:hover,
+        .navbar-landing .nav-links a.active {
+            color: var(--yellow);
+            background: rgba(250, 204, 21, 0.08);
+            border-color: rgba(250, 204, 21, 0.18);
+        }
+
+        .nav-actions.nav-actions-landing {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .nav-spaces {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            padding-right: 4px;
+            margin-right: 2px;
+            border-right: 1px solid rgba(241, 245, 249, 0.10);
+        }
+
+        .nav-space-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 38px;
+            padding: 0 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--muted);
+            border: 1px solid rgba(250, 204, 21, 0.14);
+            font-weight: 700;
+            font-size: 12px;
+            text-decoration: none;
+            transition: background .2s, border-color .2s, color .2s;
+            white-space: nowrap;
+        }
+
+        .nav-space-link:hover {
+            background: rgba(250, 204, 21, 0.06);
+            border-color: rgba(250, 204, 21, 0.28);
+            color: #fff;
+        }
+
+        .nav-icon-btn {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(241, 245, 249, 0.14);
+            background: rgba(255, 255, 255, 0.04);
+            color: rgba(241, 245, 249, 0.86);
+            cursor: pointer;
+            transition: background .2s, border-color .2s, color .2s, transform .2s;
+        }
+
+        .nav-icon-btn svg {
+            width: 17px;
+            height: 17px;
+            stroke-width: 2;
+        }
+
+        .nav-icon-btn:hover {
+            background: rgba(220, 38, 38, 0.14);
+            border-color: rgba(220, 38, 38, 0.34);
+            color: #FCA5A5;
+            transform: translateY(-1px);
+        }
+
+        .nav-menu-toggle {
+            display: none;
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            border-radius: 12px;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(250, 204, 21, 0.18);
+            background: rgba(15, 23, 42, 0.96);
+            color: #F1F5F9;
+            cursor: pointer;
+            transition: background .2s, border-color .2s, color .2s, box-shadow .2s;
+            box-shadow: 0 12px 28px rgba(2, 6, 23, 0.28);
+        }
+
+        .nav-menu-toggle:hover {
+            background: rgba(15, 23, 42, 1);
+            border-color: rgba(250, 204, 21, 0.28);
+            color: var(--yellow);
+        }
+
+        .nav-menu-toggle svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2.2;
+        }
+
+        .nav-mobile-panel {
+            display: none;
+        }
+
+        .hero {
+            position: relative;
+            padding: 48px 0;
+            overflow: hidden;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin-inline: auto;
+            padding-inline: 24px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto auto;
+            column-gap: 12px;
+            row-gap: 36px;
+            align-items: center;
+        }
+
+        .hero-left {
+            padding-right: 28px;
+            max-width: 100%;
+            text-align: left;
+        }
+
+        .hero-left h1 {
+            font-size: clamp(2.75rem, 4.5vw, 5.2rem);
+            line-height: 1.03;
+            margin-bottom: 12px;
+        }
+
+        .hero-left p {
+            text-align: left;
+            color: #94A3B8;
+            font-size: clamp(1.125rem, 1.1vw, 1.25rem);
+            margin-bottom: 6px;
+        }
+
+        .hero-right {
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-card-stack {
+            position: relative;
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .hero-card {
+            background: #0F172A;
+            border: 1px solid rgba(241, 245, 249, 0.06);
+            border-radius: 18px;
+            padding: 20px;
+            color: var(--muted);
+            box-shadow: 0 18px 48px rgba(2, 6, 23, 0.6);
+        }
+
+        .hero-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .hero-card-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FACC15, #F97316);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #071027;
+        }
+
+        .xp-bar-track {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .xp-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FACC15, #F97316);
+            border-radius: 999px;
+            width: 64%;
+        }
+
+        .level-badge {
+            font-weight: 800;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+        }
+
+        .hero-floating-badge {
+            position: absolute;
+            background: #071027;
+            border: 1px solid rgba(241, 245, 249, 0.04);
+            border-radius: 14px;
+            padding: 8px 10px;
+            box-shadow: 0 8px 24px rgba(2, 6, 23, 0.6);
+            font-weight: 700;
+        }
+
+        .hero-float-1 {
+            top: -12px;
+            right: -12px;
+        }
+
+        .hero-float-2 {
+            bottom: -12px;
+            left: -12px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: .15;
+        }
+
+        .hero-bg-orb-1 {
+            width: 600px;
+            height: 600px;
+            background: #FACC15;
+            top: -200px;
+            right: -100px;
+        }
+
+        .hero-bg-orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #F97316;
+            bottom: -100px;
+            left: 10%;
+        }
+
+        .hero-bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(241, 245, 249, .03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(241, 245, 249, .03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+        }
+
+        .hero-actions {
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .hero-primary-cta {
+            display: flex;
+            justify-content: center;
+            margin-top: 26px;
+        }
+
+        .hero-side-ctas {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .hero-side-ctas a {
+            text-decoration: none;
+        }
+
+        .hero-side-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(250, 204, 21, 0.18);
+            color: rgba(241, 245, 249, 0.92);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background .2s, border-color .2s, transform .2s;
+        }
+
+        .hero-side-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(250, 204, 21, 0.38);
+            transform: translateY(-1px);
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-heading p {
+            color: #64748B;
+            margin-top: 12px;
+            font-size: 17px;
+        }
+
+        .landing-section-soft {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0));
+        }
+
+        .landing-card {
+            background: #fff;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 18px;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+        }
+
+        .feature-card {
+            text-align: left;
+            padding: 30px 28px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .feature-icon-wrap {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(250, 204, 21, 0.14);
+            color: var(--blue);
+            border: 1px solid rgba(250, 204, 21, 0.24);
+        }
+
+        .feature-icon-wrap svg,
+        .persona-icon svg,
+        .stat-icon-box svg,
+        .journey-icon svg,
+        .faq-icon svg,
+        .footer-link-icon svg,
+        .rating-stars svg,
+        .nav-menu-toggle svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2;
+        }
+
+        .feature-step {
+            font-family: Montserrat, sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #F97316;
+        }
+
+        .feature-card p {
+            color: #64748B;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .persona-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .persona-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(250, 204, 21, 0.16);
+            border-radius: 18px;
+            padding: 28px;
+            color: #fff;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            height: 100%;
+        }
+
+        .persona-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            background: rgba(250, 204, 21, 0.12);
+            color: #FACC15;
+            border: 1px solid rgba(250, 204, 21, 0.18);
+        }
+
+        .persona-card p {
+            color: rgba(241, 245, 249, 0.74);
+            margin: 0 0 22px;
+            line-height: 1.7;
+        }
+
+        .stats-strip {
+            background: #0F172A;
+            padding: 52px 0;
+        }
+
+        .stats-grid {
+            text-align: center;
+            gap: 18px;
+        }
+
+        .stat-block {
+            padding: 20px 16px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(241, 245, 249, 0.06);
+        }
+
+        .stat-icon-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            color: #FACC15;
+            background: rgba(250, 204, 21, 0.08);
+            border: 1px solid rgba(250, 204, 21, 0.14);
+        }
+
+        .stat-value {
+            font-family: Montserrat, sans-serif;
+            font-weight: 800;
+            font-size: 36px;
+            line-height: 1.1;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            color: rgba(241, 245, 249, 0.72);
+            font-size: 14px;
+        }
+
+        .xp-layout {
+            align-items: center;
+            gap: 48px;
+        }
+
+        .xp-intro {
+            color: #64748B;
+            margin: 16px 0 24px;
+            font-size: 17px;
+        }
+
+        .xp-level-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .xp-level-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .xp-level-note {
+            font-size: 14px;
+            color: #64748B;
+        }
+
+        .badge-elite {
+            background: linear-gradient(90deg, #FACC15, #F97316);
+            color: var(--blue);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            min-width: 100px;
+            text-align: center;
+            font-family: Montserrat, sans-serif;
+        }
+
+        .xp-journey-card {
+            padding: 30px 30px 28px;
+        }
+
+        .xp-journey-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .journey-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(250, 204, 21, 0.14);
+            color: var(--blue);
+            border: 1px solid rgba(250, 204, 21, 0.24);
+            flex-shrink: 0;
+        }
+
+        .journey-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .journey-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+        }
+
+        .journey-row span:first-child {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+        }
+
+        .journey-row strong {
+            font-family: Montserrat, sans-serif;
+            font-size: 15px;
+            color: var(--blue);
+        }
+
+        .journey-row-icon {
+            width: 18px;
+            height: 18px;
+            color: #F97316;
+            flex-shrink: 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            background: #fff;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+            height: 100%;
+        }
+
+        .testimonial-rating {
+            display: flex;
+            gap: 6px;
+            color: #F59E0B;
+            margin-bottom: 16px;
+        }
+
+        .rating-stars {
+            display: inline-flex;
+            gap: 6px;
+            color: #FACC15;
+        }
+
+        .rating-stars svg {
+            fill: currentColor;
+            stroke: currentColor;
+        }
+
+        .testimonial-copy {
+            color: #475569;
+            font-size: 15px;
+            line-height: 1.75;
+            margin-bottom: 22px;
+        }
+
+        .testimonial-person {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .testimonial-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(250, 204, 21, 0.18), rgba(249, 115, 22, 0.22));
+            color: var(--blue);
+            font-family: Montserrat, sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .testimonial-person strong {
+            display: block;
+            color: var(--blue);
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+
+        .testimonial-person span {
+            color: #64748B;
+            font-size: 13px;
+        }
+
+        .faq-section {
+            background: #F8FAFC;
+        }
+
+        .faq-wrap {
+            max-width: 860px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .faq-item {
+            background: #fff;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 20px 22px;
+            text-align: left;
+            background: transparent;
+            border: none;
+            color: var(--blue);
+            font-family: Montserrat, sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .faq-question:hover {
+            background: rgba(248, 250, 252, 0.9);
+        }
+
+        .faq-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #F59E0B;
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid rgba(250, 204, 21, 0.18);
+            transition: transform .2s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 22px 20px;
+            color: #64748B;
+            font-size: 15px;
+            line-height: 1.75;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        .landing-cta {
+            background: #0F172A;
+            color: #fff;
+            padding: 64px 24px;
+        }
+
+        .landing-cta-shell {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 34px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(250, 204, 21, 0.96), rgba(249, 115, 22, 0.95));
+            box-shadow: 0 24px 48px rgba(15, 23, 42, 0.22);
+            text-align: center;
+        }
+
+        .landing-cta-shell p {
+            color: rgba(15, 23, 42, 0.78);
+            font-size: 18px;
+            margin: 0 auto 28px;
+            max-width: 620px;
+        }
+
+        .site-footer {
+            background: var(--blue);
+            color: var(--muted);
+            padding: 56px 24px 24px;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .footer-brand-block {
+            max-width: 320px;
+        }
+
+        .footer-brand-block p {
+            color: rgba(241, 245, 249, 0.72);
+            font-size: 14px;
+            line-height: 1.7;
+            margin: 14px 0 18px;
+        }
+
+        .footer-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: rgba(241, 245, 249, 0.68);
+            font-size: 13px;
+        }
+
+        .footer-meta-line {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-meta-line svg {
+            width: 15px;
+            height: 15px;
+            color: #FACC15;
+            flex-shrink: 0;
+        }
+
+        .footer-column h4 {
+            color: #fff;
+            margin-bottom: 14px;
+            font-size: 14px;
+            font-family: Montserrat, sans-serif;
+            letter-spacing: 0.02em;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(241, 245, 249, 0.78);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color .2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--yellow);
+        }
+
+        .footer-link-icon {
+            width: 14px;
+            height: 14px;
+            color: rgba(241, 245, 249, 0.48);
+            flex-shrink: 0;
+        }
+
+        .footer-divider {
+            max-width: 1200px;
+            margin: 28px auto 0;
+            border-top: 1px solid rgba(241, 245, 249, 0.1);
+            padding-top: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            color: rgba(241, 245, 249, 0.62);
+            font-size: 13px;
+        }
+
+        .footer-divider-links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .footer-divider-links a {
+            color: rgba(241, 245, 249, 0.74);
+            text-decoration: none;
+        }
+
+        .footer-divider-links a:hover {
+            color: var(--yellow);
+        }
+
+        @media (max-width: 1180px) {
+            .navbar-landing .nav-links {
+                gap: 4px;
+            }
+
+            .navbar-landing .nav-links a {
+                padding: 0 10px;
+                font-size: 12px;
+            }
+
+            .nav-space-link {
+                font-size: 11px;
+                padding: 0 10px;
+            }
+        }
+
+        @media (max-width: 980px) {
+            .testimonial-grid,
+            .persona-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .footer-brand-block {
+                max-width: none;
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
+                gap: 16px;
+                padding-inline: 16px;
+            }
+
+            .hero-left {
+                padding-right: 0;
+                text-align: center;
+                max-width: none;
+                width: 100%;
+                margin-inline: auto;
+            }
+
+            .hero-right {
+                display: none;
+            }
+        }
+
+        @media (max-width: 860px) {
+            .navbar.navbar-landing {
+                position: fixed;
+                top: 14px;
+                right: 14px;
+                left: auto;
+                min-height: 0;
+                padding: 0;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                width: auto;
+                z-index: 120;
+            }
+
+            .navbar-landing .nav-brand,
+            .navbar-landing .nav-links,
+            .nav-actions.nav-actions-landing {
+                display: none !important;
+            }
+
+            .nav-menu-toggle {
+                display: inline-flex;
+            }
+
+            .nav-mobile-panel {
+                display: none;
+                position: fixed;
+                top: 66px;
+                right: 14px;
+                left: 14px;
+                padding: 16px;
+                border-radius: 20px;
+                background: rgba(15, 23, 42, 0.98);
+                border: 1px solid rgba(241, 245, 249, 0.08);
+                box-shadow: 0 22px 44px rgba(2, 6, 23, 0.34);
+            }
+
+            .navbar.navbar-landing.menu-open .nav-mobile-panel {
+                display: block;
+            }
+
+            .nav-mobile-links,
+            .nav-mobile-actions,
+            .nav-mobile-spaces {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-mobile-links {
+                padding-bottom: 14px;
+                margin-bottom: 14px;
+                border-bottom: 1px solid rgba(241, 245, 249, 0.08);
+            }
+
+            .nav-mobile-links a,
+            .nav-mobile-spaces a {
+                display: flex;
+                align-items: center;
+                min-height: 44px;
+                padding: 0 14px;
+                border-radius: 12px;
+                text-decoration: none;
+                font-family: Montserrat, sans-serif;
+                font-size: 14px;
+                font-weight: 700;
+            }
+
+            .nav-mobile-links a {
+                color: rgba(241, 245, 249, 0.84);
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(241, 245, 249, 0.06);
+            }
+
+            .nav-mobile-links a:hover {
+                color: var(--yellow);
+                border-color: rgba(250, 204, 21, 0.18);
+                background: rgba(250, 204, 21, 0.08);
+            }
+
+            .nav-mobile-spaces {
+                padding-block: 14px;
+                margin-block: 14px;
+                border-top: 1px solid rgba(241, 245, 249, 0.08);
+                border-bottom: 1px solid rgba(241, 245, 249, 0.08);
+            }
+
+            .nav-mobile-spaces a {
+                color: rgba(241, 245, 249, 0.88);
+                background: rgba(255, 255, 255, 0.04);
+                border: 1px solid rgba(250, 204, 21, 0.14);
+            }
+
+            .nav-mobile-tools {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-top: 14px;
+            }
+
+            .nav-mobile-tools .nav-icon-btn {
+                flex-shrink: 0;
+            }
+
+            .nav-mobile-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-search-form {
+                flex-wrap: wrap;
+                border-radius: 24px;
+                padding: 14px;
+            }
+
+            .hero-search-input {
+                width: 100%;
+            }
+
+            .hero-search-form .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-side-ctas {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .hero-side-link {
+                justify-content: center;
+            }
+
+            .feature-card,
+            .persona-card,
+            .testimonial-card,
+            .xp-journey-card {
+                padding: 24px 20px;
+            }
+
+            .journey-row {
+                align-items: flex-start;
+            }
+
+            .journey-row span:first-child {
+                align-items: flex-start;
+            }
+
+            .faq-question {
+                padding: 18px 18px;
+                font-size: 15px;
+            }
+
+            .faq-answer {
+                padding: 0 18px 18px;
+            }
+
+            .landing-cta {
+                padding: 48px 20px;
+            }
+
+            .landing-cta-shell {
+                padding: 28px 20px;
+                border-radius: 20px;
+            }
+
+            .site-footer {
+                padding: 44px 20px 20px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 22px;
+            }
+
+            .footer-divider {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="nav-brand">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none" style="height:38px">
-        <defs>
-          <linearGradient id="gL" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#FACC15" />
-            <stop offset="100%" stop-color="#F97316" />
-          </linearGradient>
-        </defs>
-        <path d="M10 55 Q22 20 38 55" stroke="url(#gL)" stroke-width="5" fill="none" stroke-linecap="round" />
-        <path d="M28 55 Q44 10 62 55" stroke="url(#gL)" stroke-width="5" fill="none" stroke-linecap="round" />
-        <path d="M50 55 Q70 5 90 55" stroke="url(#gL)" stroke-width="5.5" fill="none" stroke-linecap="round" />
-        <text x="10" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="#F1F5F9">Bridge</text>
-        <text x="82" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="url(#gL)">Up</text>
-      </svg>
-    </div>
-    <div class="nav-links">
-      <a href="#how">How it Works</a>
-      <a href="#personas">For You</a>
-      <a href="#stats">Numbers</a>
-    </div>
-    <div class="nav-actions">
-      <div class="nav-spaces">
-        <a class="nav-space-link" href="register.html?role=recruiter">Recruiter Space</a>
-        <a class="nav-space-link" href="register.html?role=university">University Space</a>
-      </div>
-      <a href="login.html"><button class="btn btn-outline btn-sm">Login</button></a>
-      <a href="register.html"><button class="btn btn-primary btn-sm">Get Started</button></a>
-    </div>
-  </nav>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-landing" id="landingNavbar">
+        <div class="nav-brand">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none" style="height:38px">
+                <defs>
+                    <linearGradient id="gL" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#FACC15" />
+                        <stop offset="100%" stop-color="#F97316" />
+                    </linearGradient>
+                </defs>
+                <path d="M10 55 Q22 20 38 55" stroke="url(#gL)" stroke-width="5" fill="none" stroke-linecap="round" />
+                <path d="M28 55 Q44 10 62 55" stroke="url(#gL)" stroke-width="5" fill="none" stroke-linecap="round" />
+                <path d="M50 55 Q70 5 90 55" stroke="url(#gL)" stroke-width="5.5" fill="none" stroke-linecap="round" />
+                <text x="10" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="#F1F5F9">Bridge</text>
+                <text x="82" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="url(#gL)">Up</text>
+            </svg>
+        </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg" aria-hidden="true">
-      <div class="hero-bg-orb hero-bg-orb-1"></div>
-      <div class="hero-bg-orb hero-bg-orb-2"></div>
-      <div class="hero-bg-grid"></div>
-    </div>
+        <div class="nav-links">
+            <a href="#how">How it Works</a>
+            <a href="#personas">For You</a>
+            <a href="#stats">Numbers</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#faq">FAQ</a>
+        </div>
 
-    <div class="container hero-inner">
-      <div class="hero-left">
-        <h1>Your Bridge to the<br><span class="grad-text">Professional World</span></h1>
-        <p>Bridge Up connects Algerian students, employers, and universities — turning university years into a launchpad
-          for professional life.</p>
-      </div>
-
-      <div class="hero-right" aria-hidden="true">
-        <div class="hero-card-stack">
-          <div class="hero-floating-badge hero-float-1"><span
-              style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#16A34A;margin-right:8px"></span>New
-            opportunity matched</div>
-          <div class="hero-card">
-            <div class="hero-card-header">
-              <div class="hero-card-avatar">SA</div>
-              <div>
-                <div style="font-weight:800;color:#fff">Sara Amrani</div>
-                <div style="color:#94A3B8;font-size:13px">Computer Science · 3rd Year</div>
-              </div>
-              <div style="margin-left:auto"><span class="level-badge"
-                  style="background:rgba(250,204,21,0.12);color:#FACC15">Rising Talent</span></div>
+        <div class="nav-actions nav-actions-landing">
+            <div class="nav-spaces">
+                <a class="nav-space-link" href="register.html?role=recruiter">Recruiter Space</a>
+                <a class="nav-space-link" href="register.html?role=university">University Space</a>
             </div>
-            <div style="margin-bottom:12px">
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#94A3B8;margin-bottom:6px">
-                <span>385 XP</span><span>Next: Experienced (601 XP)</span></div>
-              <div class="xp-bar-track">
-                <div class="xp-bar-fill"></div>
-              </div>
+
+            <button class="nav-icon-btn" type="button" aria-label="Clear local storage" title="Clear local storage" onclick="resetPrototypeStorage()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path d="M3 6h18"></path>
+                    <path d="M8 6V4.75C8 3.78 8.78 3 9.75 3h4.5C15.22 3 16 3.78 16 4.75V6"></path>
+                    <path d="M19 6l-1 13.25A2 2 0 0 1 16.01 21H7.99A2 2 0 0 1 6 19.25L5 6"></path>
+                    <path d="M10 10.5v6"></path>
+                    <path d="M14 10.5v6"></path>
+                </svg>
+            </button>
+
+            <a href="login.html"><button class="btn btn-outline btn-sm">Login</button></a>
+            <a href="register.html"><button class="btn btn-primary btn-sm">Get Started</button></a>
+        </div>
+
+        <button class="nav-menu-toggle" type="button" id="navMenuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobilePanel">
+            <i data-lucide="menu"></i>
+        </button>
+
+        <div class="nav-mobile-panel" id="navMobilePanel">
+            <div class="nav-mobile-links">
+                <a href="#how">How it Works</a>
+                <a href="#personas">For You</a>
+                <a href="#stats">Numbers</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#faq">FAQ</a>
             </div>
-            <div style="display:flex;gap:8px;margin-top:12px">
-              <div class="level-badge"
-                style="background:rgba(255,255,255,0.04);color:#94A3B8;font-size:12px;padding:6px 8px">Profile Complete
-              </div>
-              <div class="level-badge"
-                style="background:rgba(250,204,21,0.12);color:#FACC15;font-size:12px;padding:6px 8px">1 Certificate
-              </div>
-              <div class="level-badge"
-                style="background:rgba(249,115,22,0.12);color:#FB923C;font-size:12px;padding:6px 8px">5★ Review</div>
+
+            <div class="nav-mobile-actions">
+                <a href="login.html"><button class="btn btn-outline btn-sm">Login</button></a>
+                <a href="register.html"><button class="btn btn-primary btn-sm">Get Started</button></a>
             </div>
-          </div>
-          <div class="hero-floating-badge hero-float-2">Certificate earned · +75 XP</div>
-        </div>
-      </div>
 
-      <div class="hero-search" style="grid-column:1 / -1">
-        <h3 style="margin-bottom: 6px;">Find your future opportunity in Algeria</h3>
-        <form class="hero-search-form" id="heroOpportunitySearch">
-          <svg class="hero-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="2" aria-hidden="true">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input type="text" id="heroSearchInput" class="hero-search-input"
-            placeholder="Search internships, freelance projects, companies, or skills" />
-          <button type="submit" class="btn btn-primary btn-sm">Search Opportunities</button>
-        </form>
-        <div class="hero-search-note">Among <span class="grad-text" style="font-weight: bold;">+11362</span> open opportunities</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="section landing-section-soft" id="how">
-    <div class="container">
-      <div class="section-heading">
-        <h2>How Bridge <span class="grad-text">Up</span> Works</h2>
-        <p>Three clear steps to move from campus to your first real experience.</p>
-      </div>
-      <div class="grid-3">
-        <article class="landing-card feature-card">
-          <div class="feature-icon-wrap" aria-hidden="true">
-            <i data-lucide="user-round-search"></i>
-          </div>
-          <div class="feature-step">Step 1</div>
-          <h3>Create Your Profile</h3>
-          <p>Fill in your academic info, interests, and skills so Bridge Up can start surfacing relevant opportunities right away.</p>
-        </article>
-        <article class="landing-card feature-card">
-          <div class="feature-icon-wrap" aria-hidden="true">
-            <i data-lucide="briefcase-business"></i>
-          </div>
-          <div class="feature-step">Step 2</div>
-          <h3>Apply & Get Hired</h3>
-          <p>Browse personalized matches, apply with one click, and move into a clearer hiring flow with a digital contract.</p>
-        </article>
-        <article class="landing-card feature-card">
-          <div class="feature-icon-wrap" aria-hidden="true">
-            <i data-lucide="badge-check"></i>
-          </div>
-          <div class="feature-step">Step 3</div>
-          <h3>Earn XP & Certificates</h3>
-          <p>Complete experiences, grow your XP, unlock rewards, and collect visible proof for your portfolio and profile.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOR EACH PERSONA -->
-  <section class="section" id="personas" style="background:var(--blue)">
-    <div class="container">
-      <div class="section-heading">
-        <h2 style="color:#fff">Built for <span class="grad-text">Everyone</span></h2>
-        <p style="color:rgba(241,245,249,0.72)">One shared platform, designed for each side of the opportunity journey.</p>
-      </div>
-      <div class="persona-grid">
-        <article class="persona-card">
-          <div class="persona-icon" aria-hidden="true">
-            <i data-lucide="graduation-cap"></i>
-          </div>
-          <h3 style="color:#fff;margin-bottom:10px">Students</h3>
-          <p>Discover tailored internships and jobs, build your portfolio, earn XP, and get certified — all before graduation.</p>
-          <a href="register.html?role=student"><button class="btn btn-primary btn-sm">JOIN AS STUDENT</button></a>
-        </article>
-        <article class="persona-card">
-          <div class="persona-icon" aria-hidden="true">
-            <i data-lucide="building-2"></i>
-          </div>
-          <h3 style="color:#fff;margin-bottom:10px">Recruiters</h3>
-          <p>Find motivated, affordable talent from Algerian universities. Post opportunities and shape your next hire with better context.</p>
-          <a href="register.html?role=recruiter"><button class="btn btn-primary btn-sm">Join as Recruiter</button></a>
-        </article>
-        <article class="persona-card">
-          <div class="persona-icon" aria-hidden="true">
-            <i data-lucide="landmark"></i>
-          </div>
-          <h3 style="color:#fff;margin-bottom:10px">Universities</h3>
-          <p>Track student performance, identify skill gaps, and connect academic preparation more closely to market demand.</p>
-          <a href="register.html?role=university"><button class="btn btn-primary btn-sm">Join as University</button></a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- STATS STRIP -->
-  <section class="stats-strip" id="stats">
-    <div class="container grid-4 stats-grid">
-      <div class="stat-block">
-        <div class="stat-icon-box" aria-hidden="true">
-          <i data-lucide="users"></i>
-        </div>
-        <div class="stat-value" id="counter-students">+2M</div>
-        <div class="stat-label">Students Registered</div>
-      </div>
-      <div class="stat-block">
-        <div class="stat-icon-box" aria-hidden="true">
-          <i data-lucide="badge-check"></i>
-        </div>
-        <div class="stat-value">+15k</div>
-        <div class="stat-label">Verified Recruiters</div>
-      </div>
-      <div class="stat-block">
-        <div class="stat-icon-box" aria-hidden="true">
-          <i data-lucide="briefcase"></i>
-        </div>
-        <div class="stat-value">+11k</div>
-        <div class="stat-label">Open Opportunities</div>
-      </div>
-      <div class="stat-block">
-        <div class="stat-icon-box" aria-hidden="true">
-          <i data-lucide="school"></i>
-        </div>
-        <div class="stat-value">121</div>
-        <div class="stat-label">Partner Universities</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- XP GAMIFICATION SECTION -->
-  <section class="section">
-    <div class="container">
-      <div class="grid-2 xp-layout">
-        <div>
-          <h2>Level Up Your<br><span class="grad-text">Career Game</span></h2>
-          <p class="xp-intro">Every internship, project, and review earns you Experience Points. Rewards stay visible and motivating without turning the whole interface into a game board.</p>
-          <div class="xp-level-list">
-            <div class="xp-level-item"><span class="badge badge-gray" style="min-width:100px;text-align:center">Starter</span><span class="xp-level-note">0–200 XP · Platform badge</span></div>
-            <div class="xp-level-item"><span class="badge badge-yellow" style="min-width:100px;text-align:center">Rising Talent</span><span class="xp-level-note">201–600 XP · Premium job listings</span></div>
-            <div class="xp-level-item"><span class="badge badge-orange" style="min-width:100px;text-align:center">Experienced</span><span class="xp-level-note">601–1200 XP · Course discounts</span></div>
-            <div class="xp-level-item"><span class="badge badge-blue" style="min-width:100px;text-align:center">Pro</span><span class="xp-level-note">1201–2500 XP · Featured profile</span></div>
-            <div class="xp-level-item"><span class="badge-elite">Elite</span><span class="xp-level-note">2500+ XP · Priority placement + exclusive roles</span></div>
-          </div>
-        </div>
-        <div class="landing-card xp-journey-card">
-          <div class="xp-journey-head">
-            <div class="journey-icon" aria-hidden="true">
-              <i data-lucide="gauge"></i>
+            <div class="nav-mobile-spaces">
+                <a href="register.html?role=recruiter">Recruiter Space</a>
+                <a href="register.html?role=university">University Space</a>
             </div>
-            <h3 style="margin:0">Sample XP Journey</h3>
-          </div>
-          <div class="journey-list">
-            <div class="journey-row">
-              <span><i class="journey-row-icon" data-lucide="circle-check-big"></i>Completed your profile</span>
-              <span class="job-xp">+50 XP</span>
+
+            <div class="nav-mobile-tools">
+                <button class="nav-icon-btn" type="button" aria-label="Clear local storage" title="Clear local storage" onclick="resetPrototypeStorage()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                        <path d="M3 6h18"></path>
+                        <path d="M8 6V4.75C8 3.78 8.78 3 9.75 3h4.5C15.22 3 16 3.78 16 4.75V6"></path>
+                        <path d="M19 6l-1 13.25A2 2 0 0 1 16.01 21H7.99A2 2 0 0 1 6 19.25L5 6"></path>
+                        <path d="M10 10.5v6"></path>
+                        <path d="M14 10.5v6"></path>
+                    </svg>
+                </button>
             </div>
-            <div class="journey-row">
-              <span><i class="journey-row-icon" data-lucide="send"></i>First application submitted</span>
-              <span class="job-xp">+10 XP</span>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg" aria-hidden="true">
+            <div class="hero-bg-orb hero-bg-orb-1"></div>
+            <div class="hero-bg-orb hero-bg-orb-2"></div>
+            <div class="hero-bg-grid"></div>
+        </div>
+
+        <div class="container hero-inner">
+            <div class="hero-left">
+                <h1>Your Bridge to the<br><span class="grad-text">Professional World</span></h1>
+                <p>Bridge Up connects Algerian students, employers, and universities turning university years into a launchpad for professional life.</p>
             </div>
-            <div class="journey-row">
-              <span><i class="journey-row-icon" data-lucide="building-2"></i>Completed 1-month internship</span>
-              <span class="job-xp">+200 XP</span>
+
+            <div class="hero-right" aria-hidden="true">
+                <div class="hero-card-stack">
+                    <div class="hero-floating-badge hero-float-1">
+                        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#16A34A;margin-right:8px"></span>New opportunity matched
+                    </div>
+
+                    <div class="hero-card">
+                        <div class="hero-card-header">
+                            <div class="hero-card-avatar">SA</div>
+                            <div>
+                                <div style="font-weight:800;color:#fff">Sara Amrani</div>
+                                <div style="color:#94A3B8;font-size:13px">Computer Science · 3rd Year</div>
+                            </div>
+                            <div style="margin-left:auto">
+                                <span class="level-badge" style="background:rgba(250,204,21,0.12);color:#FACC15">Rising Talent</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom:12px">
+                            <div style="display:flex;justify-content:space-between;font-size:13px;color:#94A3B8;margin-bottom:6px">
+                                <span>385 XP</span>
+                                <span>Next: Experienced · 601 XP</span>
+                            </div>
+                            <div class="xp-bar-track">
+                                <div class="xp-bar-fill"></div>
+                            </div>
+                        </div>
+
+                        <div style="display:flex;gap:8px;margin-top:12px">
+                            <div class="level-badge" style="background:rgba(255,255,255,0.04);color:#94A3B8;font-size:12px;padding:6px 8px">Profile Complete</div>
+                            <div class="level-badge" style="background:rgba(250,204,21,0.12);color:#FACC15;font-size:12px;padding:6px 8px">1 Certificate</div>
+                            <div class="level-badge" style="background:rgba(249,115,22,0.12);color:#FB923C;font-size:12px;padding:6px 8px">5 Reviews</div>
+                        </div>
+                    </div>
+
+                    <div class="hero-floating-badge hero-float-2">Certificate earned · +75 XP</div>
+                </div>
             </div>
-            <div class="journey-row">
-              <span><i class="journey-row-icon" data-lucide="star"></i>Received a 5-star review</span>
-              <span class="job-xp">+50 XP</span>
+
+            <div class="hero-search" style="grid-column:1 / -1">
+                <h3 style="margin-bottom: 6px;">Find your future opportunity in Algeria</h3>
+                <form class="hero-search-form" id="heroOpportunitySearch">
+                    <svg class="hero-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="heroSearchInput" class="hero-search-input" placeholder="Search internships, freelance projects, companies, or skills" />
+                    <button type="submit" class="btn btn-primary btn-sm">Search Opportunities</button>
+                </form>
+                <div class="hero-search-note">Among <span class="grad-text" style="font-weight: bold;">11,362</span> open opportunities</div>
             </div>
-            <div class="journey-row">
-              <span><i class="journey-row-icon" data-lucide="scroll-text"></i>Certificate earned</span>
-              <span class="job-xp">+75 XP</span>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section landing-section-soft" id="how">
+        <div class="container">
+            <div class="section-heading">
+                <h2>How Bridge <span class="grad-text">Up</span> Works</h2>
+                <p>Three clear steps to move from campus to your first real experience.</p>
             </div>
-            <hr class="divider" />
-            <div class="journey-row">
-              <strong>Total after first internship</strong>
-              <span class="job-xp">385 XP → Rising Talent</span>
+
+            <div class="grid-3">
+                <article class="landing-card feature-card">
+                    <div class="feature-icon-wrap" aria-hidden="true"><i data-lucide="user-round-search"></i></div>
+                    <div class="feature-step">Step 1</div>
+                    <h3>Create Your Profile</h3>
+                    <p>Fill in your academic info, interests, and skills so Bridge Up can start surfacing relevant opportunities right away.</p>
+                </article>
+
+                <article class="landing-card feature-card">
+                    <div class="feature-icon-wrap" aria-hidden="true"><i data-lucide="briefcase-business"></i></div>
+                    <div class="feature-step">Step 2</div>
+                    <h3>Apply & Get Hired</h3>
+                    <p>Browse personalized matches, apply with one click, and move into a clearer hiring flow with a digital contract.</p>
+                </article>
+
+                <article class="landing-card feature-card">
+                    <div class="feature-icon-wrap" aria-hidden="true"><i data-lucide="badge-check"></i></div>
+                    <div class="feature-step">Step 3</div>
+                    <h3>Earn XP & Certificates</h3>
+                    <p>Complete experiences, grow your XP, unlock rewards, and collect visible proof for your portfolio and profile.</p>
+                </article>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="section" style="background:var(--blue)">
-    <div class="container">
-      <div class="section-heading">
-        <h2 style="color:#fff">Trusted by the people building careers</h2>
-        <p>Bridge Up helps students, recruiters, and universities move from disconnected efforts to one clearer workflow.</p>
-      </div>
-
-      <div class="testimonial-grid">
-        <article class="testimonial-card">
-          <div class="testimonial-rating" aria-label="5 out of 5 stars">
-            <span class="rating-stars" aria-hidden="true">
-              <i data-lucide="star"></i>
-              <i data-lucide="star"></i>
-              <i data-lucide="star"></i>
-              <i data-lucide="star"></i>
-              <i data-lucide="star"></i>
-            </span>
-          </div>
-          <p class="testimonial-copy">“I used Bridge Up to find my first marketing internship in Annaba. The opportunity felt relevant to my profile, and having one place for applications and certificates made the process much less stressful.”</p>
-          <div class="testimonial-person">
-            <div class="testimonial-avatar">SB</div>
-            <div>
-              <strong>Sara B.</strong>
-              <span>Master’s student · Business & Marketing</span>
+    <!-- FOR EACH PERSONA -->
+    <section class="section" id="personas" style="background:var(--blue)">
+        <div class="container">
+            <div class="section-heading">
+                <h2 style="color:#fff">Built for <span class="grad-text">Everyone</span></h2>
+                <p style="color:rgba(241,245,249,0.72)">One shared platform, designed for each side of the opportunity journey.</p>
             </div>
-          </div>
-        </article>
 
-        <article class="testimonial-card">
-          <div class="testimonial-rating" aria-label="5 out of 5 stars">
-            <span class="rating-stars" aria-hidden="true">
-              <i data-lucide="star"></i>
-              <i data-lucide="star"></i>
-              <i data-lucide="star"></i>
-              <i data-lucide="star"></i>
-              <i data-lucide="star"></i>
-            </span>
-          </div>
-          <p class="testimonial-copy">“As a recruiter, I need motivated junior talent without sorting through random applications. Bridge Up gives us a more focused pipeline and a better view of student skills before interviews.”</p>
-          <div class="testimonial-person">
-            <div class="testimonial-avatar">KM</div>
-            <div>
-              <strong>Karim M.</strong>
-              <span>Talent Partner · Digital Agency</span>
+            <div class="persona-grid">
+                <article class="persona-card">
+                    <div class="persona-icon" aria-hidden="true"><i data-lucide="graduation-cap"></i></div>
+                    <h3 style="color:#fff;margin-bottom:10px">Students</h3>
+                    <p>Discover tailored internships and jobs, build your portfolio, earn XP, and get certified all before graduation.</p>
+                    <a href="register.html?role=student"><button class="btn btn-primary btn-sm">JOIN AS STUDENT</button></a>
+                </article>
+
+                <article class="persona-card">
+                    <div class="persona-icon" aria-hidden="true"><i data-lucide="building-2"></i></div>
+                    <h3 style="color:#fff;margin-bottom:10px">Recruiters</h3>
+                    <p>Find motivated, affordable talent from Algerian universities. Post opportunities and shape your next hire with better context.</p>
+                    <a href="register.html?role=recruiter"><button class="btn btn-primary btn-sm">Join as Recruiter</button></a>
+                </article>
+
+                <article class="persona-card">
+                    <div class="persona-icon" aria-hidden="true"><i data-lucide="landmark"></i></div>
+                    <h3 style="color:#fff;margin-bottom:10px">Universities</h3>
+                    <p>Track student performance, identify skill gaps, and connect academic preparation more closely to market demand.</p>
+                    <a href="register.html?role=university"><button class="btn btn-primary btn-sm">Join as University</button></a>
+                </article>
             </div>
-          </div>
-        </article>
+        </div>
+    </section>
 
-        <article class="testimonial-card">
-          <div class="testimonial-rating" aria-label="5 out of 5 stars">
-            <span class="rating-stars" aria-hidden="true">
-              <i data-lucide="star"></i>
-              <i data-lucide="star"></i>
-              <i data-lucide="star"></i>
-              <i data-lucide="star"></i>
-              <i data-lucide="star"></i>
-            </span>
-          </div>
-          <p class="testimonial-copy">“What stands out is the visibility for universities. We can imagine tracking placements, identifying where students succeed, and using that feedback to strengthen employability programs.”</p>
-          <div class="testimonial-person">
-            <div class="testimonial-avatar">NA</div>
-            <div>
-              <strong>Nadia A.</strong>
-              <span>Career Services Lead · Partner University</span>
+    <!-- STATS STRIP -->
+    <section class="stats-strip" id="stats">
+        <div class="container grid-4 stats-grid">
+            <div class="stat-block">
+                <div class="stat-icon-box" aria-hidden="true"><i data-lucide="users"></i></div>
+                <div class="stat-value" id="counter-students">2M</div>
+                <div class="stat-label">Students Registered</div>
             </div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
 
-  <!-- FAQ -->
-  <section class="section faq-section" id="faq">
-    <div class="container">
-      <div class="section-heading">
-        <h2>Frequently asked questions</h2>
-        <p>Quick answers for students, recruiters, and universities exploring the platform.</p>
-      </div>
+            <div class="stat-block">
+                <div class="stat-icon-box" aria-hidden="true"><i data-lucide="badge-check"></i></div>
+                <div class="stat-value">15k</div>
+                <div class="stat-label">Verified Recruiters</div>
+            </div>
 
-      <div class="faq-wrap">
-        <div class="faq-item open">
-          <button class="faq-question" type="button" aria-expanded="true">
-            <span>Who is Bridge Up for?</span>
-            <span class="faq-icon" aria-hidden="true"><i data-lucide="plus"></i></span>
-          </button>
-          <div class="faq-answer">
-            Bridge Up is designed for students looking for internships, freelance projects, and early-career opportunities, as well as recruiters seeking student talent and universities that want better visibility into student outcomes.
-          </div>
+            <div class="stat-block">
+                <div class="stat-icon-box" aria-hidden="true"><i data-lucide="briefcase"></i></div>
+                <div class="stat-value">11k</div>
+                <div class="stat-label">Open Opportunities</div>
+            </div>
+
+            <div class="stat-block">
+                <div class="stat-icon-box" aria-hidden="true"><i data-lucide="school"></i></div>
+                <div class="stat-value">121</div>
+                <div class="stat-label">Partner Universities</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- XP GAMIFICATION SECTION -->
+    <section class="section">
+        <div class="container">
+            <div class="grid-2 xp-layout">
+                <div>
+                    <h2>Level Up Your<br><span class="grad-text">Career Game</span></h2>
+                    <p class="xp-intro">Every internship, project, and review earns you Experience Points. Rewards stay visible and motivating without turning the whole interface into a game board.</p>
+
+                    <div class="xp-level-list">
+                        <div class="xp-level-item"><span class="badge badge-gray" style="min-width:100px;text-align:center">Starter</span><span class="xp-level-note">0–200 XP · Platform badge</span></div>
+                        <div class="xp-level-item"><span class="badge badge-yellow" style="min-width:100px;text-align:center">Rising Talent</span><span class="xp-level-note">201–600 XP · Premium job listings</span></div>
+                        <div class="xp-level-item"><span class="badge badge-orange" style="min-width:100px;text-align:center">Experienced</span><span class="xp-level-note">601–1200 XP · Course discounts</span></div>
+                        <div class="xp-level-item"><span class="badge badge-blue" style="min-width:100px;text-align:center">Pro</span><span class="xp-level-note">1201–2500 XP · Featured profile</span></div>
+                        <div class="xp-level-item"><span class="badge-elite">Elite</span><span class="xp-level-note">2500+ XP · Priority placement & exclusive roles</span></div>
+                    </div>
+                </div>
+
+                <div class="landing-card xp-journey-card">
+                    <div class="xp-journey-head">
+                        <div class="journey-icon" aria-hidden="true"><i data-lucide="gauge"></i></div>
+                        <h3 style="margin:0">Sample XP Journey</h3>
+                    </div>
+
+                    <div class="journey-list">
+                        <div class="journey-row"><span><i class="journey-row-icon" data-lucide="circle-check-big"></i>Completed your profile</span><span class="job-xp">+50 XP</span></div>
+                        <div class="journey-row"><span><i class="journey-row-icon" data-lucide="send"></i>First application submitted</span><span class="job-xp">+10 XP</span></div>
+                        <div class="journey-row"><span><i class="journey-row-icon" data-lucide="building-2"></i>Completed 1-month internship</span><span class="job-xp">+200 XP</span></div>
+                        <div class="journey-row"><span><i class="journey-row-icon" data-lucide="star"></i>Received a 5-star review</span><span class="job-xp">+50 XP</span></div>
+                        <div class="journey-row"><span><i class="journey-row-icon" data-lucide="scroll-text"></i>Certificate earned</span><span class="job-xp">+75 XP</span></div>
+                    </div>
+
+                    <hr class="divider" />
+
+                    <div class="journey-row">
+                        <strong>Total after first internship</strong>
+                        <span class="job-xp">385 XP · Rising Talent</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section" id="testimonials" style="background:var(--blue)">
+        <div class="container">
+            <div class="section-heading">
+                <h2 style="color:#fff">Trusted by the people building careers</h2>
+                <p>Bridge Up helps students, recruiters, and universities move from disconnected efforts to one clearer workflow.</p>
+            </div>
+
+            <div class="testimonial-grid">
+                <article class="testimonial-card">
+                    <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                        <span class="rating-stars" aria-hidden="true">
+                            <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+                        </span>
+                    </div>
+                    <p class="testimonial-copy">I used Bridge Up to find my first marketing internship in Annaba. The opportunity felt relevant to my profile, and having one place for applications and certificates made the process much less stressful.</p>
+                    <div class="testimonial-person">
+                        <div class="testimonial-avatar">SB</div>
+                        <div>
+                            <strong>Sara B.</strong>
+                            <span>Master’s student · Business Marketing</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="testimonial-card">
+                    <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                        <span class="rating-stars" aria-hidden="true">
+                            <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+                        </span>
+                    </div>
+                    <p class="testimonial-copy">As a recruiter, I need motivated junior talent without sorting through random applications. Bridge Up gives us a more focused pipeline and a better view of student skills before interviews.</p>
+                    <div class="testimonial-person">
+                        <div class="testimonial-avatar">KM</div>
+                        <div>
+                            <strong>Karim M.</strong>
+                            <span>Talent Partner · Digital Agency</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="testimonial-card">
+                    <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                        <span class="rating-stars" aria-hidden="true">
+                            <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+                        </span>
+                    </div>
+                    <p class="testimonial-copy">What stands out is the visibility for universities. We can imagine tracking placements, identifying where students succeed, and using that feedback to strengthen employability programs.</p>
+                    <div class="testimonial-person">
+                        <div class="testimonial-avatar">NA</div>
+                        <div>
+                            <strong>Nadia A.</strong>
+                            <span>Career Services Lead · Partner University</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section faq-section" id="faq">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Frequently asked questions</h2>
+                <p>Quick answers for students, recruiters, and universities exploring the platform.</p>
+            </div>
+
+            <div class="faq-wrap">
+                <div class="faq-item open">
+                    <button class="faq-question" type="button" aria-expanded="true">
+                        <span>Who is Bridge Up for?</span>
+                        <span class="faq-icon" aria-hidden="true"><i data-lucide="plus"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        Bridge Up is designed for students looking for internships, freelance projects, and early-career opportunities, as well as recruiters seeking student talent and universities that want better visibility into student outcomes.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" type="button" aria-expanded="false">
+                        <span>Can students join for free?</span>
+                        <span class="faq-icon" aria-hidden="true"><i data-lucide="plus"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        Yes. In this prototype, students can create an account, complete a profile, explore opportunities, and experience the core flow without any payment step.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" type="button" aria-expanded="false">
+                        <span>What can recruiters do on the platform?</span>
+                        <span class="faq-icon" aria-hidden="true"><i data-lucide="plus"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        Recruiters can join the platform, post opportunities, review incoming applicants, and use Bridge Up as a focused entry point for student and junior talent.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" type="button" aria-expanded="false">
+                        <span>How do universities fit into the experience?</span>
+                        <span class="faq-icon" aria-hidden="true"><i data-lucide="plus"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        Universities get a dedicated path to monitor placements, review performance signals, and better understand how academic programs connect with real market demand.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" type="button" aria-expanded="false">
+                        <span>Are certificates and XP part of the prototype?</span>
+                        <span class="faq-icon" aria-hidden="true"><i data-lucide="plus"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        Yes. The homepage and related flows position XP, rewards, and certificates as part of the product story, helping students understand how experience on the platform translates into visible progress.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" type="button" aria-expanded="false">
+                        <span>How can someone contact Bridge Up?</span>
+                        <span class="faq-icon" aria-hidden="true"><i data-lucide="plus"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        For the prototype, visitors can use the placeholder contact details in the footer or the feedback entry point to reach the team and share interest, partnership ideas, or questions.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="landing-cta">
+        <div class="landing-cta-shell">
+            <h2 style="color:var(--blue);margin-bottom:12px">Ready to bridge the gap?</h2>
+            <p>Join 2,000,000 students already building their professional future.</p>
+            <a href="register.html"><button class="btn btn-dark btn-lg">GET STARTED — IT'S FREE</button></a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand-block">
+                <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:16px">Bridge<span style="background:linear-gradient(90deg,#FACC15,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Up</span></div>
+                <p>Your bridge to the professional world a prototype platform connecting students, recruiters, and universities around opportunities, outcomes, and career readiness.</p>
+                <div class="footer-meta">
+                    <span class="footer-meta-line"><i data-lucide="mail"></i>Prototype contact · hello@bridgeup.dz</span>
+                    <span class="footer-meta-line"><i data-lucide="briefcase-business"></i>Partnerships · partners@bridgeup.dz</span>
+                    <span class="footer-meta-line"><i data-lucide="map-pin"></i>Annaba, Algeria</span>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h4>Platform</h4>
+                <div class="footer-links">
+                    <a href="#how"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>How it Works</a>
+                    <a href="#personas"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Who It’s For</a>
+                    <a href="#stats"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Platform Numbers</a>
+                    <a href="job-listing.html"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Explore Opportunities</a>
+                    <a href="marketplace.html"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Marketplace</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h4>Entry Points</h4>
+                <div class="footer-links">
+                    <a href="register.html?role=student"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>For Students</a>
+                    <a href="register.html?role=recruiter"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>For Recruiters</a>
+                    <a href="register.html?role=university"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>For Universities</a>
+                    <a href="login.html"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Login</a>
+                    <a href="register.html"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Create Account</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <div class="footer-links">
+                    <a href="#faq"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>FAQ</a>
+                    <a href="job-listing.html?q=internship"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Internships</a>
+                    <a href="job-listing.html?q=freelance"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Freelance Projects</a>
+                    <a href="job-listing.html?q=remote"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Remote Opportunities</a>
+                    <a href="https://forms.gle/Ga3BMMrb7mSNCXHE9" target="_blank" rel="noopener noreferrer"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Send Feedback</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h4>Trust & Legal</h4>
+                <div class="footer-links">
+                    <a href="./terms.html" target="_blank"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Terms & Conditions</a>
+                    <a href="./privacy.html"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Privacy Policy</a>
+                    <a href="#"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Cookie Notice</a>
+                    <a href="#"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Community Guidelines</a>
+                    <a href="#"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Contact Support</a>
+                </div>
+            </div>
         </div>
 
-        <div class="faq-item">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span>Can students join for free?</span>
-            <span class="faq-icon" aria-hidden="true"><i data-lucide="plus"></i></span>
-          </button>
-          <div class="faq-answer">
-            Yes. In this prototype, students can create an account, complete a profile, explore opportunities, and experience the core flow without any payment step.
-          </div>
+        <div class="footer-divider">
+            <div>© 2026 Bridge Up. All rights reserved.</div>
+            <div class="footer-divider-links">
+                <a href="./terms.html" target="_blank">Terms</a>
+                <a href="./privacy.html" target="_blank">Privacy</a>
+                <a href="#">Cookies</a>
+                <a href="mailto:hello@bridgeup.dz">hello@bridgeup.dz</a>
+            </div>
         </div>
+    </footer>
 
-        <div class="faq-item">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span>What can recruiters do on the platform?</span>
-            <span class="faq-icon" aria-hidden="true"><i data-lucide="plus"></i></span>
-          </button>
-          <div class="faq-answer">
-            Recruiters can join the platform, post opportunities, review incoming applicants, and use Bridge Up as a focused entry point for student and junior talent.
-          </div>
-        </div>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="db.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function resetPrototypeStorage() {
+            localStorage.clear();
+            alert("Local storage deleted successfully.");
+            window.location.reload();
+        }
 
-        <div class="faq-item">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span>How do universities fit into the experience?</span>
-            <span class="faq-icon" aria-hidden="true"><i data-lucide="plus"></i></span>
-          </button>
-          <div class="faq-answer">
-            Universities get a dedicated path to monitor placements, review performance signals, and better understand how academic programs connect with real market demand.
-          </div>
-        </div>
+        window.addEventListener("DOMContentLoaded", () => {
+            const session = Auth.get();
+            if (session) {
+                if (session.role === "student") window.location.href = "student-dashboard.html";
+                else if (session.role === "recruiter") window.location.href = "recruiter-dashboard.html";
+                else if (session.role === "university") window.location.href = "university-dashboard.html";
+                else if (session.role === "freelancer") window.location.href = "marketplace.html";
+            }
 
-        <div class="faq-item">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span>Are certificates and XP part of the prototype?</span>
-            <span class="faq-icon" aria-hidden="true"><i data-lucide="plus"></i></span>
-          </button>
-          <div class="faq-answer">
-            Yes. The homepage and related flows position XP, rewards, and certificates as part of the product story, helping students understand how experience on the platform translates into visible progress.
-          </div>
-        </div>
+            const navbar = document.getElementById("landingNavbar");
+            const navMenuToggle = document.getElementById("navMenuToggle");
+            const navMobilePanel = document.getElementById("navMobilePanel");
 
-        <div class="faq-item">
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span>How can someone contact Bridge Up?</span>
-            <span class="faq-icon" aria-hidden="true"><i data-lucide="plus"></i></span>
-          </button>
-          <div class="faq-answer">
-            For the prototype, visitors can use the placeholder contact details in the footer or the feedback entry point to reach the team and share interest, partnership ideas, or questions.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+            navMenuToggle?.addEventListener("click", () => {
+                const isOpen = navbar.classList.toggle("menu-open");
+                navMenuToggle.setAttribute("aria-expanded", String(isOpen));
+                navMenuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+                if (window.lucide) window.lucide.createIcons();
+            });
 
-  <!-- CTA -->
-  <section class="landing-cta">
-    <div class="landing-cta-shell">
-      <h2 style="color:var(--blue);margin-bottom:12px">Ready to bridge the gap?</h2>
-      <p>Join 2,000,000+ students already building their professional future.</p>
-      <a href="register.html"><button class="btn btn-dark btn-lg">GET STARTED — IT'S FREE</button></a>
-    </div>
-  </section>
+            navMobilePanel?.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", () => {
+                    navbar.classList.remove("menu-open");
+                    navMenuToggle?.setAttribute("aria-expanded", "false");
+                    navMenuToggle?.setAttribute("aria-label", "Open menu");
+                    if (window.lucide) window.lucide.createIcons();
+                });
+            });
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-grid">
-      <div class="footer-brand-block">
-        <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:16px">Bridge<span
-            style="background:linear-gradient(90deg,#FACC15,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Up</span>
-        </div>
-        <p>Your bridge to the professional world — a prototype platform connecting students, recruiters, and universities around opportunities, outcomes, and career readiness.</p>
-        <div class="footer-meta">
-          <span class="footer-meta-line"><i data-lucide="mail"></i>Prototype contact: hello@bridgeup.dz</span>
-          <span class="footer-meta-line"><i data-lucide="briefcase-business"></i>Partnerships: partners@bridgeup.dz</span>
-          <span class="footer-meta-line"><i data-lucide="map-pin"></i>Annaba, Algeria</span>
-        </div>
-      </div>
+            const heroSearchForm = document.getElementById("heroOpportunitySearch");
+            const heroSearchInput = document.getElementById("heroSearchInput");
 
-      <div class="footer-column">
-        <h4>Platform</h4>
-        <div class="footer-links">
-          <a href="#how"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>How it Works</a>
-          <a href="#personas"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Who It’s For</a>
-          <a href="#stats"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Platform Numbers</a>
-          <a href="job-listing.html"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Explore Opportunities</a>
-          <a href="marketplace.html"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Marketplace</a>
-        </div>
-      </div>
+            heroSearchForm?.addEventListener("submit", e => {
+                e.preventDefault();
+                const query = heroSearchInput.value.trim();
+                const target = query ? `job-listing.html?q=${encodeURIComponent(query)}` : "job-listing.html";
+                window.location.href = target;
+            });
 
-      <div class="footer-column">
-        <h4>Entry Points</h4>
-        <div class="footer-links">
-          <a href="register.html?role=student"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>For Students</a>
-          <a href="register.html?role=recruiter"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>For Recruiters</a>
-          <a href="register.html?role=university"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>For Universities</a>
-          <a href="login.html"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Login</a>
-          <a href="register.html"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Create Account</a>
-        </div>
-      </div>
+            const faqItems = document.querySelectorAll(".faq-item");
+            faqItems.forEach(item => {
+                const button = item.querySelector(".faq-question");
+                button?.addEventListener("click", () => {
+                    const isOpen = item.classList.contains("open");
+                    faqItems.forEach(faq => {
+                        faq.classList.remove("open");
+                        const faqButton = faq.querySelector(".faq-question");
+                        faqButton?.setAttribute("aria-expanded", "false");
+                    });
+                    if (!isOpen) {
+                        item.classList.add("open");
+                        button.setAttribute("aria-expanded", "true");
+                    }
+                });
+            });
 
-      <div class="footer-column">
-        <h4>Resources</h4>
-        <div class="footer-links">
-          <a href="#faq"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>FAQ</a>
-          <a href="job-listing.html?q=internship"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Internships</a>
-          <a href="job-listing.html?q=freelance"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Freelance Projects</a>
-          <a href="job-listing.html?q=remote"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Remote Opportunities</a>
-          <a href="https://forms.gle/Ga3BMMrb7mSNCXHE9" target="_blank" rel="noopener noreferrer"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Send Feedback</a>
-        </div>
-      </div>
-
-      <div class="footer-column">
-        <h4>Trust & Legal</h4>
-        <div class="footer-links">
-          <a href="./terms.html" target="_blank"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Terms & Conditions</a>
-          <a href="./privacy.html"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Privacy Policy</a>
-          <a href="#"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Cookie Notice</a>
-          <a href="#"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Community Guidelines</a>
-          <a href="#"><span class="footer-link-icon"><i data-lucide="chevron-right"></i></span>Contact Support</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-divider">
-      <div>© 2026 Bridge Up. All rights reserved.</div>
-      <div class="footer-divider-links">
-        <a href="./terms.html" target="_blank">Terms</a>
-        <a href="./privacy.html" target="_blank">Privacy</a>
-        <a href="#">Cookies</a>
-        <a href="mailto:hello@bridgeup.dz">hello@bridgeup.dz</a>
-      </div>
-    </div>
-  </footer>
-
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="db.js"></script>
-  <script src="app.js"></script>
-  <script>
-    // Redirect if already logged in
-    window.addEventListener("DOMContentLoaded", () => {
-      const session = Auth.get();
-      if (session) {
-        if (session.role === "student") window.location.href = "student-dashboard.html";
-        else if (session.role === "recruiter") window.location.href = "recruiter-dashboard.html";
-        else if (session.role === "university") window.location.href = "university-dashboard.html";
-        else if (session.role === "freelancer") window.location.href = "marketplace.html";
-      }
-
-      const heroSearchForm = document.getElementById("heroOpportunitySearch");
-      const heroSearchInput = document.getElementById("heroSearchInput");
-
-      heroSearchForm?.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const query = heroSearchInput.value.trim();
-        const target = query
-          ? `job-listing.html?q=${encodeURIComponent(query)}`
-          : "job-listing.html";
-        window.location.href = target;
-      });
-
-      const faqItems = document.querySelectorAll(".faq-item");
-
-      faqItems.forEach((item) => {
-        const button = item.querySelector(".faq-question");
-        button?.addEventListener("click", () => {
-          const isOpen = item.classList.contains("open");
-
-          faqItems.forEach((faq) => {
-            faq.classList.remove("open");
-            const faqButton = faq.querySelector(".faq-question");
-            faqButton?.setAttribute("aria-expanded", "false");
-          });
-
-          if (!isOpen) {
-            item.classList.add("open");
-            button.setAttribute("aria-expanded", "true");
-          }
+            if (window.lucide) window.lucide.createIcons();
         });
-      });
-
-      if (window.lucide) {
-        window.lucide.createIcons();
-      }
-    });
-  </script>
+    </script>
 </body>
 
 </html>

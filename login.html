@@ -8,37 +8,43 @@
     <link rel="stylesheet" href="css/style.css" />
     <style>
         .auth-topbar {
-            position: absolute;
-            inset: 0 0 auto 0;
-            width: 100%;
+            position: fixed;
+            top: 18px;
+            left: 18px;
             z-index: 20;
+            width: auto;
+            pointer-events: none;
         }
 
         .auth-topbar-inner {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 14px 24px;
-            background: rgba(15, 23, 42, 0.96);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            justify-content: flex-start;
+            padding: 0;
+            background: transparent;
+            border: none;
         }
 
         .auth-back-link {
+            pointer-events: auto;
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            min-height: 42px;
+            padding: 0 14px;
             text-decoration: none;
-            color: var(--card);
+            color: rgba(241, 245, 249, 0.92);
             font-family: Montserrat, sans-serif;
             font-weight: 700;
             font-size: 14px;
-            opacity: 0.88;
-            transition: opacity .2s ease, color .2s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
         }
 
         .auth-back-link:hover {
-            opacity: 1;
             color: var(--yellow);
+            transform: translateY(-1px);
         }
 
         .auth-back-link svg {
@@ -341,6 +347,19 @@
         }
 
         @media (max-width: 768px) {
+            .auth-topbar {
+                top: 14px;
+                left: 14px;
+            }
+
+            .auth-back-link {
+                color: var(--blue);
+            }
+
+            .auth-back-link:hover {
+                color: var(--orange);
+            }
+
             .login-left {
                 display: none;
             }
@@ -352,10 +371,6 @@
             .login-box {
                 padding: 30px 22px;
                 border-radius: 16px;
-            }
-
-            .auth-topbar-inner {
-                padding: 14px 16px;
             }
 
             .demo-pill {
@@ -548,12 +563,10 @@
             const errEl = document.getElementById("loginError");
             errEl.style.display = "none";
 
-            // 1. Check UserStore first (all prototype-registered users survive logout here)
             const registered = UserStore.validate(email, pass);
             if (registered) {
                 Auth.save({ role: registered.role, id: registered.id, email, name: registered.name });
 
-                // Restore full profile from ProfileVault (saved at registration, survives logout)
                 const vaulted = ProfileVault.get(registered.id);
                 if (vaulted) ProfileStore.save(vaulted);
 
@@ -562,7 +575,6 @@
                 return;
             }
 
-            // 2. Fall back to BridgeDB demo accounts
             const r = BridgeDB.login(email, pass);
             if (r.success) {
                 Auth.save({ role: r.role, id: r.id, email });
@@ -576,9 +588,9 @@
                 return;
             }
 
-            // 3. Both failed
             errEl.style.display = "block";
         });
     </script>
 </body>
+
 </html>
