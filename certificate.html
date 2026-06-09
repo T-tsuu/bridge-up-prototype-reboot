@@ -429,6 +429,8 @@
             const f = document.getElementById("certFilter").value;
             renderCertList(f ? certs.filter(c => c.type === f) : certs);
         }
+
+        initAISupportWidget();
     </script>
 </body>
 
