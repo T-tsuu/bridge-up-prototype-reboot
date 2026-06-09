@@ -7,26 +7,33 @@
     <title>Job Listing — Bridge Up</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="canonical" href="job-listing.html">
-    <meta name="description" content="Browse internships, freelance projects, and job listings across Algeria — filter by role, location, and skill.">
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="description"
+        content="Browse internships, freelance projects, and job listings across Algeria — filter by role, location, and skill.">
     <meta name="author" content="Bridge Up">
     <meta name="robots" content="index,follow">
     <meta name="theme-color" content="#0F172A">
     <meta name="msapplication-TileColor" content="#FACC15">
-    <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#FACC15">
+    <link rel="mask-icon" href="./images/safari-pinned-tab.svg" color="#FACC15">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Job Listing — Bridge Up">
-    <meta property="og:description" content="Browse internships, freelance projects, and job listings across Algeria — filter by role, location, and skill.">
+    <meta property="og:description"
+        content="Browse internships, freelance projects, and job listings across Algeria — filter by role, location, and skill.">
     <meta property="og:url" content="job-listing.html">
-    <meta property="og:image" content="/images/og-image.jpg">
+    <meta property="og:image" content="./images/og-image.jpg">
     <meta property="og:image:alt" content="Job listings on Bridge Up">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Job Listing — Bridge Up">
-    <meta name="twitter:description" content="Browse internships, freelance projects, and job listings across Algeria — filter by role, location, and skill.">
-    <meta name="twitter:image" content="/images/og-image.jpg">
+    <meta name="twitter:description"
+        content="Browse internships, freelance projects, and job listings across Algeria — filter by role, location, and skill.">
+    <meta name="twitter:image" content="./images/og-image.jpg">
     <style>
         .jobs-toolbar {
             display: flex;
@@ -376,7 +383,8 @@
             <div class="jobs-toolbar">
                 <div class="search-bar">
                     <i data-lucide="search"></i>
-                    <input type="text" id="bSearch" placeholder="Search jobs, companies, skills…" oninput="doSearch()" />
+                    <input type="text" id="bSearch" placeholder="Search jobs, companies, skills…"
+                        oninput="doSearch()" />
                 </div>
 
                 <select id="bType" class="jobs-filter" onchange="doSearch()">
@@ -415,15 +423,18 @@
         </div>
 
         <div id="detailMode" style="display:none">
-            <button onclick="goBack()" class="btn btn-ghost btn-sm" style="margin-bottom:20px">← Back to listings</button>
+            <button onclick="goBack()" class="btn btn-ghost btn-sm" style="margin-bottom:20px">← Back to
+                listings</button>
 
             <div class="grid-2 job-detail-grid">
                 <div>
                     <div id="detailGate" class="detail-gate" style="display:none">
                         <p>Sign in or create an account to apply and unlock the full opportunity flow on Bridge Up.</p>
                         <div class="detail-gate-actions">
-                            <button class="btn btn-primary btn-sm" onclick="goToOpportunityLogin()">Sign In to Continue</button>
-                            <button class="btn btn-outline btn-sm" onclick="goToOpportunityRegister()">Create Account</button>
+                            <button class="btn btn-primary btn-sm" onclick="goToOpportunityLogin()">Sign In to
+                                Continue</button>
+                            <button class="btn btn-outline btn-sm" onclick="goToOpportunityRegister()">Create
+                                Account</button>
                         </div>
                     </div>
 
@@ -455,7 +466,9 @@
                             </div>
                         </div>
 
-                        <button id="applyBtn" class="btn btn-primary" style="width:100%;justify-content:center;font-size:16px" onclick="handleApplyClick()">Apply Now</button>
+                        <button id="applyBtn" class="btn btn-primary"
+                            style="width:100%;justify-content:center;font-size:16px" onclick="handleApplyClick()">Apply
+                            Now</button>
                     </div>
 
                     <div class="card job-detail-card">
@@ -506,10 +519,14 @@
     <div class="modal-overlay" id="applyModal">
         <div class="modal">
             <div class="modal-header">
-                <h3>Apply for <span id="applyJobTitle">this job</span></h3><button class="modal-close" onclick="closeModal('applyModal')">×</button>
+                <h3>Apply for <span id="applyJobTitle">this job</span></h3><button class="modal-close"
+                    onclick="closeModal('applyModal')">×</button>
             </div>
-            <p style="font-size:14px;color:#64748B;margin-bottom:16px">Your profile and CV will be automatically attached. Add an optional message to the recruiter.</p>
-            <div class="form-group"><label>Cover Letter / Message (optional)</label><textarea id="coverLetter" placeholder="Hi, I'm very excited about this opportunity because…" style="min-height:120px"></textarea></div>
+            <p style="font-size:14px;color:#64748B;margin-bottom:16px">Your profile and CV will be automatically
+                attached. Add an optional message to the recruiter.</p>
+            <div class="form-group"><label>Cover Letter / Message (optional)</label><textarea id="coverLetter"
+                    placeholder="Hi, I'm very excited about this opportunity because…"
+                    style="min-height:120px"></textarea></div>
             <div style="display:flex;gap:10px;justify-content:flex-end">
                 <button class="btn btn-ghost" onclick="closeModal('applyModal')">Cancel</button>
                 <button class="btn btn-primary" onclick="submitApp()">Submit Application</button>
@@ -524,7 +541,8 @@
             </div>
             <h2 style="margin-bottom:10px">Application Sent!</h2>
             <p style="color:#64748B;margin-bottom:8px">Your application has been submitted successfully.</p>
-            <p style="color:#64748B;margin-bottom:24px">You earned <span class="job-xp" style="font-size:16px">+10 XP</span> for your application!</p>
+            <p style="color:#64748B;margin-bottom:24px">You earned <span class="job-xp" style="font-size:16px">+10
+                    XP</span> for your application!</p>
             <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
                 <button class="btn btn-outline" onclick="goSuccessPrimary()">Back to Dashboard</button>
                 <button class="btn btn-primary" onclick="closeModal('successModal')">Browse More Jobs</button>
