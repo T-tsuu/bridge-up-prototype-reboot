@@ -432,3 +432,292 @@ function initStickyWidget() {
         setInterval(triggerWiggle, 5000);
     }, 3000);
 }
+
+
+
+// ===========================================
+
+
+const AI_SUPPORT_WIDGET_DEFAULTS = {
+    portraitUrl: "./images/support-agent.jpg",
+    feedbackUrl: "https://forms.gle/Ga3BMMrb7mSNCXHE9",
+    title: "Bridge Up Assistant",
+    subtitle: "Ask questions, get quick help, or send product feedback.",
+    welcomeMessage: "Hi — I’m your Bridge Up assistant. I can help with platform questions, onboarding guidance, or direct you to the feedback form.",
+    placeholder: "Ask anything about Bridge Up…",
+    badgeText: "AI",
+    systemPrompt: "You are the Bridge Up support assistant. Be concise, helpful, friendly, and product-aware. If you are uncertain, say so clearly. Never invent platform features. Prefer practical next steps. Encourage users to use the feedback form for bugs, UX issues, or ideas.",
+    apiEndpoint: "/api/bridge-up-assistant",
+    quickActions: [
+        "How do I get started?",
+        "How does XP work?",
+        "Where can I find internships?"
+    ],
+    mount: null
+};
+
+function initAISupportWidget(overrides = {}) {
+    return initAiSupportWidget(overrides);
+}
+
+function initAiSupportWidget(overrides = {}) {
+    const settings = {
+        ...AI_SUPPORT_WIDGET_DEFAULTS,
+        ...overrides,
+        mount: overrides.mount || AI_SUPPORT_WIDGET_DEFAULTS.mount || document.body
+    };
+
+    if (!settings.mount) return null;
+
+    const widget = document.createElement("section");
+    widget.className = "ai-support-widget";
+    widget.setAttribute("aria-label", "Bridge Up AI support widget");
+
+    widget.innerHTML = `
+        <div class="ai-support-panel" id="aiSupportPanel" aria-hidden="true">
+            <div class="ai-support-header">
+                <button class="ai-support-close" type="button" aria-label="Close assistant">
+                    <i data-lucide="x"></i>
+                </button>
+
+                <div class="ai-support-header-top">
+                    <img class="ai-support-avatar" src="${settings.portraitUrl}" alt="Bridge Up assistant portrait" />
+                    <div class="ai-support-title">
+                        <h3>${settings.title}</h3>
+                        <p>${settings.subtitle}</p>
+                    </div>
+                </div>
+
+                <div class="ai-support-status">AI assistant available</div>
+            </div>
+
+            <div class="ai-support-body">
+                <div class="ai-support-messages" id="aiSupportMessages"></div>
+
+                <div class="ai-support-actions" id="aiSupportActions">
+                    ${settings.quickActions.map(action => `
+                        <button class="ai-support-chip" type="button" data-ai-support-chip="${escapeHtml(action)}">${action}</button>
+                    `).join("")}
+                </div>
+
+                <form class="ai-support-form" id="aiSupportForm">
+                    <div class="ai-support-input-wrap">
+                        <textarea
+                            id="aiSupportInput"
+                            class="ai-support-input"
+                            rows="1"
+                            placeholder="${settings.placeholder}"
+                        ></textarea>
+                        <button class="ai-support-send" type="submit" aria-label="Send message">
+                            <i data-lucide="send-horizontal"></i>
+                        </button>
+                    </div>
+                    <div class="ai-support-note">Powered by AI. For account-specific issues, also use the feedback form so your message reaches the team.</div>
+                </form>
+
+                <div class="ai-support-feedback">
+                    <a class="ai-support-feedback-link" href="${settings.feedbackUrl}" target="_blank" rel="noopener noreferrer">
+                        <div class="ai-support-feedback-copy">
+                            <strong>Share feedback</strong>
+                            <span>Report friction, suggest ideas, or tell us what should improve.</span>
+                        </div>
+                        <i data-lucide="arrow-up-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <button class="ai-support-trigger" type="button" aria-label="Open Bridge Up assistant" aria-expanded="false">
+            <span class="ai-support-trigger-ring" aria-hidden="true"></span>
+            <span class="ai-support-trigger-pulse" aria-hidden="true"></span>
+            <img class="ai-support-trigger-image" src="${settings.portraitUrl}" alt="" />
+            <span class="ai-support-trigger-badge">${settings.badgeText}</span>
+        </button>
+    `;
+
+    settings.mount.appendChild(widget);
+
+    const trigger = widget.querySelector(".ai-support-trigger");
+    const closeBtn = widget.querySelector(".ai-support-close");
+    const panel = widget.querySelector(".ai-support-panel");
+    const form = widget.querySelector("#aiSupportForm");
+    const input = widget.querySelector("#aiSupportInput");
+    const messages = widget.querySelector("#aiSupportMessages");
+    const sendButton = widget.querySelector(".ai-support-send");
+    const actions = widget.querySelector("#aiSupportActions");
+
+    let isOpen = false;
+    let isLoading = false;
+    let hasStarted = false;
+    let history = [
+        { role: "system", content: settings.systemPrompt }
+    ];
+
+    function renderLucide() {
+        if (window.lucide) window.lucide.createIcons();
+    }
+
+    function autoGrowTextarea() {
+        input.style.height = "auto";
+        input.style.height = `${Math.min(input.scrollHeight, 104)}px`;
+    }
+
+    function scrollMessagesToBottom() {
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    function setOpen(nextState) {
+        isOpen = nextState;
+        widget.classList.toggle("is-open", isOpen);
+        panel.setAttribute("aria-hidden", String(!isOpen));
+        trigger.setAttribute("aria-expanded", String(isOpen));
+        trigger.setAttribute("aria-label", isOpen ? "Close Bridge Up assistant" : "Open Bridge Up assistant");
+        if (isOpen) {
+            setTimeout(() => input.focus(), 120);
+            scrollMessagesToBottom();
+        }
+    }
+
+    function markStarted() {
+        if (hasStarted) return;
+        hasStarted = true;
+        widget.classList.add("has-started");
+        actions?.classList.add("ai-support-hidden");
+    }
+
+    function addMessage(role, text) {
+        const bubble = document.createElement("div");
+        bubble.className = `ai-support-msg ${role === "user" ? "is-user" : "is-assistant"}`;
+
+        const time = new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+
+        bubble.innerHTML = `
+            <div class="ai-support-bubble">${formatMessage(text)}</div>
+            <div class="ai-support-meta">${role === "user" ? "You" : "Assistant"} · ${time}</div>
+        `;
+
+        messages.appendChild(bubble);
+        scrollMessagesToBottom();
+    }
+
+    function setLoading(loading) {
+        isLoading = loading;
+        sendButton.disabled = loading;
+        input.disabled = loading;
+    }
+
+    async function askAssistant(userText) {
+        const response = await fetch(settings.apiEndpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: userText,
+                history: history.filter(item => item.role !== "system")
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Assistant endpoint error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data?.reply?.trim() || "I’m sorry — I couldn’t generate a response just now.";
+    }
+
+    async function submitMessage(text) {
+        const userText = text.trim();
+        if (!userText || isLoading) return;
+
+        markStarted();
+        addMessage("user", userText);
+        history.push({ role: "user", content: userText });
+        input.value = "";
+        autoGrowTextarea();
+        setLoading(true);
+
+        const typing = document.createElement("div");
+        typing.className = "ai-support-msg is-assistant";
+        typing.innerHTML = `
+            <div class="ai-support-bubble">Thinking…</div>
+            <div class="ai-support-meta">Assistant</div>
+        `;
+        messages.appendChild(typing);
+        scrollMessagesToBottom();
+
+        try {
+            const reply = await askAssistant(userText);
+            typing.remove();
+            addMessage("assistant", reply);
+            history.push({ role: "assistant", content: reply });
+        } catch (error) {
+            typing.remove();
+            const fallback = "I’m sorry — the assistant is temporarily unavailable. You can still use the feedback form and I recommend trying again in a moment.";
+            addMessage("assistant", fallback);
+            history.push({ role: "assistant", content: fallback });
+            console.error(error);
+        } finally {
+            setLoading(false);
+            input.focus();
+        }
+    }
+
+    trigger.addEventListener("click", () => setOpen(!isOpen));
+    closeBtn.addEventListener("click", () => setOpen(false));
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && isOpen) setOpen(false);
+    });
+
+    document.addEventListener("click", event => {
+        if (!isOpen) return;
+        if (!widget.contains(event.target)) setOpen(false);
+    });
+
+    input.addEventListener("input", autoGrowTextarea);
+
+    input.addEventListener("keydown", event => {
+        if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault();
+            form.requestSubmit();
+        }
+    });
+
+    form.addEventListener("submit", event => {
+        event.preventDefault();
+        submitMessage(input.value);
+    });
+
+    widget.querySelectorAll("[data-ai-support-chip]").forEach(chip => {
+        chip.addEventListener("click", () => {
+            const value = chip.getAttribute("data-ai-support-chip") || "";
+            submitMessage(value);
+        });
+    });
+
+    addMessage("assistant", settings.welcomeMessage);
+    renderLucide();
+    autoGrowTextarea();
+
+    return {
+        open: () => setOpen(true),
+        close: () => setOpen(false),
+        destroy: () => widget.remove()
+    };
+}
+
+function escapeHtml(value) {
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+}
+
+function formatMessage(value) {
+    return escapeHtml(value).replace(/\n/g, "<br>");
+}
