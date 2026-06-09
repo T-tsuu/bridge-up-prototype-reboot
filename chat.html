@@ -6,45 +6,200 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Messages — Bridge Up</title>
     <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .chat-search-wrap {
+            padding: 16px;
+            border-bottom: 1px solid #E2E8F0;
+            background: #fff;
+        }
+
+        .chat-search-field {
+            width: 100%;
+            padding: 10px 14px 10px 40px;
+            border: 1.5px solid #CBD5E1;
+            border-radius: 999px;
+            font-size: 13px;
+            outline: none;
+            background: #fff;
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .chat-search-field:focus {
+            border-color: var(--yellow);
+            box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.16);
+        }
+
+        .chat-search-shell {
+            position: relative;
+        }
+
+        .chat-search-shell svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            color: #94A3B8;
+            stroke-width: 2.1;
+        }
+
+        .chat-header {
+            background: var(--card);
+            border-bottom: 1px solid #E2E8F0;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-header-name {
+            font-family: Montserrat, sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text);
+        }
+
+        .chat-header-status {
+            font-size: 12px;
+            color: var(--success);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chat-header-status::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            display: inline-block;
+        }
+
+        .chat-empty {
+            text-align: center;
+            color: #94A3B8;
+            margin: auto;
+            padding: 40px 20px;
+            max-width: 320px;
+        }
+
+        .chat-empty-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 22px;
+            margin: 0 auto 14px;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            color: var(--orange);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-empty-icon svg {
+            width: 30px;
+            height: 30px;
+            stroke-width: 2.1;
+        }
+
+        .chat-contact {
+            transition: background .2s ease, border-color .2s ease;
+        }
+
+        .chat-contact-title {
+            font-family: Montserrat, sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text);
+        }
+
+        .chat-contact-preview {
+            font-size: 12px;
+            color: #94A3B8;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-input-bar {
+            align-items: center;
+        }
+
+        .chat-attach-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 38px;
+            padding-inline: 0;
+        }
+
+        .chat-attach-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke-width: 2.1;
+        }
+    </style>
 </head>
 
 <body>
     <div id="nav"></div>
     <div class="chat-layout">
         <div class="chat-sidebar">
-            <div style="padding:16px;border-bottom:1px solid #E2E8F0">
-                <input type="text" id="contactSearch" placeholder="Search conversations…"
-                    style="width:100%;padding:8px 12px;border:1.5px solid #CBD5E1;border-radius:20px;font-size:13px;outline:none"
-                    oninput="filterContacts()" />
+            <div class="chat-search-wrap">
+                <div class="chat-search-shell">
+                    <i data-lucide="search"></i>
+                    <input
+                        type="text"
+                        id="contactSearch"
+                        class="chat-search-field"
+                        placeholder="Search conversations…"
+                        oninput="filterContacts()"
+                    />
+                </div>
             </div>
             <div id="contactList"></div>
         </div>
+
         <div class="chat-main">
-            <div
-                style="background:var(--card);border-bottom:1px solid #E2E8F0;padding:14px 20px;display:flex;align-items:center;gap:12px">
+            <div class="chat-header">
                 <div id="chatHeaderAvatar" class="avatar avatar-sm" style="display:inline-flex"></div>
                 <div>
-                    <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:15px" id="chatHeaderName">
-                        Select a conversation</div>
-                    <div style="font-size:12px;color:var(--success)" id="chatHeaderStatus"></div>
+                    <div class="chat-header-name" id="chatHeaderName">Select a conversation</div>
+                    <div class="chat-header-status" id="chatHeaderStatus"></div>
                 </div>
             </div>
+
             <div class="chat-messages" id="chatMessages">
-                <div style="text-align:center;color:#94A3B8;margin:auto;padding:40px 20px">
-                    <div style="font-size:48px;margin-bottom:12px">💬</div>
-                    <p>Select a conversation to start messaging</p>
+                <div class="chat-empty">
+                    <div class="chat-empty-icon" aria-hidden="true">
+                        <i data-lucide="messages-square"></i>
+                    </div>
+                    <p>Select a conversation to start messaging.</p>
                 </div>
             </div>
+
             <div class="chat-input-bar">
-                <input type="text" id="msgInput" placeholder="Type a message…"
-                    onkeydown="if(event.key==='Enter')sendMsg()" />
-                <button class="btn btn-ghost btn-sm" onclick="showToast('File attachment coming soon.','info')"
-                    title="Attach file">📎</button>
+                <input type="text" id="msgInput" placeholder="Type a message…" onkeydown="if(event.key==='Enter')sendMsg()" />
+                <button
+                    class="btn btn-ghost btn-sm chat-attach-btn"
+                    onclick="showToast('File attachment coming soon.','info')"
+                    title="Attach file"
+                    aria-label="Attach file"
+                >
+                    <i data-lucide="paperclip"></i>
+                </button>
                 <button class="btn btn-primary btn-sm" onclick="sendMsg()">Send</button>
             </div>
         </div>
     </div>
+
     <div id="toast-container"></div>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="db.js"></script>
     <script src="app.js"></script>
     <script>
@@ -57,40 +212,50 @@
         ];
         let activeConvo = null;
 
+        function renderLucideIcons() {
+            if (window.lucide) window.lucide.createIcons();
+        }
+
         window.addEventListener("DOMContentLoaded", () => {
-            const s = Auth.requireAuth(["student", "recruiter", "university"]); if (!s) return;
+            const s = Auth.requireAuth(["student", "recruiter", "university"]);
+            if (!s) return;
             document.getElementById("nav").innerHTML = buildNavbar("Messages", s.role);
             renderContacts(CONVOS);
+            renderLucideIcons();
         });
 
         function renderContacts(list) {
             document.getElementById("contactList").innerHTML = list.map(c => `
-    <div class="chat-contact ${activeConvo?.id === c.id ? 'active' : ''}" onclick="openConvo(${c.id})">
-      <div class="avatar avatar-sm" style="display:inline-flex">${avatarInitials(c.name)}</div>
-      <div style="flex:1;min-width:0">
-        <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.name}</div>
-        <div style="font-size:12px;color:#94A3B8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.msgs[c.msgs.length - 1].text}</div>
-      </div>
-      ${c.unread ? `<div class="unread">${c.unread}</div>` : ""}
-    </div>`).join("");
+                <div class="chat-contact ${activeConvo?.id === c.id ? 'active' : ''}" onclick="openConvo(${c.id})">
+                    <div class="avatar avatar-sm" style="display:inline-flex">${avatarInitials(c.name)}</div>
+                    <div style="flex:1;min-width:0">
+                        <div class="chat-contact-title">${c.name}</div>
+                        <div class="chat-contact-preview">${c.msgs[c.msgs.length - 1].text}</div>
+                    </div>
+                    ${c.unread ? `<div class="unread">${c.unread}</div>` : ""}
+                </div>
+            `).join("");
+            renderLucideIcons();
         }
 
         function openConvo(id) {
-            activeConvo = CONVOS.find(c => c.id === id); if (!activeConvo) return;
+            activeConvo = CONVOS.find(c => c.id === id);
+            if (!activeConvo) return;
             activeConvo.unread = 0;
             renderContacts(CONVOS);
             document.getElementById("chatHeaderAvatar").textContent = avatarInitials(activeConvo.name);
             document.getElementById("chatHeaderName").textContent = activeConvo.name;
-            document.getElementById("chatHeaderStatus").textContent = "● Online";
+            document.getElementById("chatHeaderStatus").textContent = "Online";
             renderMessages();
         }
 
         function renderMessages() {
             document.getElementById("chatMessages").innerHTML = activeConvo.msgs.map(m => `
-    <div class="msg ${m.me ? 'me' : 'them'}">
-      <div class="msg-bubble">${m.text}</div>
-      <div class="msg-time">${m.time}</div>
-    </div>`).join("");
+                <div class="msg ${m.me ? 'me' : 'them'}">
+                    <div class="msg-bubble">${m.text}</div>
+                    <div class="msg-time">${m.time}</div>
+                </div>
+            `).join("");
             document.getElementById("chatMessages").scrollTop = 9999;
         }
 
@@ -98,7 +263,8 @@
             const inp = document.getElementById("msgInput"), txt = inp.value.trim();
             if (!txt || !activeConvo) return;
             activeConvo.msgs.push({ me: true, text: txt, time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) });
-            inp.value = ""; renderMessages();
+            inp.value = "";
+            renderMessages();
             setTimeout(() => {
                 const replies = ["Got it, thanks!", "Sure, I'll get back to you shortly.", "That sounds great!", "Let me check and confirm.", "Perfect, talk soon!"];
                 activeConvo.msgs.push({ me: false, text: replies[Math.floor(Math.random() * replies.length)], time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) });

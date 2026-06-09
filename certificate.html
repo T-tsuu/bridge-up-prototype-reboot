@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="css/style.css" />
     <style>
         @media print {
-
             .navbar,
             .btn,
             .no-print {
@@ -25,6 +24,24 @@
             }
         }
 
+        .cert-toolbar {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cert-filter {
+            padding: 8px 14px;
+            border: 1.5px solid #CBD5E1;
+            border-radius: 10px;
+            font-size: 13px;
+            outline: none;
+            background: #fff;
+        }
+
+        .cert-filter:focus {
+            border-color: var(--yellow);
+        }
+
         .cert-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -34,20 +51,175 @@
 
         .cert-thumb {
             background: var(--card);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
+            border-radius: 16px;
+            box-shadow: 0 16px 32px rgba(15, 23, 42, 0.05);
             padding: 20px;
-            border-left: 4px solid var(--yellow);
+            border: 1px solid rgba(148, 163, 184, 0.16);
             display: flex;
             align-items: center;
             gap: 16px;
             cursor: pointer;
-            transition: transform .2s, box-shadow .2s;
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
         }
 
         .cert-thumb:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.13);
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.10);
+            border-color: rgba(249, 115, 22, 0.22);
+        }
+
+        .cert-thumb-mark {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--yellow), var(--orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue);
+            flex-shrink: 0;
+            box-shadow: 0 10px 20px rgba(249, 115, 22, 0.20);
+        }
+
+        .cert-thumb-mark svg {
+            width: 24px;
+            height: 24px;
+            stroke-width: 2.1;
+        }
+
+        .cert-thumb-title {
+            font-family: Montserrat, sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 3px;
+            color: var(--blue);
+        }
+
+        .cert-thumb-meta {
+            font-size: 13px;
+            color: #64748B;
+            margin-bottom: 6px;
+        }
+
+        .cert-thumb-submeta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .cert-cta {
+            background: linear-gradient(135deg, #FFFBEB, #FFF7ED);
+            border: 1.5px solid var(--yellow);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .cert-cta-icon {
+            width: 68px;
+            height: 68px;
+            border-radius: 22px;
+            margin: 0 auto 12px;
+            background: rgba(250, 204, 21, 0.16);
+            border: 1px solid rgba(250, 204, 21, 0.18);
+            color: var(--blue);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cert-cta-icon svg {
+            width: 30px;
+            height: 30px;
+            stroke-width: 2.1;
+        }
+
+        .cert-detail-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .cert-detail-action-group {
+            display: flex;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .certificate-card {
+            border: 1px solid rgba(148, 163, 184, 0.16);
+        }
+
+        .cert-detail-id-label,
+        .cert-section-label {
+            font-size: 11px;
+            color: #94A3B8;
+            font-family: Montserrat, sans-serif;
+            font-weight: 600;
+            letter-spacing: .5px;
+        }
+
+        .cert-badge-medal {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .cert-badge-medal-inner {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--yellow), var(--orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue);
+            box-shadow: 0 8px 24px rgba(249, 115, 22, 0.28);
+        }
+
+        .cert-badge-medal-inner svg {
+            width: 38px;
+            height: 38px;
+            stroke-width: 2.1;
+        }
+
+        .cert-xp-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(90deg, #FACC15, #F97316);
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-bottom: 28px;
+        }
+
+        .cert-xp-pill svg {
+            width: 16px;
+            height: 16px;
+            stroke-width: 2.2;
+            color: var(--blue);
+        }
+
+        .cert-signature {
+            text-align: center;
+        }
+
+        .cert-signature-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            font-style: italic;
+            margin-bottom: 6px;
+        }
+
+        .cert-signature-name.bridge {
+            color: var(--orange);
+        }
+
+        .cert-signature-name.company {
+            color: var(--blue);
         }
     </style>
 </head>
@@ -55,18 +227,14 @@
 <body>
     <div id="nav" class="no-print"></div>
     <div class="page-content">
-
-        <!-- LIST VIEW -->
         <div id="listView">
             <div class="section-header" style="margin-bottom:24px">
                 <div>
                     <h2>My Certificates</h2>
-                    <p style="color:#64748B;margin-top:4px;font-size:15px">Official proof of your completed engagements
-                        on Bridge Up.</p>
+                    <p style="color:#64748B;margin-top:4px;font-size:15px">Official proof of your completed engagements on Bridge Up.</p>
                 </div>
-                <div style="display:flex;gap:10px">
-                    <select id="certFilter" onchange="filterCerts()"
-                        style="padding:8px 14px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:13px;outline:none">
+                <div class="cert-toolbar">
+                    <select id="certFilter" class="cert-filter" onchange="filterCerts()">
                         <option value="">All Types</option>
                         <option>Internship</option>
                         <option>Freelance Project</option>
@@ -77,29 +245,26 @@
 
             <div class="cert-grid" id="certGrid"></div>
 
-            <div style="background:linear-gradient(135deg,#FFFBEB,#FFF7ED);border:1.5px solid var(--yellow);border-radius:12px;padding:24px;text-align:center"
-                class="no-print">
-                <div style="font-size:36px;margin-bottom:10px">🏆</div>
+            <div class="cert-cta no-print">
+                <div class="cert-cta-icon" aria-hidden="true">
+                    <i data-lucide="trophy"></i>
+                </div>
                 <h3 style="margin-bottom:8px">Earn More Certificates</h3>
-                <p style="color:#64748B;font-size:14px;margin-bottom:16px">Apply to opportunities, complete them, and
-                    collect official certificates for your portfolio.</p>
+                <p style="color:#64748B;font-size:14px;margin-bottom:16px">Apply to opportunities, complete them, and collect official certificates for your portfolio.</p>
                 <a href="job-listing.html"><button class="btn btn-primary">Browse Opportunities →</button></a>
             </div>
         </div>
 
-        <!-- DETAIL VIEW (printable) -->
         <div id="detailView" style="display:none">
-            <div class="no-print" style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
+            <div class="no-print cert-detail-actions">
                 <button class="btn btn-ghost btn-sm" onclick="showList()">← Back</button>
-                <div style="display:flex;gap:10px;margin-left:auto">
-                    <button class="btn btn-outline btn-sm" onclick="window.print()">🖨️ Print / PDF</button>
-                    <button class="btn btn-primary btn-sm" onclick="showToast('Certificate link copied!','success')">🔗
-                        Share Link</button>
+                <div class="cert-detail-action-group">
+                    <button class="btn btn-outline btn-sm" onclick="window.print()">Print / PDF</button>
+                    <button class="btn btn-primary btn-sm" onclick="showToast('Certificate link copied!','success')">Share Link</button>
                 </div>
             </div>
 
             <div class="certificate-card">
-                <!-- Header decoration -->
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none" style="height:36px">
                         <defs>
@@ -108,84 +273,59 @@
                                 <stop offset="100%" stop-color="#F97316" />
                             </linearGradient>
                         </defs>
-                        <path d="M10 55 Q22 20 38 55" stroke="url(#gL)" stroke-width="5" fill="none"
-                            stroke-linecap="round" />
-                        <path d="M28 55 Q44 10 62 55" stroke="url(#gL)" stroke-width="5" fill="none"
-                            stroke-linecap="round" />
-                        <path d="M50 55 Q70 5 90 55" stroke="url(#gL)" stroke-width="5.5" fill="none"
-                            stroke-linecap="round" /><text x="10" y="75" font-family="Montserrat,sans-serif"
-                            font-weight="700" font-size="22" fill="#0F172A">Bridge</text><text x="82" y="75"
-                            font-family="Montserrat,sans-serif" font-weight="700" font-size="22"
-                            fill="url(#gL)">Up</text>
+                        <path d="M10 55 Q22 20 38 55" stroke="url(#gL)" stroke-width="5" fill="none" stroke-linecap="round" />
+                        <path d="M28 55 Q44 10 62 55" stroke="url(#gL)" stroke-width="5" fill="none" stroke-linecap="round" />
+                        <path d="M50 55 Q70 5 90 55" stroke="url(#gL)" stroke-width="5.5" fill="none" stroke-linecap="round" />
+                        <text x="10" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="#0F172A">Bridge</text>
+                        <text x="82" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="url(#gL)">Up</text>
                     </svg>
                     <div style="text-align:right">
-                        <div
-                            style="font-size:11px;color:#94A3B8;font-family:Montserrat,sans-serif;font-weight:600;letter-spacing:.5px">
-                            CERTIFICATE ID</div>
-                        <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:13px;color:var(--blue)"
-                            id="certId">–</div>
+                        <div class="cert-detail-id-label">CERTIFICATE ID</div>
+                        <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:13px;color:var(--blue)" id="certId">–</div>
                     </div>
                 </div>
 
-                <!-- Badge -->
-                <div style="display:flex;justify-content:center;margin-bottom:24px">
-                    <div
-                        style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--yellow),var(--orange));display:flex;align-items:center;justify-content:center;font-size:40px;box-shadow:0 4px 20px rgba(249,115,22,0.35)">
-                        🏅</div>
+                <div class="cert-badge-medal">
+                    <div class="cert-badge-medal-inner" aria-hidden="true">
+                        <i data-lucide="award"></i>
+                    </div>
                 </div>
 
-                <!-- Title -->
-                <div
-                    style="font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#94A3B8;font-family:Montserrat,sans-serif;font-weight:600;margin-bottom:10px">
-                    Certificate of Completion</div>
+                <div style="font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#94A3B8;font-family:Montserrat,sans-serif;font-weight:600;margin-bottom:10px">
+                    Certificate of Completion
+                </div>
                 <p style="font-size:15px;color:#64748B;margin-bottom:6px">This certifies that</p>
-                <h1 style="font-size:32px;font-family:Montserrat,sans-serif;font-weight:800;color:var(--blue);margin-bottom:6px"
-                    id="certStudentName">–</h1>
+                <h1 style="font-size:32px;font-family:Montserrat,sans-serif;font-weight:800;color:var(--blue);margin-bottom:6px" id="certStudentName">–</h1>
                 <p style="font-size:15px;color:#64748B;margin-bottom:6px">has successfully completed</p>
-                <h2 style="font-size:24px;font-family:Montserrat,sans-serif;font-weight:700;margin-bottom:4px"
-                    id="certRole">–</h2>
+                <h2 style="font-size:24px;font-family:Montserrat,sans-serif;font-weight:700;margin-bottom:4px" id="certRole">–</h2>
                 <div style="font-size:15px;color:#64748B;margin-bottom:4px">at <strong id="certCompany">–</strong></div>
                 <div style="font-size:14px;color:#94A3B8;margin-bottom:28px" id="certDuration">–</div>
 
-                <!-- XP badge -->
-                <div
-                    style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg,#FACC15,#F97316);padding:8px 20px;border-radius:30px;margin-bottom:28px">
-                    <span style="font-size:16px">⚡</span>
-                    <span style="font-family:Montserrat,sans-serif;font-weight:700;font-size:15px;color:var(--blue)"
-                        id="certXP">+0 XP Earned</span>
+                <div class="cert-xp-pill">
+                    <i data-lucide="zap"></i>
+                    <span style="font-family:Montserrat,sans-serif;font-weight:700;font-size:15px;color:var(--blue)" id="certXP">+0 XP Earned</span>
                 </div>
 
-                <!-- Skills -->
                 <div style="margin-bottom:28px">
-                    <div
-                        style="font-size:12px;color:#94A3B8;font-family:Montserrat,sans-serif;font-weight:600;letter-spacing:.5px;margin-bottom:8px">
-                        SKILLS DEMONSTRATED</div>
+                    <div class="cert-section-label" style="margin-bottom:8px">SKILLS DEMONSTRATED</div>
                     <div id="certSkills" style="display:flex;justify-content:center;flex-wrap:wrap;gap:6px"></div>
                 </div>
 
-                <!-- Signatures -->
-                <div
-                    style="display:flex;justify-content:space-around;flex-wrap:wrap;gap:24px;border-top:1px solid #E2E8F0;padding-top:24px;margin-bottom:16px">
-                    <div style="text-align:center">
-                        <div
-                            style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:700;color:var(--orange);font-style:italic;margin-bottom:6px">
-                            Bridge Up</div>
+                <div style="display:flex;justify-content:space-around;flex-wrap:wrap;gap:24px;border-top:1px solid #E2E8F0;padding-top:24px;margin-bottom:16px">
+                    <div class="cert-signature">
+                        <div class="cert-signature-name bridge">Bridge Up</div>
                         <div style="width:80px;height:1px;background:#CBD5E1;margin:0 auto 6px"></div>
                         <div style="font-size:12px;color:#94A3B8">Platform Director</div>
                     </div>
-                    <div style="text-align:center">
-                        <div style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:700;color:var(--blue);font-style:italic;margin-bottom:6px"
-                            id="certRecruiterSig">–</div>
+                    <div class="cert-signature">
+                        <div class="cert-signature-name company" id="certRecruiterSig">–</div>
                         <div style="width:80px;height:1px;background:#CBD5E1;margin:0 auto 6px"></div>
                         <div style="font-size:12px;color:#94A3B8">Employer Representative</div>
                     </div>
                 </div>
 
-                <!-- Footer -->
-                <div
-                    style="background:#F8FAFC;border-radius:8px;padding:12px 16px;font-size:12px;color:#94A3B8;text-align:center;line-height:1.6">
-                    This certificate is issued by Bridge Up and is verifiable at <strong
-                        style="color:var(--blue)">bridgeup.dz/verify/<span id="certIdFoot">–</span></strong><br />
+                <div style="background:#F8FAFC;border-radius:8px;padding:12px 16px;font-size:12px;color:#94A3B8;text-align:center;line-height:1.6">
+                    This certificate is issued by Bridge Up and is verifiable at <strong style="color:var(--blue)">bridgeup.dz/verify/<span id="certIdFoot">–</span></strong><br />
                     Issued on <span id="certIssuedDate">–</span> · Valid indefinitely
                 </div>
             </div>
@@ -193,43 +333,64 @@
     </div>
 
     <div id="toast-container"></div>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="db.js"></script>
     <script src="app.js"></script>
     <script>
         let student, certs = [];
 
+        function renderLucideIcons() {
+            if (window.lucide) window.lucide.createIcons();
+        }
+
         window.addEventListener("DOMContentLoaded", () => {
-            const s = Auth.requireAuth(["student"]); if (!s) return;
+            const s = Auth.requireAuth(["student"]);
+            if (!s) return;
             document.getElementById("nav").innerHTML = buildNavbar("My Profile", "student");
             student = BridgeDB.getStudentById(s.id) || BridgeDB.students[0];
             const TYPES = ["Internship", "Freelance Project", "Part-time", "Internship", "Internship"];
             certs = Array.from({ length: Math.max(student.certificates, 3) }, (_, i) => {
                 const job = BridgeDB.jobs[i * 30 % BridgeDB.jobs.length];
-                return { id: `BU-CERT-${Date.now().toString().slice(-6)}-${i}`, title: job.title, company: job.company, type: TYPES[i % TYPES.length], duration: job.duration, xp: job.xpReward, skills: job.requiredSkills, recruiter: BridgeDB.getRecruiterById(job.recruiterId)?.name || "Company HR", issued: `2026-0${Math.min(i + 1, 9)}-15`, idx: i };
+                return {
+                    id: `BU-CERT-${Date.now().toString().slice(-6)}-${i}`,
+                    title: job.title,
+                    company: job.company,
+                    type: TYPES[i % TYPES.length],
+                    duration: job.duration,
+                    xp: job.xpReward,
+                    skills: job.requiredSkills,
+                    recruiter: BridgeDB.getRecruiterById(job.recruiterId)?.name || "Company HR",
+                    issued: `2026-0${Math.min(i + 1, 9)}-15`,
+                    idx: i
+                };
             });
             renderCertList(certs);
             const params = new URLSearchParams(location.search);
             if (params.get("show")) openCert(parseInt(params.get("show")) || 0);
+            renderLucideIcons();
         });
 
         function renderCertList(list) {
             document.getElementById("certGrid").innerHTML = list.map((c, i) => `
-    <div class="cert-thumb" onclick="openCert(${c.idx})">
-      <div style="width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--yellow),var(--orange));display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">🏅</div>
-      <div style="flex:1">
-        <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:15px;margin-bottom:3px">${c.title}</div>
-        <div style="font-size:13px;color:#64748B;margin-bottom:6px">${c.company} · ${c.type}</div>
-        <div style="display:flex;align-items:center;gap:10px">
-          <span class="job-xp">+${c.xp} XP</span>
-          <span style="font-size:12px;color:#94A3B8">Issued ${c.issued}</span>
-        </div>
-      </div>
-      <button class="btn btn-outline btn-sm no-print" onclick="event.stopPropagation();openCert(${c.idx})">View →</button>
-    </div>`).join("") || `<div class="empty-state" style="grid-column:1/-1"><p>No certificates yet. Complete an engagement to earn your first one!</p></div>`;
+                <div class="cert-thumb" onclick="openCert(${c.idx})">
+                    <div class="cert-thumb-mark" aria-hidden="true"><i data-lucide="award"></i></div>
+                    <div style="flex:1">
+                        <div class="cert-thumb-title">${c.title}</div>
+                        <div class="cert-thumb-meta">${c.company} · ${c.type}</div>
+                        <div class="cert-thumb-submeta">
+                            <span class="job-xp">+${c.xp} XP</span>
+                            <span style="font-size:12px;color:#94A3B8">Issued ${c.issued}</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline btn-sm no-print" onclick="event.stopPropagation();openCert(${c.idx})">View →</button>
+                </div>
+            `).join("") || `<div class="empty-state" style="grid-column:1/-1"><p>No certificates yet. Complete an engagement to earn your first one!</p></div>`;
+            renderLucideIcons();
         }
 
         function openCert(idx) {
-            const c = certs[idx]; if (!c) return;
+            const c = certs[idx];
+            if (!c) return;
             document.getElementById("listView").style.display = "none";
             document.getElementById("detailView").style.display = "block";
             const cid = c.id;
@@ -243,6 +404,7 @@
             document.getElementById("certSkills").innerHTML = c.skills.map(s => `<span class="tag">${s}</span>`).join("");
             document.getElementById("certRecruiterSig").textContent = c.recruiter;
             document.getElementById("certIssuedDate").textContent = new Date(c.issued).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
+            renderLucideIcons();
         }
 
         function showList() {

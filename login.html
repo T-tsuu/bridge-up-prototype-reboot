@@ -7,96 +7,433 @@
     <title>Login — Bridge Up</title>
     <link rel="stylesheet" href="css/style.css" />
     <style>
-        .login-wrap { min-height:100vh; display:flex; }
+        .auth-topbar {
+            position: absolute;
+            inset: 0 0 auto 0;
+            width: 100%;
+            z-index: 20;
+        }
+
+        .auth-topbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 24px;
+            background: rgba(15, 23, 42, 0.96);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .auth-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--card);
+            font-family: Montserrat, sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            opacity: 0.88;
+            transition: opacity .2s ease, color .2s ease;
+        }
+
+        .auth-back-link:hover {
+            opacity: 1;
+            color: var(--yellow);
+        }
+
+        .auth-back-link svg {
+            width: 16px;
+            height: 16px;
+            stroke-width: 2.2;
+        }
+
+        .login-wrap {
+            min-height: 100vh;
+            display: flex;
+        }
+
         .login-left {
-            flex:1; background:var(--blue);
-            display:flex; flex-direction:column; align-items:center;
-            justify-content:center; padding:48px 40px; text-align:center;
+            flex: 1;
+            background:
+                radial-gradient(circle at top right, rgba(250, 204, 21, 0.16), transparent 30%),
+                radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.14), transparent 28%),
+                var(--blue);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 88px 40px 48px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
+
+        .login-left::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(241, 245, 249, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(241, 245, 249, 0.03) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: radial-gradient(circle at center, black 20%, transparent 85%);
+            pointer-events: none;
+        }
+
+        .login-left-inner {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .login-brand-mark {
+            height: 52px;
+            margin: 0 auto 32px;
+        }
+
+        .login-left h2 {
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .login-left-intro {
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .login-feature-list {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+        }
+
+        .login-feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            text-align: left;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(250, 204, 21, 0.12);
+            border-radius: 14px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+
+        .login-feature-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--yellow);
+            background: rgba(250, 204, 21, 0.08);
+            border: 1px solid rgba(250, 204, 21, 0.12);
+            flex-shrink: 0;
+        }
+
+        .login-feature-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2.1;
+        }
+
+        .login-feature-copy strong {
+            display: block;
+            color: #fff;
+            font-family: Montserrat, sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .login-feature-copy span {
+            display: block;
+            color: rgba(241, 245, 249, 0.72);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
         .login-right {
-            flex:1; display:flex; align-items:center;
-            justify-content:center; padding:40px 32px;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 32px;
         }
+
         .login-box {
-            background:var(--card); border-radius:14px; box-shadow:var(--shadow);
-            padding:40px 36px; width:100%; max-width:440px;
+            background: var(--card);
+            border-radius: 18px;
+            box-shadow: 0 20px 44px rgba(15, 23, 42, 0.12);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            padding: 40px 36px;
+            width: 100%;
+            max-width: 460px;
         }
-        .demo-pill {
-            display:flex; align-items:center; gap:10px;
-            background:#F8FAFC; border:1.5px solid #E2E8F0;
-            border-radius:8px; padding:10px 14px; cursor:pointer;
-            transition:border-color .2s; margin-bottom:8px;
-        }
-        .demo-pill:hover { border-color:var(--yellow); }
-        .use-btn {
-            margin-left:auto; background:var(--yellow); color:var(--blue);
-            border:none; border-radius:6px; padding:5px 12px;
-            font-size:12px; font-weight:700; cursor:pointer;
-            font-family:Montserrat,sans-serif;
-        }
+
         .intent-banner {
-            background:linear-gradient(135deg,#FFF7ED,#FFFBEB);
-            border:1.5px solid rgba(249,115,22,0.2);
-            border-radius:10px;
-            padding:14px 16px;
-            margin-bottom:20px;
+            background: linear-gradient(135deg, #FFF7ED, #FFFBEB);
+            border: 1.5px solid rgba(249, 115, 22, 0.2);
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
         }
+
         .intent-banner h4 {
-            margin-bottom:6px;
-            font-size:15px;
-            color:var(--blue);
+            margin-bottom: 6px;
+            font-size: 15px;
+            color: var(--blue);
         }
+
         .intent-banner p {
-            color:#64748B;
-            font-size:13px;
-            line-height:1.55;
+            color: #64748B;
+            font-size: 13px;
+            line-height: 1.55;
         }
-        @media(max-width:768px) { .login-left { display:none; } }
+
+        .auth-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(250, 204, 21, 0.12);
+            color: #B45309;
+            border: 1px solid rgba(250, 204, 21, 0.18);
+            font-family: Montserrat, sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+
+        .auth-kicker svg {
+            width: 14px;
+            height: 14px;
+            stroke-width: 2.2;
+        }
+
+        .auth-heading {
+            margin-bottom: 6px;
+        }
+
+        .auth-subcopy {
+            color: #64748B;
+            margin-bottom: 28px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .auth-subcopy a {
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        .auth-submit {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .demo-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 24px 0 18px;
+        }
+
+        .demo-divider hr {
+            flex: 1;
+            border: none;
+            border-top: 1px solid #E2E8F0;
+        }
+
+        .demo-divider span {
+            font-size: 13px;
+            color: #94A3B8;
+            white-space: nowrap;
+        }
+
+        .demo-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .demo-pill {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #F8FAFC;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 12px 14px;
+            cursor: pointer;
+            transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+        }
+
+        .demo-pill:hover {
+            border-color: rgba(250, 204, 21, 0.68);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
+        }
+
+        .demo-pill-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue);
+            background: rgba(250, 204, 21, 0.14);
+            border: 1px solid rgba(250, 204, 21, 0.2);
+            flex-shrink: 0;
+        }
+
+        .demo-pill-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2.1;
+        }
+
+        .demo-pill-copy {
+            min-width: 0;
+        }
+
+        .demo-pill-copy div:first-child {
+            font-family: Montserrat, sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--blue);
+            margin-bottom: 2px;
+        }
+
+        .demo-pill-copy div:last-child {
+            font-size: 12px;
+            color: #64748B;
+            line-height: 1.45;
+        }
+
+        .use-btn {
+            margin-left: auto;
+            background: var(--yellow);
+            color: var(--blue);
+            border: none;
+            border-radius: 8px;
+            padding: 7px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: Montserrat, sans-serif;
+            flex-shrink: 0;
+        }
+
+        .use-btn:hover {
+            background: var(--orange);
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .login-left {
+                display: none;
+            }
+
+            .login-right {
+                padding: 88px 18px 28px;
+            }
+
+            .login-box {
+                padding: 30px 22px;
+                border-radius: 16px;
+            }
+
+            .auth-topbar-inner {
+                padding: 14px 16px;
+            }
+
+            .demo-pill {
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div id="auth-topbar" style="position:absolute;width:100%">
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 24px;background-color:var(--blue);border-bottom:1px solid rgba(255,255,255,0.08);">
-            <a href="index.html"
-                style="display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--card);font-family:Montserrat,sans-serif;font-weight:700;font-size:14px;opacity:0.85;transition:opacity .2s;"
-                onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'">
-                ← Bridge Up
+    <div id="auth-topbar" class="auth-topbar">
+        <div class="auth-topbar-inner">
+            <a href="index.html" class="auth-back-link">
+                <i data-lucide="arrow-left"></i>
+                <span>Bridge Up</span>
             </a>
         </div>
     </div>
 
     <div class="login-wrap">
         <div class="login-left">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none" style="height:52px;margin-bottom:32px">
-                <defs>
-                    <linearGradient id="gL" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#FACC15"/>
-                        <stop offset="100%" stop-color="#F97316"/>
-                    </linearGradient>
-                </defs>
-                <path d="M10 55 Q22 20 38 55" stroke="url(#gL)" stroke-width="5" fill="none" stroke-linecap="round"/>
-                <path d="M28 55 Q44 10 62 55" stroke="url(#gL)" stroke-width="5" fill="none" stroke-linecap="round"/>
-                <path d="M50 55 Q70 5 90 55" stroke="url(#gL)" stroke-width="5.5" fill="none" stroke-linecap="round"/>
-                <text x="10" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="#F1F5F9">Bridge</text>
-                <text x="82" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="url(#gL)">Up</text>
-            </svg>
-            <h2 style="color:#fff;margin-bottom:12px">Welcome back.</h2>
-            <p style="color:var(--muted);font-size:16px;line-height:1.6;max-width:320px">
-                Your bridge to Algeria's professional world.
-            </p>
-            <div style="margin-top:40px;display:flex;flex-direction:column;gap:16px;width:100%;max-width:300px">
-                <div style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px">
-                    <span style="color:var(--yellow);font-size:20px">✅</span> Personalized job recommendations
-                </div>
-                <div style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px">
-                    <span style="color:var(--yellow);font-size:20px">🏆</span> XP points & certificates
-                </div>
-                <div style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px">
-                    <span style="color:var(--yellow);font-size:20px">📝</span> Digital contracts & security
-                </div>
-                <div style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px">
-                    <span style="color:var(--yellow);font-size:20px">💬</span> In-app chat with recruiters
+            <div class="login-left-inner">
+                <svg class="login-brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none">
+                    <defs>
+                        <linearGradient id="gL" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#FACC15" />
+                            <stop offset="100%" stop-color="#F97316" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M10 55 Q22 20 38 55" stroke="url(#gL)" stroke-width="5" fill="none" stroke-linecap="round" />
+                    <path d="M28 55 Q44 10 62 55" stroke="url(#gL)" stroke-width="5" fill="none" stroke-linecap="round" />
+                    <path d="M50 55 Q70 5 90 55" stroke="url(#gL)" stroke-width="5.5" fill="none" stroke-linecap="round" />
+                    <text x="10" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="#F1F5F9">Bridge</text>
+                    <text x="82" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="url(#gL)">Up</text>
+                </svg>
+
+                <h2>Welcome back.</h2>
+                <p class="login-left-intro">
+                    Sign in to continue building your professional path across opportunities, progress, and verified experience.
+                </p>
+
+                <div class="login-feature-list">
+                    <div class="login-feature-item">
+                        <div class="login-feature-icon" aria-hidden="true">
+                            <i data-lucide="sparkles"></i>
+                        </div>
+                        <div class="login-feature-copy">
+                            <strong>Smarter opportunity matching</strong>
+                            <span>Personalized recommendations based on your profile, interests, and progress.</span>
+                        </div>
+                    </div>
+                    <div class="login-feature-item">
+                        <div class="login-feature-icon" aria-hidden="true">
+                            <i data-lucide="badge-check"></i>
+                        </div>
+                        <div class="login-feature-copy">
+                            <strong>XP and certificates</strong>
+                            <span>Track visible progress and collect proof that strengthens your portfolio.</span>
+                        </div>
+                    </div>
+                    <div class="login-feature-item">
+                        <div class="login-feature-icon" aria-hidden="true">
+                            <i data-lucide="file-signature"></i>
+                        </div>
+                        <div class="login-feature-copy">
+                            <strong>Safer structured workflows</strong>
+                            <span>Move through applications, contracts, and validation in one clearer place.</span>
+                        </div>
+                    </div>
+                    <div class="login-feature-item">
+                        <div class="login-feature-icon" aria-hidden="true">
+                            <i data-lucide="messages-square"></i>
+                        </div>
+                        <div class="login-feature-copy">
+                            <strong>Direct conversations</strong>
+                            <span>Keep communication with recruiters and partners inside the platform experience.</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -108,10 +445,16 @@
                     <p>Sign in to continue where you left off. Students and freelancers will be returned to the opportunity after authentication.</p>
                 </div>
 
-                <h2 style="margin-bottom:6px">Sign In</h2>
-                <p style="color:#64748B;margin-bottom:28px;font-size:15px">
-                    No account? <a href="register.html" id="registerLink" style="color:var(--orange);font-weight:600">Get Started</a>
+                <div class="auth-kicker">
+                    <i data-lucide="shield-check"></i>
+                    <span>Secure sign in</span>
+                </div>
+
+                <h2 class="auth-heading">Sign In</h2>
+                <p class="auth-subcopy">
+                    No account? <a href="register.html" id="registerLink">Get Started</a>
                 </p>
+
                 <form id="loginForm">
                     <div class="form-group">
                         <label>Email</label>
@@ -122,45 +465,55 @@
                         <input type="password" id="loginPassword" placeholder="••••••••" required />
                         <span class="form-error" id="loginError">Invalid email or password.</span>
                     </div>
-                    <button type="submit" class="btn btn-primary"
-                        style="width:100%;justify-content:center">Sign In</button>
+                    <button type="submit" class="btn btn-primary auth-submit">Sign In</button>
                 </form>
 
-                <div style="display:flex;align-items:center;gap:12px;margin:24px 0">
-                    <hr style="flex:1;border:none;border-top:1px solid #E2E8F0"/>
-                    <span style="font-size:13px;color:#94A3B8;white-space:nowrap">Try a demo account</span>
-                    <hr style="flex:1;border:none;border-top:1px solid #E2E8F0"/>
+                <div class="demo-divider">
+                    <hr />
+                    <span>Try a demo account</span>
+                    <hr />
                 </div>
 
-                <div class="demo-pill" onclick="fillDemo('student@demo.dz','demo1234')">
-                    <span style="font-size:22px">👩‍🎓</span>
-                    <div>
-                        <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">Student Demo</div>
-                        <div style="font-size:12px;color:#64748B">student@demo.dz · demo1234</div>
+                <div class="demo-list">
+                    <div class="demo-pill" onclick="fillDemo('student@demo.dz','demo1234')">
+                        <span class="demo-pill-icon" aria-hidden="true">
+                            <i data-lucide="graduation-cap"></i>
+                        </span>
+                        <div class="demo-pill-copy">
+                            <div>Student Demo</div>
+                            <div>student@demo.dz · demo1234</div>
+                        </div>
+                        <button class="use-btn" type="button">Use</button>
                     </div>
-                    <button class="use-btn" type="button">Use →</button>
-                </div>
-                <div class="demo-pill" onclick="fillDemo('recruiter@demo.dz','demo1234')">
-                    <span style="font-size:22px">🏢</span>
-                    <div>
-                        <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">Recruiter Demo</div>
-                        <div style="font-size:12px;color:#64748B">recruiter@demo.dz · demo1234</div>
+
+                    <div class="demo-pill" onclick="fillDemo('recruiter@demo.dz','demo1234')">
+                        <span class="demo-pill-icon" aria-hidden="true">
+                            <i data-lucide="building-2"></i>
+                        </span>
+                        <div class="demo-pill-copy">
+                            <div>Recruiter Demo</div>
+                            <div>recruiter@demo.dz · demo1234</div>
+                        </div>
+                        <button class="use-btn" type="button">Use</button>
                     </div>
-                    <button class="use-btn" type="button">Use →</button>
-                </div>
-                <div class="demo-pill" onclick="fillDemo('university@demo.dz','demo1234')">
-                    <span style="font-size:22px">🏛️</span>
-                    <div>
-                        <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">University Demo</div>
-                        <div style="font-size:12px;color:#64748B">university@demo.dz · demo1234</div>
+
+                    <div class="demo-pill" onclick="fillDemo('university@demo.dz','demo1234')">
+                        <span class="demo-pill-icon" aria-hidden="true">
+                            <i data-lucide="landmark"></i>
+                        </span>
+                        <div class="demo-pill-copy">
+                            <div>University Demo</div>
+                            <div>university@demo.dz · demo1234</div>
+                        </div>
+                        <button class="use-btn" type="button">Use</button>
                     </div>
-                    <button class="use-btn" type="button">Use →</button>
                 </div>
             </div>
         </div>
     </div>
 
     <div id="toast-container"></div>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="db.js"></script>
     <script src="app.js"></script>
     <script>
@@ -176,6 +529,10 @@
                 document.getElementById("intentBanner").style.display = "block";
                 document.getElementById("registerLink").href = "register.html?intent=opportunity";
             }
+
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
         });
 
         function fillDemo(e, p) {
@@ -187,7 +544,7 @@
         document.getElementById("loginForm").addEventListener("submit", function(e) {
             e.preventDefault();
             const email = document.getElementById("loginEmail").value.trim();
-            const pass  = document.getElementById("loginPassword").value;
+            const pass = document.getElementById("loginPassword").value;
             const errEl = document.getElementById("loginError");
             errEl.style.display = "none";
 
@@ -210,8 +567,8 @@
             if (r.success) {
                 Auth.save({ role: r.role, id: r.id, email });
                 let profile = null;
-                if (r.role === "student")         profile = BridgeDB.getStudentById(r.id);
-                else if (r.role === "recruiter")  profile = BridgeDB.getRecruiterById(r.id);
+                if (r.role === "student") profile = BridgeDB.getStudentById(r.id);
+                else if (r.role === "recruiter") profile = BridgeDB.getRecruiterById(r.id);
                 else if (r.role === "university") profile = BridgeDB.getUniversityById(r.id);
                 if (profile) ProfileStore.save({ ...profile, role: r.role });
                 showToast("Welcome back!", "success");

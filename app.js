@@ -1,5 +1,6 @@
 "use strict";
 
+
 // ── UserStore: persistent registry of all registered prototype users ──────────
 // Survives logout so a user can re-authenticate after registering.
 const UserStore = {
@@ -22,6 +23,7 @@ const UserStore = {
         return u;
     },
 };
+
 
 // ── Pending redirect context for opportunity flows ────────────────────────────
 const PendingRedirect = {
@@ -46,6 +48,7 @@ const PendingRedirect = {
     }
 };
 
+
 function getDefaultRouteForRole(role) {
     return role === "student" ? "student-dashboard.html"
         : role === "recruiter" ? "recruiter-dashboard.html"
@@ -54,8 +57,10 @@ function getDefaultRouteForRole(role) {
                     : "student-dashboard.html";
 }
 
+
 function getPostAuthRedirect(role) {
     const pending = PendingRedirect.get();
+
 
     if (pending && pending.source === "opportunity-flow") {
         if (role === "student" || role === "freelancer") {
@@ -64,18 +69,22 @@ function getPostAuthRedirect(role) {
             return "job-listing.html";
         }
 
+
         PendingRedirect.clear();
         return getDefaultRouteForRole(role);
     }
 
+
     return getDefaultRouteForRole(role);
 }
+
 
 function navigateAfterAuth(role) {
     const target = getPostAuthRedirect(role);
     PendingRedirect.clear();
     window.location.href = target;
 }
+
 
 function startOpportunityAuthFlow(jobId = "", extras = {}) {
     const targetUrl = jobId ? `job-listing.html?id=${encodeURIComponent(jobId)}` : "job-listing.html";
@@ -87,6 +96,7 @@ function startOpportunityAuthFlow(jobId = "", extras = {}) {
     });
     window.location.href = "login.html?intent=opportunity";
 }
+
 
 // ── Session helpers ───────────────────────────────────────────────────────────
 const Auth = {
@@ -108,17 +118,21 @@ const Auth = {
             pendingRedirect = null
         } = options;
 
+
         if (!s) {
             if (pendingRedirect) PendingRedirect.save(pendingRedirect);
+
 
             if (redirectTo) {
                 window.location.href = redirectTo;
                 return null;
             }
 
+
             window.location.href = "login.html";
             return null;
         }
+
 
         if (allowedRoles.length && !allowedRoles.includes(s.role)) {
             window.location.href = getDefaultRouteForRole(s.role);
@@ -127,6 +141,7 @@ const Auth = {
         return s;
     },
 };
+
 
 // ── ProfileVault: long-term profile storage keyed by user ID ─────────────────
 // Survives logout. Allows full profile restore on re-login.
@@ -145,6 +160,7 @@ const ProfileVault = {
     },
 };
 
+
 // ── ProfileStore: current active session profile ──────────────────────────────
 const ProfileStore = {
     _key: "bridgeup_profile",
@@ -162,6 +178,7 @@ const ProfileStore = {
     getById(id) { return ProfileVault.get(id); },
 };
 
+
 // ── Resolve current user profile ──────────────────────────────────────────────
 // Priority:
 //   1. ProfileStore (active session profile)
@@ -171,14 +188,17 @@ const ProfileStore = {
 function resolveProfile(session) {
     if (!session) return null;
 
+
     const stored = ProfileStore.get();
     if (stored && stored.id === session.id) return stored;
+
 
     const vaulted = ProfileVault.get(session.id);
     if (vaulted) {
         ProfileStore.save(vaulted);
         return vaulted;
     }
+
 
     if (session.role === "student") {
         const s = typeof BridgeDB !== "undefined" ? BridgeDB.getStudentById(session.id) : null;
@@ -191,9 +211,11 @@ function resolveProfile(session) {
         if (u) { const p = { ...u, role: "university" }; ProfileStore.save(p); return p; }
     }
 
+
     if (stored) return stored;
     return null;
 }
+
 
 // ── Toast notifications ───────────────────────────────────────────────────────
 function showToast(msg, type = "info", duration = 3500) {
@@ -214,15 +236,18 @@ function showToast(msg, type = "info", duration = 3500) {
     }, duration);
 }
 
+
 // ── Modal helpers ─────────────────────────────────────────────────────────────
 function openModal(id) { document.getElementById(id)?.classList.add("open"); }
 function closeModal(id) { document.getElementById(id)?.classList.remove("open"); }
+
 
 // ── Avatar initials ───────────────────────────────────────────────────────────
 function avatarInitials(name = "") {
     const parts = name.trim().split(" ");
     return (parts[0]?.[0] || "") + (parts[1]?.[0] || "");
 }
+
 
 // ── Relative time ─────────────────────────────────────────────────────────────
 function timeAgo(dateStr) {
@@ -235,6 +260,7 @@ function timeAgo(dateStr) {
     return `${Math.floor(d / 365)} years ago`;
 }
 
+
 // ── XP progress percentage ────────────────────────────────────────────────────
 function xpProgress(xp) {
     const level = BridgeDB.getLevel(xp);
@@ -242,6 +268,7 @@ function xpProgress(xp) {
     const progress = xp - level.min;
     return Math.min(100, Math.round((progress / range) * 100));
 }
+
 
 // ── Render navbar logo ────────────────────────────────────────────────────────
 function renderLogo(dark = false) {
@@ -262,6 +289,7 @@ function renderLogo(dark = false) {
     </svg>`;
 }
 
+
 // ── Render XP bar ─────────────────────────────────────────────────────────────
 function renderXPBar(xp) {
     const level = BridgeDB.getLevel(xp);
@@ -278,17 +306,20 @@ function renderXPBar(xp) {
     `;
 }
 
+
 // ── Build navbar ──────────────────────────────────────────────────────────────
 // Keep original shared UI behavior intact — pages depend on these exact links/actions.
 function buildNavbar(activePage, role) {
     const session = Auth.get();
     if (!session) return "";
 
+
     const dashLink = role === "student"
         ? "student-dashboard.html"
         : role === "recruiter"
             ? "recruiter-dashboard.html"
             : "university-dashboard.html";
+
 
     const navItems = role === "student"
         ? [
@@ -309,25 +340,29 @@ function buildNavbar(activePage, role) {
                 { href: "chat.html", label: "Messages" },
             ];
 
+
     const links = navItems
         .map(n => `<a href="${n.href}" class="${activePage === n.label ? "active" : ""}">${n.label}</a>`)
         .join("");
+
+
+    const profileButton = role === "student"
+        ? `<a href="student-profile.html"><button class="btn btn-outline btn-sm">My Profile</button></a>`
+        : "";
+
 
     return `
         <nav class="navbar">
             <a href="${dashLink}" class="nav-brand">${renderLogo()}</a>
             <div class="nav-links">${links}</div>
             <div class="nav-actions">
-                <button class="btn btn-ghost btn-sm" style="color:var(--muted);position:relative"
-                    onclick="window.location.href='chat.html'">Chat<span class="notif-dot"></span></button>
-                ${role === "student"
-                    ? `<a href="student-profile.html"><button class="btn btn-outline btn-sm">My Profile</button></a>`
-                    : ""}
+                ${profileButton}
                 <button class="btn btn-primary btn-sm" onclick="Auth.logout()">Logout</button>
             </div>
         </nav>
     `;
 }
+
 
 // ── Render job card ───────────────────────────────────────────────────────────
 function renderJobCard(job, opts = {}) {
@@ -355,10 +390,12 @@ function renderJobCard(job, opts = {}) {
     `;
 }
 
+
 // ── Render avatar div ─────────────────────────────────────────────────────────
 function renderAvatar(name, size = "md") {
     return `<div class="avatar avatar-${size}" style="display:inline-flex">${avatarInitials(name)}</div>`;
 }
+
 
 // ── Sticky Widget ─────────────────────────────────────────────────────────────
 function initStickyWidget() {
@@ -374,20 +411,24 @@ function initStickyWidget() {
     `;
     document.body.appendChild(widget);
 
+
     widget.addEventListener("click", e => {
         if (e.target.closest(".sticky-widget-btn")) return;
         widget.classList.toggle("is-open");
     });
 
+
     document.addEventListener("click", e => {
         if (!widget.contains(e.target)) widget.classList.remove("is-open");
     });
+
 
     function triggerWiggle() {
         if (widget.classList.contains("is-open")) return;
         widget.classList.add("wiggle");
         widget.addEventListener("animationend", () => widget.classList.remove("wiggle"), { once: true });
     }
+
 
     setTimeout(() => {
         triggerWiggle();

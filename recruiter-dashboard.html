@@ -6,39 +6,279 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Recruiter Dashboard — Bridge Up</title>
     <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .recruiter-hero {
+            background: var(--blue);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            box-shadow: 0 22px 44px rgba(15, 23, 42, 0.14);
+        }
+
+        .recruiter-hero-eyebrow {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .recruiter-hero h2 {
+            color: #fff;
+            margin-bottom: 2px;
+        }
+
+        .recruiter-hero-meta {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .recruiter-sidebar-item {
+            justify-content: flex-start;
+        }
+
+        .recruiter-sidebar-item i {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            stroke-width: 2;
+        }
+
+        .recruiter-stat-icon svg,
+        .recruiter-search-icon,
+        .app-status-icon,
+        .listing-meta-icon,
+        .talent-meta-icon,
+        .modal-section-icon,
+        .modal-close svg,
+        .decision-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2;
+        }
+
+        .recruiter-stat-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--yellow), var(--orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue);
+            margin-bottom: 8px;
+            box-shadow: 0 10px 20px rgba(249, 115, 22, 0.16);
+        }
+
+        .recruiter-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .app-row,
+        .listing-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            box-shadow: 0 14px 28px rgba(15, 23, 42, 0.04);
+        }
+
+        .app-row {
+            cursor: pointer;
+            transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+        }
+
+        .app-row:hover {
+            transform: translateY(-1px);
+            border-color: rgba(249, 115, 22, 0.18);
+            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.06);
+        }
+
+        .app-main,
+        .listing-main {
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .app-name,
+        .listing-title,
+        .talent-name {
+            font-family: Montserrat, sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--blue);
+        }
+
+        .app-meta,
+        .listing-meta,
+        .talent-meta {
+            font-size: 13px;
+            color: #64748B;
+        }
+
+        .app-submeta,
+        .listing-submeta {
+            font-size: 12px;
+            color: #94A3B8;
+            margin-top: 2px;
+        }
+
+        .recruiter-section-tools {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .talent-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .talent-filters .search-bar {
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .talent-filter-select {
+            padding: 8px 14px;
+            border: 1.5px solid #CBD5E1;
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+            background: #fff;
+        }
+
+        .talent-filter-select:focus {
+            border-color: var(--yellow);
+        }
+
+        .talent-card {
+            text-align: center;
+            padding: 20px 16px;
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            box-shadow: 0 14px 28px rgba(15, 23, 42, 0.04);
+        }
+
+        .talent-card .avatar {
+            display: inline-flex;
+            margin: 0 auto 10px;
+        }
+
+        .talent-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .talent-skills .tag {
+            font-size: 11px;
+        }
+
+        .modal-close {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .applicant-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .modal-section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: Montserrat, sans-serif;
+            margin-bottom: 8px;
+            color: var(--blue);
+        }
+
+        .app-cover-box {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .decision-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .decision-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .empty-copy {
+            color: #94A3B8;
+            font-size: 14px;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        @media (max-width: 768px) {
+            .recruiter-hero {
+                padding: 22px 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div id="nav"></div>
     <div class="page-content">
-        <div
-            style="background:var(--blue);border-radius:14px;padding:28px 32px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+        <div class="recruiter-hero">
             <div>
-                <div style="color:var(--muted);font-size:14px;margin-bottom:4px">Recruiter Dashboard</div>
-                <h2 style="color:#fff;margin-bottom:2px" id="rName">–</h2>
-                <div style="color:var(--muted);font-size:14px" id="rCompany">–</div>
+                <div class="recruiter-hero-eyebrow">Recruiter Dashboard</div>
+                <h2 id="rName">–</h2>
+                <div class="recruiter-hero-meta" id="rCompany">–</div>
             </div>
             <a href="recruiter-post-job.html"><button class="btn btn-primary">Post a New Opportunity</button></a>
         </div>
 
         <div class="grid-4" style="margin-bottom:28px">
             <div class="stat-card">
-                <div class="stat-icon">📋</div>
+                <div class="recruiter-stat-icon"><i data-lucide="briefcase-business"></i></div>
                 <div class="stat-val" id="stPosted">–</div>
                 <div class="stat-label">Posted Jobs</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon">📨</div>
+                <div class="recruiter-stat-icon"><i data-lucide="inbox"></i></div>
                 <div class="stat-val" id="stApps">–</div>
                 <div class="stat-label">Applications</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon">✅</div>
+                <div class="recruiter-stat-icon"><i data-lucide="badge-check"></i></div>
                 <div class="stat-val" id="stActive">–</div>
                 <div class="stat-label">Active Listings</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon">🤝</div>
+                <div class="recruiter-stat-icon"><i data-lucide="handshake"></i></div>
                 <div class="stat-val" id="stHired">–</div>
                 <div class="stat-label">Hired</div>
             </div>
@@ -46,53 +286,63 @@
 
         <div class="layout-sidebar">
             <div class="sidebar">
-                <div class="sidebar-item active" onclick="showTab('apps',this)">📨 Applications</div>
-                <div class="sidebar-item" onclick="showTab('listings',this)">📋 My Listings</div>
-                <div class="sidebar-item" onclick="showTab('talent',this)">🔍 Browse Talent</div>
-                <div class="sidebar-item" onclick="location.href='recruiter-post-job.html'">➕ Post New Job</div>
-                <div class="sidebar-item" onclick="location.href='chat.html'">💬 Messages</div>
-                <div class="sidebar-item" onclick="location.href='contract.html'">📄 Contracts</div>
+                <div class="sidebar-item recruiter-sidebar-item active" onclick="showTab('apps',this)">
+                    <i data-lucide="inbox"></i>
+                    <span>Applications</span>
+                </div>
+                <div class="sidebar-item recruiter-sidebar-item" onclick="showTab('listings',this)">
+                    <i data-lucide="briefcase-business"></i>
+                    <span>My Listings</span>
+                </div>
+                <div class="sidebar-item recruiter-sidebar-item" onclick="showTab('talent',this)">
+                    <i data-lucide="search"></i>
+                    <span>Browse Talent</span>
+                </div>
+                <div class="sidebar-item recruiter-sidebar-item" onclick="location.href='recruiter-post-job.html'">
+                    <i data-lucide="plus"></i>
+                    <span>Post New Job</span>
+                </div>
+                <div class="sidebar-item recruiter-sidebar-item" onclick="location.href='chat.html'">
+                    <i data-lucide="messages-square"></i>
+                    <span>Messages</span>
+                </div>
+                <div class="sidebar-item recruiter-sidebar-item" onclick="location.href='contract.html'">
+                    <i data-lucide="file-text"></i>
+                    <span>Contracts</span>
+                </div>
             </div>
+
             <div>
-                <!-- APPLICATIONS -->
                 <div id="tab-apps">
                     <div class="section-header" style="margin-bottom:16px">
                         <h2>Applications Inbox</h2>
-                        <div style="display:flex;gap:8px">
+                        <div class="recruiter-section-tools">
                             <div class="filter-chip active" onclick="filterApps('all',this)">All</div>
                             <div class="filter-chip" onclick="filterApps('pending',this)">Pending</div>
                             <div class="filter-chip" onclick="filterApps('accepted',this)">Accepted</div>
                             <div class="filter-chip" onclick="filterApps('rejected',this)">Rejected</div>
                         </div>
                     </div>
-                    <div id="appsList"></div>
+                    <div id="appsList" class="recruiter-card-list"></div>
                 </div>
 
-                <!-- LISTINGS -->
                 <div id="tab-listings" style="display:none">
                     <div class="section-header" style="margin-bottom:16px">
                         <h2>My Job Listings</h2>
                     </div>
-                    <div id="listingsList"></div>
+                    <div id="listingsList" class="recruiter-card-list"></div>
                 </div>
 
-                <!-- TALENT -->
                 <div id="tab-talent" style="display:none">
                     <div class="section-header" style="margin-bottom:16px">
                         <h2>Talent Pool</h2>
                     </div>
-                    <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
-                        <div class="search-bar" style="flex:1">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <circle cx="11" cy="11" r="8" />
-                                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                            </svg>
-                            <input type="text" id="tSearch" placeholder="Search by name, skill, field"
-                                oninput="filterTalent()" />
+                    <div class="talent-filters">
+                        <div class="search-bar">
+                            <i data-lucide="search" class="recruiter-search-icon"></i>
+                            <input type="text" id="tSearch" placeholder="Search by name, skill, field" oninput="filterTalent()" />
                         </div>
-                        <select id="tField" onchange="filterTalent()"
-                            style="padding:8px 14px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:13px;outline:none">
+                        <select id="tField" class="talent-filter-select" onchange="filterTalent()">
                             <option value="">All Fields</option>
                             <option>Marketing</option>
                             <option>Computer Science</option>
@@ -102,8 +352,7 @@
                             <option>Engineering</option>
                             <option>Design</option>
                         </select>
-                        <select id="tLevel" onchange="filterTalent()"
-                            style="padding:8px 14px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:13px;outline:none">
+                        <select id="tLevel" class="talent-filter-select" onchange="filterTalent()">
                             <option value="">All Levels</option>
                             <option>Starter</option>
                             <option>Rising Talent</option>
@@ -118,33 +367,44 @@
         </div>
     </div>
 
-    <!-- APPLICANT MODAL -->
     <div class="modal-overlay" id="appModal">
         <div class="modal" style="max-width:600px">
             <div class="modal-header">
                 <h3 id="appModalName">Applicant</h3>
-                <button class="modal-close" onclick="closeModal('appModal')">×</button>
+                <button class="modal-close" onclick="closeModal('appModal')" aria-label="Close applicant modal">
+                    <i data-lucide="x"></i>
+                </button>
             </div>
             <div id="appModalBody"></div>
-            <div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end">
-                <button class="btn btn-danger btn-sm" onclick="decide('rejected')">✗ Reject</button>
-                <button class="btn btn-success btn-sm" onclick="decide('accepted')">✓ Accept & Send Contract</button>
+            <div class="decision-actions">
+                <button class="btn btn-danger btn-sm decision-btn" onclick="decide('rejected')">
+                    <i data-lucide="x"></i>
+                    <span>Reject</span>
+                </button>
+                <button class="btn btn-success btn-sm decision-btn" onclick="decide('accepted')">
+                    <i data-lucide="badge-check"></i>
+                    <span>Accept & Send Contract</span>
+                </button>
             </div>
         </div>
     </div>
 
     <div id="toast-container"></div>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="db.js"></script>
     <script src="app.js"></script>
     <script>
         let recruiter, myJobs = [], apps = [], selApp = null;
+
+        function renderLucideIcons() {
+            if (window.lucide) window.lucide.createIcons();
+        }
 
         window.addEventListener("DOMContentLoaded", () => {
             const s = Auth.requireAuth(["recruiter"]);
             if (!s) return;
             document.getElementById("nav").innerHTML = buildNavbar("Dashboard", "recruiter");
 
-            // Resolve recruiter profile: ProfileStore first, then BridgeDB
             recruiter = resolveProfile(s);
 
             if (!recruiter) {
@@ -161,7 +421,6 @@
             document.getElementById("rCompany").textContent =
                 [recruiter.company, recruiter.industry].filter(Boolean).join(" · ");
 
-            // Find jobs posted by this recruiter; for new users show sample demo jobs
             myJobs = BridgeDB.jobs.filter(j => j.recruiterId === recruiter.id);
             if (!myJobs.length) {
                 myJobs = BridgeDB.jobs.slice(0, 8).map(j => ({
@@ -188,21 +447,22 @@
             renderApps(apps);
             renderListings();
             renderTalent(BridgeDB.students.slice(0, 24));
+            renderLucideIcons();
         });
 
         function renderApps(list) {
             document.getElementById("appsList").innerHTML = list.length ? list.map((a) => `
-                <div class="card card-sm" style="display:flex;align-items:center;gap:14px;margin-bottom:12px;cursor:pointer"
-                    onclick="openApp(${apps.indexOf(a)})">
+                <div class="card card-sm app-row" onclick="openApp(${apps.indexOf(a)})">
                     <div class="avatar avatar-md" style="display:inline-flex">${avatarInitials(a.student.name)}</div>
-                    <div style="flex:1">
-                        <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">${a.student.name}</div>
-                        <div style="font-size:13px;color:#64748B">${a.student.field} · ${a.student.university}</div>
-                        <div style="font-size:12px;color:#94A3B8;margin-top:2px">Applied to: ${a.job?.title || "–"} · ${a.date}</div>
+                    <div class="app-main">
+                        <div class="app-name">${a.student.name}</div>
+                        <div class="app-meta">${a.student.field} · ${a.student.university}</div>
+                        <div class="app-submeta">Applied to: ${a.job?.title || "–"} · ${a.date}</div>
                     </div>
                     <span class="badge ${a.status === 'accepted' ? 'badge-green' : a.status === 'rejected' ? 'badge-red' : 'badge-gray'}">${a.status}</span>
                 </div>`).join("")
-                : `<p style="color:#94A3B8;font-size:14px;text-align:center;padding:40px 0">No applications yet.</p>`;
+                : `<p class="empty-copy">No applications yet.</p>`;
+            renderLucideIcons();
         }
 
         function filterApps(status, el) {
@@ -216,24 +476,34 @@
             const st = selApp.student;
             document.getElementById("appModalName").textContent = st.name;
             document.getElementById("appModalBody").innerHTML = `
-                <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+                <div class="applicant-top">
                     <div class="avatar avatar-lg" style="display:inline-flex">${avatarInitials(st.name)}</div>
                     <div>
-                        <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:16px">${st.name}</div>
+                        <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:16px;color:var(--blue)">${st.name}</div>
                         <div style="font-size:13px;color:#64748B">${st.field} · ${st.university}</div>
                         <div style="font-size:13px;color:#64748B">${st.degree} · ${st.year}</div>
                     </div>
                 </div>
-                <div style="font-size:13px;font-weight:600;font-family:Montserrat,sans-serif;margin-bottom:8px">Skills</div>
+                <div class="modal-section-title">
+                    <i data-lucide="sparkles" class="modal-section-icon"></i>
+                    <span>Skills</span>
+                </div>
                 <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
                     ${(st.skills || []).map(sk => `<span class="tag">${sk}</span>`).join("") || "<span style='color:#94A3B8'>None listed</span>"}
                 </div>
-                <div style="font-size:13px;font-weight:600;font-family:Montserrat,sans-serif;margin-bottom:8px">Cover Letter</div>
-                <div style="background:#F8FAFC;border-radius:8px;padding:14px;font-size:14px;color:#374151;line-height:1.6;margin-bottom:16px">${selApp.cover}</div>
-                <div style="font-size:13px;font-weight:600;font-family:Montserrat,sans-serif;margin-bottom:8px">XP & Level</div>
+                <div class="modal-section-title">
+                    <i data-lucide="file-text" class="modal-section-icon"></i>
+                    <span>Cover Letter</span>
+                </div>
+                <div class="app-cover-box">${selApp.cover}</div>
+                <div class="modal-section-title">
+                    <i data-lucide="zap" class="modal-section-icon"></i>
+                    <span>XP & Level</span>
+                </div>
                 ${renderXPBar(st.xp)}
             `;
             openModal("appModal");
+            renderLucideIcons();
         }
 
         function decide(status) {
@@ -242,39 +512,41 @@
             closeModal("appModal");
             renderApps(apps);
             document.getElementById("stHired").textContent = apps.filter(a => a.status === "accepted").length;
-            showToast(status === "accepted" ? "Applicant accepted! Contract sent. ✅" : "Application rejected.", status === "accepted" ? "success" : "error");
+            showToast(status === "accepted" ? "Applicant accepted! Contract sent." : "Application rejected.", status === "accepted" ? "success" : "error");
         }
 
         function renderListings() {
             document.getElementById("listingsList").innerHTML = myJobs.map(j => `
-                <div class="card card-sm" style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px;flex-wrap:wrap">
-                    <div>
-                        <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px">${j.title}</div>
-                        <div style="font-size:13px;color:#64748B">${j.type} · ${j.location} · Deadline: ${j.deadline}</div>
-                        <div style="font-size:12px;color:#94A3B8;margin-top:2px">${j.applications} applicants</div>
+                <div class="card card-sm listing-row">
+                    <div class="listing-main">
+                        <div class="listing-title">${j.title}</div>
+                        <div class="listing-meta">${j.type} · ${j.location} · Deadline: ${j.deadline}</div>
+                        <div class="listing-submeta">${j.applications} applicants</div>
                     </div>
-                    <div style="display:flex;gap:8px;align-items:center">
+                    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
                         <span class="badge ${j.open ? 'badge-green' : 'badge-gray'}">${j.open ? 'Active' : 'Closed'}</span>
                         <button class="btn btn-outline btn-sm" onclick="window.location.href='job-listing.html?id=${j.id}'">View</button>
                     </div>
                 </div>`).join("") ||
-                `<p style="color:#94A3B8;font-size:14px;text-align:center;padding:40px 0">No listings yet. <a href="recruiter-post-job.html" style="color:var(--orange)">Post your first job →</a></p>`;
+                `<p class="empty-copy">No listings yet. <a href="recruiter-post-job.html" style="color:var(--orange)">Post your first job →</a></p>`;
+            renderLucideIcons();
         }
 
         function renderTalent(list) {
             document.getElementById("talentGrid").innerHTML = list.map(st => `
-                <div class="card card-sm" style="text-align:center;padding:20px 16px">
-                    <div class="avatar avatar-lg" style="display:inline-flex;margin:0 auto 10px">${avatarInitials(st.name)}</div>
-                    <div style="font-family:Montserrat,sans-serif;font-weight:600;font-size:14px;margin-bottom:4px">${st.name}</div>
-                    <div style="font-size:12px;color:#64748B;margin-bottom:6px">${st.field} · ${st.year}</div>
-                    <div style="font-size:12px;color:#64748B;margin-bottom:10px">${st.university}</div>
-                    <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-bottom:12px">
+                <div class="card card-sm talent-card">
+                    <div class="avatar avatar-lg">${avatarInitials(st.name)}</div>
+                    <div class="talent-name" style="margin-bottom:4px">${st.name}</div>
+                    <div class="talent-meta" style="margin-bottom:6px">${st.field} · ${st.year}</div>
+                    <div class="talent-meta" style="margin-bottom:10px">${st.university}</div>
+                    <div class="talent-skills">
                         ${(st.skills || []).slice(0, 3).map(sk => `<span class="tag" style="font-size:11px">${sk}</span>`).join("")}
                     </div>
                     <span class="badge badge-yellow" style="font-size:11px">${st.level}</span>
                     <button class="btn btn-outline btn-sm" style="width:100%;margin-top:10px"
                         onclick="showToast('Message sent to ${st.name.replace(/'/g, "\\'")}!','success')">Contact</button>
                 </div>`).join("");
+            renderLucideIcons();
         }
 
         function filterTalent() {
@@ -299,6 +571,7 @@
             document.getElementById("tab-" + t).style.display = "block";
             document.querySelectorAll(".sidebar-item").forEach(e => e.classList.remove("active"));
             el.classList.add("active");
+            renderLucideIcons();
         }
     </script>
 </body>
