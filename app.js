@@ -281,21 +281,9 @@ function xpProgress(xp) {
 
 // ── Render navbar logo ────────────────────────────────────────────────────────
 function renderLogo(dark = false) {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none" style="height:38px">
-        <defs>
-            <linearGradient id="gLogo" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#FACC15"/>
-                <stop offset="100%" stop-color="#F97316"/>
-            </linearGradient>
-        </defs>
-        <path d="M10 55 Q22 20 38 55" stroke="url(#gLogo)" stroke-width="5" fill="none" stroke-linecap="round"/>
-        <path d="M28 55 Q44 10 62 55" stroke="url(#gLogo)" stroke-width="5" fill="none" stroke-linecap="round"/>
-        <path d="M50 55 Q70 5 90 55" stroke="url(#gLogo)" stroke-width="5.5" fill="none" stroke-linecap="round"/>
-        <text x="10" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22"
-            fill="${dark ? "#0F172A" : "#F1F5F9"}">Bridge</text>
-        <text x="82" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22"
-            fill="url(#gLogo)">Up</text>
-    </svg>`;
+    const src = dark ? "assets/logo_horizontal (dark bridge).svg" : "assets/logo_horizontal.svg";
+    const height = "38px";
+    return `<img src="${src}" alt="Bridge Up" style="height:${height}">`;
 }
 
 
