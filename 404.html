@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found — Bridge Up</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        .not-found-shell {
+            min-height: 100vh;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at top right, rgba(250, 204, 21, 0.10), transparent 26%),
+                linear-gradient(180deg, #0F172A 0%, #162033 100%);
+        }
+
+        .not-found-card {
+            width: 100%;
+            max-width: 1100px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+            gap: 26px;
+            align-items: center;
+        }
+
+        .not-found-content {
+            color: #fff;
+            padding: 6px 0;
+        }
+
+        .not-found-brand {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .not-found-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(250, 204, 21, 0.14);
+            border: 1px solid rgba(250, 204, 21, 0.24);
+            color: #F8FAFC;
+            font-family: Montserrat, sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            margin-bottom: 16px;
+        }
+
+        .not-found-kicker svg,
+        .not-found-stat-icon svg,
+        .not-found-link svg {
+            width: 16px;
+            height: 16px;
+            stroke-width: 2;
+        }
+
+        .not-found-code {
+            font-family: Montserrat, sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--yellow);
+            margin-bottom: 12px;
+        }
+
+        .not-found-title {
+            max-width: 12ch;
+            margin-bottom: 14px;
+            color: #fff;
+            font-size: clamp(32px, 4.6vw, 50px);
+            line-height: 1.04;
+        }
+
+        .not-found-text {
+            max-width: 54ch;
+            font-size: 17px;
+            line-height: 1.62;
+            color: rgba(241, 245, 249, 0.82);
+            margin-bottom: 24px;
+        }
+
+        .not-found-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .not-found-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 16px;
+            border-radius: 12px;
+            color: rgba(241, 245, 249, 0.92);
+            border: 1px solid rgba(241, 245, 249, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+            font-family: Montserrat, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background .2s, border-color .2s, color .2s;
+        }
+
+        .not-found-link:hover {
+            background: rgba(249, 115, 22, 0.12);
+            border-color: rgba(249, 115, 22, 0.32);
+            color: #fff;
+        }
+
+        .not-found-panel {
+            background: #FFFFFF;
+            border-radius: 22px;
+            padding: 22px;
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.24);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            align-self: center;
+        }
+
+        .not-found-visual {
+            position: relative;
+            border-radius: 18px;
+            padding: 20px 20px 18px;
+            background: linear-gradient(180deg, #FFFDF5 0%, #FFF7ED 100%);
+            border: 1px solid rgba(250, 204, 21, 0.24);
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+
+        .not-found-visual::before {
+            content: "";
+            position: absolute;
+            inset: auto -50px -70px auto;
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.18) 0%, rgba(249, 115, 22, 0) 72%);
+            pointer-events: none;
+        }
+
+        .not-found-illustration {
+            position: relative;
+            display: grid;
+            place-items: center;
+            min-height: 180px;
+        }
+
+        .not-found-orbit {
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            border: 1px dashed rgba(15, 23, 42, 0.14);
+        }
+
+        .not-found-center {
+            position: relative;
+            width: 116px;
+            height: 116px;
+            border-radius: 26px;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.18);
+        }
+
+        .not-found-center::before {
+            content: "";
+            position: absolute;
+            inset: -8px;
+            border-radius: 32px;
+            border: 1px solid rgba(250, 204, 21, 0.28);
+        }
+
+        .not-found-center svg {
+            width: 26px;
+            height: 26px;
+            stroke-width: 2;
+            color: var(--yellow);
+            margin-bottom: 8px;
+        }
+
+        .not-found-center strong {
+            font-family: Montserrat, sans-serif;
+            font-size: 26px;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .not-found-center span {
+            margin-top: 6px;
+            font-size: 11px;
+            color: rgba(241, 245, 249, 0.72);
+            font-family: Montserrat, sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .not-found-panel h2 {
+            font-size: 22px;
+            color: var(--blue);
+            margin-bottom: 8px;
+        }
+
+        .not-found-panel p {
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.58;
+            margin-bottom: 16px;
+        }
+
+        .not-found-stat-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .not-found-stat {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 13px 13px;
+            border-radius: 14px;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+        }
+
+        .not-found-stat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #FFFBEB;
+            color: #CA8A04;
+            flex-shrink: 0;
+        }
+
+        .not-found-stat:nth-child(2) .not-found-stat-icon {
+            background: #EFF6FF;
+            color: #2563EB;
+        }
+
+        .not-found-stat:nth-child(3) .not-found-stat-icon {
+            background: #FFF7ED;
+            color: #EA580C;
+        }
+
+        .not-found-stat strong {
+            display: block;
+            font-family: Montserrat, sans-serif;
+            font-size: 14px;
+            color: var(--blue);
+            margin-bottom: 3px;
+        }
+
+        .not-found-stat span {
+            display: block;
+            font-size: 12px;
+            color: #64748B;
+            line-height: 1.45;
+        }
+
+        @media (max-width: 980px) {
+            html,
+            body {
+                overflow: auto;
+                height: auto;
+            }
+
+            .not-found-shell {
+                min-height: 100vh;
+                height: auto;
+                padding: 28px 20px;
+                overflow: visible;
+            }
+
+            .not-found-card {
+                grid-template-columns: 1fr;
+                max-width: 760px;
+                gap: 20px;
+            }
+
+            .not-found-content {
+                padding: 0;
+            }
+
+            .not-found-title {
+                max-width: 14ch;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .not-found-shell {
+                padding: 20px 16px;
+            }
+
+            .not-found-panel,
+            .not-found-visual {
+                padding: 18px;
+            }
+
+            .not-found-title {
+                font-size: 32px;
+            }
+
+            .not-found-text {
+                font-size: 16px;
+                margin-bottom: 22px;
+            }
+
+            .not-found-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .not-found-actions .btn,
+            .not-found-link {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .not-found-illustration {
+                min-height: 160px;
+            }
+
+            .not-found-orbit {
+                width: 150px;
+                height: 150px;
+            }
+
+            .not-found-center {
+                width: 104px;
+                height: 104px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="not-found-shell">
+        <main class="not-found-card">
+            <section class="not-found-content">
+                <a href="index.html" class="not-found-brand" aria-label="Bridge Up home">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none" style="height:38px">
+                        <defs>
+                            <linearGradient id="gLogo404" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#FACC15" />
+                                <stop offset="100%" stop-color="#F97316" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M10 55 Q22 20 38 55" stroke="url(#gLogo404)" stroke-width="5" fill="none" stroke-linecap="round" />
+                        <path d="M28 55 Q44 10 62 55" stroke="url(#gLogo404)" stroke-width="5" fill="none" stroke-linecap="round" />
+                        <path d="M50 55 Q70 5 90 55" stroke="url(#gLogo404)" stroke-width="5.5" fill="none" stroke-linecap="round" />
+                        <text x="10" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="#F1F5F9">Bridge</text>
+                        <text x="82" y="75" font-family="Montserrat,sans-serif" font-weight="700" font-size="22" fill="url(#gLogo404)">Up</text>
+                    </svg>
+                </a>
+
+                <div class="not-found-kicker">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                        <path d="M10 10a5 5 0 1 1 7.07 7.07L12 22l-5.07-4.93A5 5 0 0 1 10 10Z"></path>
+                        <path d="M12 6V3"></path>
+                    </svg>
+                    <span>Route unavailable</span>
+                </div>
+
+                <div class="not-found-code">Error 404</div>
+                <h1 class="not-found-title">This page isn’t part of the bridge.</h1>
+                <p class="not-found-text">
+                    The link may be outdated, incomplete, or no longer available in this prototype. Use one of the paths below to get back to the main Bridge Up experience.
+                </p>
+
+                <div class="not-found-actions">
+                    <a href="index.html" class="btn btn-primary btn-lg">Back to home</a>
+                    <a href="login.html" class="btn btn-outline btn-lg">Go to login</a>
+                    <a href="job-listing.html" class="not-found-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M3 7h18"></path>
+                            <path d="M7 3v4"></path>
+                            <path d="M17 3v4"></path>
+                            <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                            <path d="M8 11h8"></path>
+                            <path d="M8 15h5"></path>
+                        </svg>
+                        <span>Browse opportunities</span>
+                    </a>
+                </div>
+            </section>
+
+            <aside class="not-found-panel">
+                <div class="not-found-visual">
+                    <div class="not-found-illustration" aria-hidden="true">
+                        <div class="not-found-orbit"></div>
+                        <div class="not-found-center">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <path d="M9.5 9.5c.7-.83 1.53-1.25 2.5-1.25 1.8 0 3.25 1.32 3.25 3.02 0 2.1-2.14 2.84-3.03 3.45-.56.39-.72.65-.72 1.28"></path>
+                                <circle cx="12" cy="17.3" r=".7" fill="currentColor" stroke="none"></circle>
+                            </svg>
+                            <strong>404</strong>
+                            <span>Not found</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Useful next steps</h2>
+                <p>
+                    This fallback keeps users oriented instead of dropping them into a dead end. The goal is to recover quickly and continue the intended flow.
+                </p>
+
+                <div class="not-found-stat-list">
+                    <div class="not-found-stat">
+                        <div class="not-found-stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path d="M3 12h18"></path>
+                                <path d="M12 3v18"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <strong>Return to a valid entry point</strong>
+                            <span>Use Home or Login to restart from a known route in the prototype.</span>
+                        </div>
+                    </div>
+
+                    <div class="not-found-stat">
+                        <div class="not-found-stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path d="M12 20V10"></path>
+                                <path d="M18 20V4"></path>
+                                <path d="M6 20v-6"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <strong>Resume discovery</strong>
+                            <span>Job listings provide a strong neutral recovery path for students and exploration flows.</span>
+                        </div>
+                    </div>
+
+                    <div class="not-found-stat">
+                        <div class="not-found-stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path d="M4 7h16"></path>
+                                <path d="M4 12h10"></path>
+                                <path d="M4 17h7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <strong>Keep the experience consistent</strong>
+                            <span>The page uses the shared type, color, and button system so it still feels like Bridge Up.</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+</body>
+
+</html>
