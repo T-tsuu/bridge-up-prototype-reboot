@@ -1,4 +1,8 @@
 "use strict";
+// Toggle to enable or disable the AI support widget globally.
+// Set to `true` to render the widget, or `false` to prevent it from rendering.
+// You can change this value as needed.
+window.ENABLE_AI_SUPPORT_WIDGET = false;
 
 
 // ── UserStore: persistent registry of all registered prototype users ──────────
@@ -457,6 +461,9 @@ const AI_SUPPORT_WIDGET_DEFAULTS = {
 };
 
 function initAISupportWidget(overrides = {}) {
+    if (typeof window !== "undefined" && window.ENABLE_AI_SUPPORT_WIDGET === false) {
+        return null;
+    }
     return initAiSupportWidget(overrides);
 }
 
