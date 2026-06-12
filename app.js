@@ -2,7 +2,7 @@
 // Toggle to enable or disable the AI support widget globally.
 // Set to `true` to render the widget, or `false` to prevent it from rendering.
 // You can change this value as needed.
-window.ENABLE_AI_SUPPORT_WIDGET = false;
+window.ENABLE_AI_SUPPORT_WIDGET = true;
 
 
 // ── UserStore: persistent registry of all registered prototype users ──────────
